@@ -1,0 +1,105 @@
+{
+  "$doc": "Which cut-out masters (cutouts.py) become each physics sprite. Only ingredients big enough to cut out of a photo cleanly; tiny grains, seeds and dal stay vector (sprites.ts). major = long side in CSS px at scale 1; per piece: scale (relative size), flip (mirror image as an extra variant).",
+  "chilli": {
+    "major": 112,
+    "pieces": [
+      "chilli-1",
+      "chilli-2",
+      { "name": "chilli-3", "scale": 0.78 }
+    ]
+  },
+  "curryLeaf": {
+    "major": 72,
+    "pieces": [
+      "leaf-b1",
+      "leaf-b2",
+      "leaf-8",
+      { "name": "leaf-b1", "flip": true, "scale": 0.9 }
+    ]
+  },
+  "cardamom": {
+    "major": 34,
+    "pieces": [
+      "cardamom-2",
+      "cardamom-3",
+      "cardamom-4"
+    ]
+  },
+  "peanut": {
+    "major": 28,
+    "pieces": [
+      "peanut-1",
+      { "name": "peanut-1", "flip": true, "scale": 0.92 }
+    ]
+  },
+  "garlic": {
+    "major": 36,
+    "pieces": [
+      "garlic-1",
+      "garlic-5",
+      { "name": "garlic-4", "scale": 0.92 },
+      { "name": "garlic-3", "scale": 0.6 }
+    ]
+  },
+  "almond": {
+    "major": 34,
+    "pieces": [
+      "almond-1",
+      "almond-6",
+      { "name": "almond-1", "flip": true, "scale": 0.94 },
+      { "name": "almond-6", "flip": true, "scale": 0.97 }
+    ]
+  },
+  "cashew": {
+    "major": 34,
+    "pieces": [
+      "cashew-1",
+      "cashew-2",
+      "cashew-3"
+    ]
+  },
+  "date": {
+    "major": 32,
+    "pieces": [
+      "date-1",
+      { "name": "date-1", "flip": true, "scale": 0.9 }
+    ]
+  },
+  "appleSlice": {
+    "major": 36,
+    "pieces": [
+      "apple-1",
+      { "name": "apple-1", "flip": true, "scale": 0.9 }
+    ]
+  },
+  "beetSlice": {
+    "major": 40,
+    "pieces": [
+      "beet-1",
+      { "name": "beet-1", "flip": true, "scale": 0.88 }
+    ]
+  },
+  "carrotSlice": {
+    "major": 30,
+    "pieces": [
+      "carrot-2",
+      { "name": "carrot-2", "flip": true, "scale": 0.9 }
+    ]
+  },
+  "bananaSlice": {
+    "major": 34,
+    "pieces": [
+      "banana-1",
+      "banana-2",
+      "banana-3"
+    ]
+  },
+  "moringa": {
+    "major": 28,
+    "pieces": [
+      "moringa-1",
+      "moringa-4",
+      { "name": "moringa-1", "flip": true, "scale": 0.86 }
+    ]
+  }
+}

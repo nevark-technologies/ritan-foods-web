@@ -1,26 +1,592 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ------------------------------------------------------------------ */
+/*  Ritan Foods design tokens                                          */
+/* ------------------------------------------------------------------ */
+@theme {
+  --color-forest-950: #0a1f10;
+  --color-forest-900: #0f2a17;
+  --color-forest-800: #163a21;
+  --color-forest-700: #1e4d2b;
+  --color-forest-600: #296139;
+  --color-leaf-500: #4e8f2f;
+  --color-leaf-400: #6aa845;
+  /* AA-contrast leaf for small text on cream/parchment (leaf-500 is for large type and icons) */
+  --color-leaf-600: #3f7526;
+  --color-sprout-300: #c6d9a3;
+  --color-sprout-200: #dce8c4;
+  --color-sprout-100: #ecf2dd;
+  --color-cream-50: #fbf7ee;
+  --color-cream-100: #f6f0e2;
+  --color-parchment-100: #f3ecdc;
+  --color-parchment-200: #e9dfc8;
+  --color-parchment-300: #dccfb2;
+  --color-gold-500: #c9a54c;
+  --color-gold-300: #e2c77f;
+  --color-turmeric-500: #d8962b;
+  --color-turmeric-300: #ecc27a;
+  --color-chilli-600: #a8322a;
+  --color-chilli-500: #c2453a;
+  --color-clay-600: #8a5a3b;
+  --color-ink-900: #16201a;
+  --color-ink-700: #374239;
+  --color-ink-500: #5c665e;
+  --color-ink-300: #9aa39a;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* The *-rupee and *-rest faces carry unicode-ranges, so they only download
+     when a page actually contains ₹ or an accented letter */
+  --font-display: var(--font-fraunces-rupee), var(--font-fraunces-rest), var(--font-fraunces), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-sans: var(--font-manrope-rupee), var(--font-manrope-rest), var(--font-manrope), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --text-display-2xl: clamp(3.6rem, 12.5vw, 15rem);
+  --text-display-2xl--line-height: 0.86;
+  --text-display-xl: clamp(3rem, 8vw, 9rem);
+  --text-display-xl--line-height: 0.92;
+  --text-display-lg: clamp(2.4rem, 5.2vw, 5.75rem);
+  --text-display-lg--line-height: 0.98;
+  --text-display-md: clamp(1.9rem, 3.4vw, 3.75rem);
+  --text-display-md--line-height: 1.04;
+  --text-display-sm: clamp(1.45rem, 2.1vw, 2.25rem);
+  --text-display-sm--line-height: 1.12;
+  --text-body-lg: clamp(1.05rem, 1.15vw, 1.25rem);
+  --text-body-lg--line-height: 1.6;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-organic: cubic-bezier(0.22, 1.18, 0.36, 1);
+
+  --radius-pill: 999px;
+  --radius-arch: 999px 999px 1.25rem 1.25rem;
+
+  --animate-marquee: marquee var(--marquee-duration, 38s) linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Durations mirrored from src/lib/motion/tokens.ts */
+:root {
+  --dur-xs: 200ms;
+  --dur-sm: 350ms;
+  --dur-md: 600ms;
+  --dur-lg: 900ms;
+  --dur-xl: 1400ms;
+  --header-h: 5.25rem;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  color-scheme: light;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-xs: 1ms;
+    --dur-sm: 1ms;
+    --dur-md: 1ms;
+    --dur-lg: 1ms;
+    --dur-xl: 1ms;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    background: var(--color-cream-50);
+    color: var(--color-ink-900);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-forest-700);
+    color: var(--color-cream-50);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-leaf-500);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+/* Fraunces: soft, organic display face (opsz 144 + SOFT 100 are baked into the
+   self-hosted files; the italic file carries the WONK forms) */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+.font-display em,
+.font-display .italic,
+.display-italic {
+  font-style: italic;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.container-x {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  max-width: 1600px;
+}
+
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-500), transparent);
+}
+
+/* Prices and counters */
+.tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Lenis: official stylesheet is imported in app/layout.tsx (lenis/dist/lenis.css) */
+html.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Custom cursor (only when active on fine pointers)                  */
+/* ------------------------------------------------------------------ */
+html.has-cursor,
+html.has-cursor a,
+html.has-cursor button,
+html.has-cursor [role="button"],
+html.has-cursor label {
+  cursor: none;
+}
+html.has-cursor input,
+html.has-cursor textarea,
+html.has-cursor select,
+html.has-cursor [contenteditable] {
+  cursor: auto;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Split-text line masks                                              */
+/* ------------------------------------------------------------------ */
+.line-mask {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.line-mask > span {
+  display: block;
+  will-change: transform;
+}
+
+/* CSS-only hero headline reveal: starts at first paint, no JS required */
+.hero-line > span {
+  animation: hero-rise var(--dur-xl) var(--ease-out-expo) both;
+  animation-delay: calc(var(--intro-delay, 0ms) + var(--i, 0) * 110ms);
+}
+@keyframes hero-rise {
+  from {
+    transform: translate3d(0, 105%, 0) rotate(2deg);
+  }
+  to {
+    transform: translate3d(0, 0, 0) rotate(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up var(--dur-lg) var(--ease-out-expo) both;
+  animation-delay: calc(var(--intro-delay, 0ms) + var(--d, 0ms));
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Intro (first visit). Pure CSS, never blocks LCP.                   */
+/* ------------------------------------------------------------------ */
+html[data-intro="play"] {
+  --intro-delay: 900ms;
+}
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--color-forest-900);
+  pointer-events: none;
+  /* Transform-only lift runs on the compositor (a clip-path wipe would
+     repaint the whole screen on the main thread every frame). */
+  will-change: transform;
+  animation: intro-lift 900ms var(--ease-in-out-cubic) 650ms both;
+}
+html:not([data-intro="play"]) .intro {
+  display: none;
+}
+@keyframes intro-lift {
+  to {
+    transform: translate3d(0, -100%, 0);
+    visibility: hidden;
+  }
+}
+.intro-leaf path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 700ms var(--ease-out-quart) 50ms forwards;
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+/* Transform-only rise: the wordmark is visible from the first frame (it is
+   the first contentful paint on a first visit), it just settles into place. */
+.intro-word {
+  animation: intro-rise 700ms var(--ease-out-expo) both;
+}
+@keyframes intro-rise {
+  from {
+    transform: translate3d(0, 14px, 0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Grain overlay                                                      */
+/* ------------------------------------------------------------------ */
+/* Viewport-sized (not oversized) so the first frame rasterises a quarter of
+   the pixels; on phones the texture is invisible anyway, so it's skipped. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background-image: url("/textures/grain.webp");
+  background-size: 220px 220px;
+  opacity: 0.22;
+  transform: translateZ(0);
+}
+@media (max-width: 767px) {
+  .grain {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Page transitions (React <ViewTransition>)                          */
+/* ------------------------------------------------------------------ */
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 50;
+}
+::view-transition-old(site-header),
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+::view-transition-old(.page-exit) {
+  animation: page-out 380ms var(--ease-in-out-cubic) both;
+}
+::view-transition-new(.page-enter) {
+  animation: page-in 760ms var(--ease-out-expo) 140ms both;
+}
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translate3d(0, -3vh, 0) scale(0.985);
+  }
+}
+@keyframes page-in {
+  from {
+    clip-path: inset(100% 0 0 0 round 3rem 3rem 0 0);
+    transform: translate3d(0, 8vh, 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 0);
+    transform: none;
+  }
+}
+
+::view-transition-group(.morph) {
+  animation-duration: 620ms;
+  animation-timing-function: var(--ease-out-expo);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+  .hero-line > span,
+  .fade-up,
+  .intro,
+  .intro-leaf path,
+  .intro-word {
+    animation: none !important;
+  }
+  .intro {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                          */
+/* ------------------------------------------------------------------ */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
+
+@utility mask-arch {
+  border-radius: 999px 999px 1.5rem 1.5rem;
+}
+
+@utility mask-leaf {
+  border-radius: 0 999px 0 999px;
+}
+
+/* Shake for invalid input (coupon etc.) */
+.shake {
+  animation: shake 420ms var(--ease-out-quart);
+}
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(3px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-6px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(6px, 0, 0);
+  }
+}
+
+/* Skeleton shimmer for loading states (transform-only) */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-parchment-100);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 20%, rgb(251 247 238 / 0.7) 50%, transparent 80%);
+  transform: translate3d(-100%, 0, 0);
+  animation: skeleton 1.4s ease-in-out infinite;
+}
+@keyframes skeleton {
+  to {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .grain {
+    display: none;
+  }
+}
+
+/* JS-gated pre-hide for scroll reveals (content stays visible without JS) */
+html.js .split-reveal,
+html.js .reveal {
+  visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js .split-reveal,
+  html.js .reveal {
+    visibility: visible;
+  }
+}
+
+/* Physics: show a grabbing cursor while dragging an ingredient */
+[data-grabbing="true"],
+[data-grabbing="true"] * {
+  cursor: grabbing !important;
+}
+
+/* Hero packs settle into place on first paint (CSS, so no JS wait). They start
+   on screen — just lower, smaller and tilted — so the pack is painted (and
+   counted for LCP) immediately instead of after the animation. */
+.hero-pack {
+  transform-origin: 50% 100%;
+  animation: pack-in 1.35s var(--ease-organic) both;
+  animation-delay: calc(var(--intro-delay, 0ms) + 260ms + var(--i, 0) * 150ms);
+}
+@keyframes pack-in {
+  from {
+    transform: translate3d(0, 26%, 0) scale(0.9) rotate(calc(var(--rot, 0deg) * 2.4));
+  }
+  to {
+    transform: translate3d(0, 0, 0) rotate(var(--rot, 0deg));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-pack {
+    animation: none;
+    transform: rotate(var(--rot, 0deg));
+  }
+}
+
+/* Hero pack drum: every pack stands on a cylinder that rolls one slot at a
+   time. --h is the front pack's height (the box the single pouch always had),
+   --r the drum radius; packs sit at --k × --slot round it. Phones show the front
+   pack only, tablet/desktop the two beside it too; the rest fade as they turn away. */
+.hero-drum {
+  --h: 82.5vw;
+  --r: calc(var(--h) * 1.05);
+  --roll: 1200ms;
+  left: 50%;
+  bottom: 14%;
+  width: 0;
+  height: var(--h);
+}
+@media (min-width: 640px) {
+  .hero-drum {
+    --h: 41.3vw;
+    --r: calc(var(--h) * 1.3);
+    bottom: 8%;
+  }
+}
+@media (min-width: 1024px) {
+  .hero-drum {
+    --h: min(30.9vw, 48.6vh);
+    --r: calc(var(--h) * 1.05);
+    left: 66.5%;
+    bottom: 3.5%;
+  }
+}
+.hero-drum__scene {
+  position: absolute;
+  inset: 0;
+  perspective: calc(var(--h) * 3.4);
+  perspective-origin: 50% 0%;
+}
+.hero-drum__ring {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--r) * -1)) rotateY(var(--angle, 0deg));
+  transition: transform var(--roll) var(--ease-in-out-cubic);
+}
+.hero-drum__item {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: calc(var(--h) / var(--ar));
+  transform: translateX(-50%) rotateY(calc(var(--k) * var(--slot))) translateZ(var(--r));
+  backface-visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--roll) var(--ease-in-out-cubic);
+}
+.hero-drum__item[data-pos="0"] {
+  opacity: 1;
+}
+@media (min-width: 640px) {
+  .hero-drum__item:is([data-pos="1"], [data-pos="-1"]) {
+    opacity: 1;
+  }
+}
+.hero-drum__item[data-far] {
+  visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-drum__ring,
+  .hero-drum__item {
+    transition: none;
+  }
+}
+
+/* Star rating: one element, gradient fill masked by a row of five stars.
+   Layered so utilities passed via className (display, margins) still win. */
+@layer components {
+  .stars {
+    display: inline-block;
+    vertical-align: middle;
+    aspect-ratio: 132 / 24;
+    background: linear-gradient(90deg, var(--color-turmeric-500) var(--fill, 0%), color-mix(in oklab, var(--color-turmeric-500) 26%, transparent) var(--fill, 0%));
+    -webkit-mask: url("/images/ui/star-row.svg") center / 100% 100% no-repeat;
+    mask: url("/images/ui/star-row.svg") center / 100% 100% no-repeat;
+  }
+  @media (forced-colors: active) {
+    .stars {
+      forced-color-adjust: none;
+    }
+  }
+}
+
+/* Below-the-fold sections on phones/tablets: the browser skips their style,
+   layout and paint until they approach the viewport, which keeps start-up
+   rendering cheap. (Desktop keeps normal rendering for pinned scroll scenes.) */
+@media (max-width: 1023px) {
+  .cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1200px;
+  }
 }
