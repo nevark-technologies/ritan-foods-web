@@ -20,4 +20,4 @@ export function Intro() {
 }
 
 /** Runs before paint: marks JS, and plays the intro once per session. */
-export const introScript = `(function(){try{var d=document.documentElement;d.classList.add('js');var k='ritan-intro';if(!sessionStorage.getItem(k)&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&location.pathname==='/'){d.setAttribute('data-intro','play');sessionStorage.setItem(k,'1');}}catch(e){}})();`;
+export const introScript = `(function(){try{var d=document.documentElement;d.classList.add('js');var k='ritan-intro';if(!sessionStorage.getItem(k)&&location.pathname==='/'){d.setAttribute('data-intro','play');sessionStorage.setItem(k,'1');}}catch(e){}})();`;

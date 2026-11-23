@@ -1,7 +1,12 @@
 /** Environment checks shared by motion code (no GSAP import, so they're free to use anywhere). */
 
+/**
+ * The site's motion is part of the brand, so it runs even when the device asks for
+ * reduced motion (owner's decision). Kept as one switch: return the media-query
+ * result again to restore the reduced-motion behaviour everywhere.
+ */
 export function prefersReducedMotion() {
-  return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  return false;
 }
 
 export function isFinePointer() {

@@ -31,8 +31,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Touch devices keep their native momentum scrolling (smoother and kinder
-    // to battery than syncTouch). Lenis honours prefers-reduced-motion itself:
-    // it tracks input 1:1 and picks up preference changes live.
+    // to battery than syncTouch).
     // Lenis is loaded on demand, so phones never download it.
     if (!isFinePointer()) return;
     let cancelled = false;

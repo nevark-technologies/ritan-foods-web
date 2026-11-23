@@ -60,7 +60,7 @@ export function Process() {
     ({ gsap }) => {
       if (!desktop) return;
       const mm = gsap.matchMedia();
-      mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
+      mm.add("(min-width: 1024px)", () => {
         const el = track.current!;
         const distance = () => el.scrollWidth - window.innerWidth;
         const tween = gsap.to(el, {
