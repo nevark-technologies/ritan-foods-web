@@ -15,14 +15,31 @@ export function Cursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
+  const layerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isFinePointer() || prefersReducedMotion()) return;
     const dot = dotRef.current!;
     const ring = ringRef.current!;
     const label = labelRef.current!;
+    const layer = layerRef.current!;
     const root = document.documentElement;
     root.classList.add("has-cursor");
+
+    // Modal <dialog>s (bag, menu, search) render in the browser's top layer, above any
+    // z-index. The cursor is a manual popover so it lives in the top layer too, and it is
+    // re-shown whenever a dialog opens so it lands above that dialog.
+    const raise = () => {
+      try {
+        if (layer.matches(":popover-open")) layer.hidePopover();
+        layer.showPopover();
+      } catch {}
+    };
+    raise();
+    const dialogs = new MutationObserver((records) => {
+      if (records.some((r) => r.target instanceof HTMLDialogElement && r.target.open)) raise();
+    });
+    dialogs.observe(document.body, { subtree: true, attributes: true, attributeFilter: ["open"] });
 
     gsap.set([dot, ring], { xPercent: -50, yPercent: -50, x: -100, y: -100 });
     const dotX = gsap.quickTo(dot, "x", { duration: 0.06, ease: "none" });
@@ -78,6 +95,10 @@ export function Cursor() {
     document.addEventListener("pointerleave", onLeave);
     return () => {
       root.classList.remove("has-cursor");
+      dialogs.disconnect();
+      try {
+        layer.hidePopover();
+      } catch {}
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerdown", onDown);
       window.removeEventListener("pointerup", onUp);
@@ -86,7 +107,12 @@ export function Cursor() {
   }, []);
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-[90] hidden mix-blend-difference [html.has-cursor_&]:block">
+    <div
+      ref={layerRef}
+      popover="manual"
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-[90] m-0 hidden h-dvh max-h-none w-screen max-w-none overflow-visible border-0 bg-transparent p-0 mix-blend-difference [html.has-cursor_&]:block"
+    >
       <div ref={dotRef} className="absolute left-0 top-0 size-2 rounded-full bg-white opacity-0" />
       <div
         ref={ringRef}
