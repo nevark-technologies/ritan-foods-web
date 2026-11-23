@@ -124,11 +124,14 @@ const organizationJsonLd = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-IN" className={`${fraunces.variable} ${frauncesRest.variable} ${frauncesRupee.variable} ${manrope.variable} ${manropeRest.variable} ${manropeRupee.variable}`} suppressHydrationWarning>
-      <head>
+      <body>
+        {/*
+          These inline scripts sit at the top of <body>, not in <head>: Netlify injects a comment
+          (with a stray newline) into <head>, and React aborts hydration of the whole page when it
+          meets text there while matching a head element. Here they still run before any paint.
+        */}
         <script dangerouslySetInnerHTML={{ __html: introScript }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
-      </head>
-      <body>
         <MotionProvider>{children}</MotionProvider>
       </body>
     </html>

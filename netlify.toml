@@ -8,6 +8,13 @@
   NODE_VERSION = "24"
   NEXT_TELEMETRY_DISABLED = "1"
 
+# Netlify serves public/ straight from its CDN, so next.config.ts headers() don't reach these
+# files; repeat the long cache here (same rule as next.config.ts).
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 # Daily ping so the free Supabase project is never paused for inactivity.
 [functions."keepalive"]
   schedule = "@daily"

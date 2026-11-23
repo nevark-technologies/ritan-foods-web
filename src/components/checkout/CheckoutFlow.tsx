@@ -61,6 +61,7 @@ export function CheckoutFlow({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [placed, setPlaced] = useState(false);
   const [demo, setDemo] = useState<{ orderNumber: string; amount: number } | null>(null);
 
   const selected = savedId !== "new" ? addresses.find((a) => a.id === savedId) ?? null : null;
@@ -94,6 +95,9 @@ export function CheckoutFlow({
   };
 
   const finish = (orderNumber: string, token: string) => {
+    // The confirmation page can take a moment to load; without this the emptied cart
+    // would show "Your bag is empty" in the meantime.
+    setPlaced(true);
     clear();
     router.push(`/checkout/success/${encodeURIComponent(orderNumber)}?t=${token}`);
   };
@@ -172,6 +176,14 @@ export function CheckoutFlow({
   const summaryItems = list;
 
   if (!hydrated) return <div className="skeleton h-[32rem] rounded-[2rem]" />;
+  if (placed) {
+    return (
+      <div role="status" className="rounded-[2rem] bg-parchment-100 px-6 py-20 text-center">
+        <p className="font-display text-4xl text-forest-900">Order placed</p>
+        <p className="mt-2 text-ink-500">Opening your order confirmation…</p>
+      </div>
+    );
+  }
   if (!list.length) {
     return (
       <div className="rounded-[2rem] bg-parchment-100 px-6 py-20 text-center">
