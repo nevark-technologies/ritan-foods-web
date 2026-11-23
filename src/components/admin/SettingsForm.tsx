@@ -87,6 +87,9 @@ export function SettingsForm({ settings }: { settings: StoreSettings }) {
           <Field label="GSTIN" htmlFor="st-gst" hint="Contact support to change">
             <Input id="st-gst" value={settings.contact.gstin} readOnly disabled />
           </Field>
+          <Field label="FSSAI licence no." htmlFor="st-fssai" hint="Contact support to change">
+            <Input id="st-fssai" value={settings.contact.fssai} readOnly disabled />
+          </Field>
           <Field label="Registered address" htmlFor="st-addr" className="sm:col-span-2">
             <Textarea id="st-addr" name="contactAddress" defaultValue={settings.contact.address} className="min-h-20" />
           </Field>

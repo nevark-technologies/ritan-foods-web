@@ -30,7 +30,18 @@ declare global {
 
 const EMPTY: Address = { fullName: "", phone: "", line1: "", line2: "", landmark: "", city: "", state: "Tamil Nadu", pincode: "" };
 
-export function CheckoutFlow({ user, addresses, razorpayEnabled }: { user: SessionUser | null; addresses: SavedAddress[]; razorpayEnabled: boolean }) {
+export function CheckoutFlow({
+  user,
+  addresses,
+  razorpayEnabled,
+  onlinePayments,
+}: {
+  user: SessionUser | null;
+  addresses: SavedAddress[];
+  razorpayEnabled: boolean;
+  /** false until Razorpay keys are set on a real database: only cash on delivery is offered */
+  onlinePayments: boolean;
+}) {
   const router = useRouter();
   const hydrated = useHydrated();
   const items = useCart((s) => s.items);
@@ -46,7 +57,7 @@ export function CheckoutFlow({ user, addresses, razorpayEnabled }: { user: Sessi
   const [address, setAddress] = useState<Address>(() => ({ ...EMPTY, fullName: user?.name ?? "", phone: user?.phone ?? "", pincode: pincode ?? "" }));
   const [saveAddress, setSaveAddress] = useState(true);
   const [notes, setNotes] = useState("");
-  const [method, setMethod] = useState<PaymentMethod>("razorpay");
+  const [method, setMethod] = useState<PaymentMethod>(onlinePayments ? "razorpay" : "cod");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -296,10 +307,11 @@ export function CheckoutFlow({ user, addresses, razorpayEnabled }: { user: Sessi
             <div className="grid gap-3" role="radiogroup" aria-label="Payment method">
               <PayOption
                 active={method === "razorpay"}
-                onClick={() => setMethod("razorpay")}
+                disabled={!onlinePayments}
+                onClick={() => onlinePayments && setMethod("razorpay")}
                 icon={CreditCard}
                 title="Pay online"
-                body="UPI, cards, netbanking and wallets — secured by Razorpay"
+                body={onlinePayments ? "UPI, cards, netbanking and wallets — secured by Razorpay" : "Coming soon — please pay on delivery for now"}
               />
               <PayOption
                 active={method === "cod"}

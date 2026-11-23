@@ -22,7 +22,7 @@ export default async function ContactPage() {
     { icon: Phone, label: "Call us", value: c.phone, href: `tel:${c.phone.replace(/\s/g, "")}` },
     { icon: MessageCircle, label: "WhatsApp", value: "Chat with us", href: whatsappLink(c.whatsapp, "Hi Ritan Foods!") },
     { icon: Mail, label: "Email", value: c.email, href: `mailto:${c.email}` },
-    { icon: MapPin, label: "Registered office", value: "Villivakkam, Chennai 600049", href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.address)}` },
+    { icon: MapPin, label: "Registered office", value: c.address, href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.address)}` },
   ];
 
   return (
@@ -56,11 +56,14 @@ export default async function ContactPage() {
                     <card.icon className="size-5" />
                   </span>
                   <span className="eyebrow text-ink-500">{card.label}</span>
-                  <span className="break-all text-sm font-semibold text-forest-900">{card.value}</span>
+                  <span className="text-sm font-semibold text-forest-900 [overflow-wrap:anywhere]">{card.value}</span>
                 </a>
               </li>
             ))}
           </ul>
+          <p className="mx-auto mt-8 max-w-3xl text-sm text-ink-500">
+            Ritan Foods (Proprietorship) · GSTIN {c.gstin} · FSSAI Lic. No. {c.fssai}
+          </p>
         </div>
       </section>
 

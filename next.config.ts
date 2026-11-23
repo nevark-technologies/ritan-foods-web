@@ -38,6 +38,10 @@ const nextConfig: NextConfig = {
         ]
       : [],
   },
+  async redirects() {
+    // "About us" is the Our Story page (Razorpay's website check looks for /about).
+    return [{ source: "/about", destination: "/our-story", permanent: true }];
+  },
   async headers() {
     return [
       {

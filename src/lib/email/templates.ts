@@ -30,7 +30,7 @@ function layout(title: string, preheader: string, body: string, settings?: Store
 </td></tr>
 <tr><td style="padding:34px 32px 10px;">${body}</td></tr>
 <tr><td style="padding:24px 32px 32px;border-top:1px solid #e6dcc6;color:${C.muted};font-size:12px;line-height:1.6;">
-${contact ? `Questions? Reply to this email, call ${esc(contact.phone)} or WhatsApp us.<br>${esc(contact.address)}<br>GSTIN ${esc(contact.gstin)}` : ""}
+${contact ? `Questions? Reply to this email, call ${esc(contact.phone)} or WhatsApp us.<br>${esc(contact.address)}<br>GSTIN ${esc(contact.gstin)} · FSSAI Lic. No. ${esc(contact.fssai)}` : ""}
 </td></tr>
 </table>
 <p style="color:${C.muted};font-size:11px;margin:16px 0 0;">© Ritan Foods · Made with tradition, shared with love.</p>

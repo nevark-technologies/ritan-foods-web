@@ -348,6 +348,7 @@ export const defaultSettings: StoreSettings = {
     whatsapp: "+917010460911",
     address: "No. 3/7, Rajajinagar 5th Street, Villivakkam, Chennai, Tamil Nadu 600049, India",
     gstin: "33AQOPR4512N1ZE",
+    fssai: "22426530000152",
   },
 };
 

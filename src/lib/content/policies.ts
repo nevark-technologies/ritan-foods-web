@@ -183,7 +183,7 @@ export const POLICIES: Policy[] = [
     sections: [
       {
         heading: "About these terms",
-        paragraphs: ["By using ritanfoods.co.in or placing an order, you agree to these terms. Ritan Foods may update them from time to time; the version on this page applies to your order."],
+        paragraphs: ["By using ritanfoods.in or placing an order, you agree to these terms. Ritan Foods may update them from time to time; the version on this page applies to your order."],
       },
       {
         heading: "Products",

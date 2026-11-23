@@ -225,6 +225,8 @@ export interface StoreSettings {
     whatsapp: string;
     address: string;
     gstin: string;
+    /** FSSAI food business licence number (must be shown to online food buyers) */
+    fssai: string;
   };
 }
 

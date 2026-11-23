@@ -23,7 +23,7 @@ export default async function InvoicePage({ params }: PageProps<"/admin/orders/[
           <p className="font-display text-3xl text-forest-900">Ritan Foods</p>
           <p className="mt-1 max-w-xs text-xs leading-relaxed text-ink-700">{settings.contact.address}</p>
           <p className="mt-1 text-xs text-ink-700">
-            GSTIN {settings.contact.gstin} · {settings.contact.phone} · {settings.contact.email}
+            GSTIN {settings.contact.gstin} · FSSAI Lic. No. {settings.contact.fssai} · {settings.contact.phone} · {settings.contact.email}
           </p>
         </div>
         <div className="text-right">

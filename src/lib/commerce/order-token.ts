@@ -1,9 +1,14 @@
 import "server-only";
 import { createHmac, timingSafeEqual } from "node:crypto";
 
-/** Unguessable token that lets a guest view their own order confirmation page. */
+/**
+ * Unguessable token that lets a guest view their own order confirmation page.
+ * The dev fallback is public (the repo is), so production refuses to run without AUTH_SECRET.
+ */
 function secret() {
-  return process.env.AUTH_SECRET || "ritan-dev-only-secret";
+  const s = process.env.AUTH_SECRET;
+  if (!s && process.env.NODE_ENV === "production") throw new Error("AUTH_SECRET must be set");
+  return s || "ritan-dev-only-secret";
 }
 
 export function orderToken(orderNumber: string) {

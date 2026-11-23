@@ -5,7 +5,7 @@ import { CheckoutFlow } from "@/components/checkout/CheckoutFlow";
 import { PageTransition } from "@/components/motion/PageTransition";
 import { getSessionUser } from "@/lib/auth";
 import { razorpayConfigured } from "@/lib/commerce/razorpay";
-import { store } from "@/lib/data";
+import { isDemoMode, store } from "@/lib/data";
 
 export const metadata: Metadata = { title: "Checkout", robots: { index: false } };
 
@@ -34,5 +34,7 @@ export default function CheckoutPage() {
 async function CheckoutLoader() {
   const user = await getSessionUser();
   const addresses = user ? await store.listAddresses(user.id) : [];
-  return <CheckoutFlow user={user} addresses={addresses} razorpayEnabled={razorpayConfigured()} />;
+  const razorpayEnabled = razorpayConfigured();
+  // Online payment needs Razorpay keys (demo mode simulates the gateway instead).
+  return <CheckoutFlow user={user} addresses={addresses} razorpayEnabled={razorpayEnabled} onlinePayments={razorpayEnabled || isDemoMode} />;
 }

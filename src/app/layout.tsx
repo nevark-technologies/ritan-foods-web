@@ -91,6 +91,9 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   formatDetection: { telephone: false },
+  // Until launch (NEXT_PUBLIC_SITE_LAUNCHED=true) the live site stays out of search results;
+  // pages can still be fetched (robots.txt unchanged), e.g. by Razorpay's website check.
+  ...(process.env.NEXT_PUBLIC_SITE_LAUNCHED === "true" ? {} : { robots: { index: false, follow: false } }),
 };
 
 export const viewport: Viewport = {

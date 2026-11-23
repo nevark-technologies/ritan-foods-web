@@ -47,6 +47,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Please check your details.", fieldErrors }, { status: 422 });
   }
   const input = parsed.data;
+  // With a real database but no Razorpay keys yet, online payment isn't possible: refuse before creating an order.
+  if (input.paymentMethod === "razorpay" && !razorpayConfigured() && !isDemoMode) {
+    return NextResponse.json({ error: "Online payment isn't available yet — please choose cash on delivery." }, { status: 400 });
+  }
   const user = await getSessionUser();
 
   const [products, settings] = await Promise.all([store.listProducts(), store.getSettings()]);
