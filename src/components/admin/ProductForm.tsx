@@ -60,7 +60,7 @@ export function ProductForm({ product, categories, images }: { product?: Product
             <Field label="Story / description" htmlFor="pf-desc" className="sm:col-span-2">
               <Textarea id="pf-desc" name="description" defaultValue={product?.description} required />
             </Field>
-            <Field label="Key ingredients" htmlFor="pf-key" hint="Comma separated — shown as chips" className="sm:col-span-2">
+            <Field label="Key ingredients" htmlFor="pf-key" hint="Comma separated - shown as chips" className="sm:col-span-2">
               <Input id="pf-key" name="keyIngredients" defaultValue={product?.keyIngredients.join(", ")} />
             </Field>
             <Field label="Full ingredient list" htmlFor="pf-ingr" optional hint="As printed on the pack. Hidden on the site when empty." className="sm:col-span-2">

@@ -2,7 +2,7 @@ import "server-only";
 
 /**
  * Best-effort fixed-window limiter (per server instance). On serverless it
- * resets with cold starts — fine as a spam brake, not a security boundary.
+ * resets with cold starts - fine as a spam brake, not a security boundary.
  */
 const buckets = new Map<string, { count: number; resetAt: number }>();
 

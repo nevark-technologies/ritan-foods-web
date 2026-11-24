@@ -77,11 +77,11 @@ const manropeRupee = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
-    default: "Ritan Foods — A Taste of Tradition, A Touch of Love",
+    default: "Ritan Foods - A Taste of Tradition, A Touch of Love",
     template: "%s · Ritan Foods",
   },
   description:
-    "Traditional South Indian podis, rice mixes, health mixes and malts from Ritan Foods, Chennai. Made with tradition, shared with love — delivered across India in 3–5 days.",
+    "Traditional South Indian podis, rice mixes, health mixes and malts from Ritan Foods, Chennai. Made with tradition, shared with love - delivered across India in 3–5 days.",
   applicationName: "Ritan Foods",
   keywords: ["idli podi", "health mix", "sprouted millet", "ABC malt", "Nendran banana malt", "podi online", "Chennai", "traditional food"],
   openGraph: {

@@ -375,7 +375,7 @@ async function mutateOrder(orderNumber: string, change: (o: OrderRow) => Partial
     const res = await db().from("orders").update(fields).eq("id", current.id).eq("updated_at", current.updated_at).select("id");
     if (must(res, "Update order").length) return readOrder(orderNumber);
   }
-  throw new Error(`Order ${orderNumber} is changing too quickly — please retry.`);
+  throw new Error(`Order ${orderNumber} is changing too quickly - please retry.`);
 }
 
 function settingsFrom(value: Partial<StoreSettings> | null | undefined): StoreSettings {

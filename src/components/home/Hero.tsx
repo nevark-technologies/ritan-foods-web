@@ -120,7 +120,7 @@ export function Hero({ packs }: { packs: HeroPack[] }) {
       if (!root || prefersReducedMotion()) return;
       const q = gsap.utils.selector(root);
 
-      // Idle float — each pack breathes on its own rhythm; its shadow follows.
+      // Idle float - each pack breathes on its own rhythm; its shadow follows.
       q<HTMLElement>("[data-float]").forEach((el, i) => {
         const f = FLOATS[i % FLOATS.length];
         gsap.to(el, { y: -f.y, rotation: f.r, duration: f.d, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.6 + (i % 3) * 0.35 });
@@ -200,13 +200,13 @@ export function Hero({ packs }: { packs: HeroPack[] }) {
           </span>
         </h1>
         <p data-scroll-copy className="fade-up relative z-40 mt-5 max-w-[20rem] text-[0.98rem] leading-relaxed text-ink-700 lg:hidden" style={{ ["--d" as string]: "500ms" }}>
-          Traditional podis, rice mixes and health mixes — from our family kitchen to yours.
+          Traditional podis, rice mixes and health mixes - from our family kitchen to yours.
         </p>
 
         <div data-scroll-copy className="relative z-40 mt-auto flex items-end justify-between gap-6 pb-[max(4rem,9vh)] lg:pb-[max(5.5rem,11vh)]">
           <div className="fade-up max-w-[26rem]" style={{ ["--d" as string]: "600ms" }}>
             <p className="hidden text-body-lg text-ink-700 lg:block">
-              Podis, rice mixes, health mixes and malts made with traditional recipes and carefully selected ingredients — from our kitchen to yours.
+              Podis, rice mixes, health mixes and malts made with traditional recipes and carefully selected ingredients - from our kitchen to yours.
             </p>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3 lg:mt-6">
               <Magnetic>
@@ -223,7 +223,7 @@ export function Hero({ packs }: { packs: HeroPack[] }) {
               </Link>
             </div>
             <p className="mt-5 hidden items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-ink-500 lg:flex">
-              <MousePointer2 className="size-3.5" /> Psst — drag the curry leaves
+              <MousePointer2 className="size-3.5" /> Psst - drag the curry leaves
             </p>
           </div>
           <a href="#story" className="fade-up relative grid size-16 shrink-0 place-items-center rounded-full text-forest-800" style={{ ["--d" as string]: "800ms" }}>
@@ -241,7 +241,7 @@ export function Hero({ packs }: { packs: HeroPack[] }) {
         </div>
       </div>
 
-      {/* Packs: all of them on a rolling drum — Idli Podi faces front, ABC Malt and Sprouted Millet beside it */}
+      {/* Packs: all of them on a rolling drum - Idli Podi faces front, ABC Malt and Sprouted Millet beside it */}
       <div className="hero-drum pointer-events-none absolute z-20">
         <div data-depth={0.66} className="absolute inset-0">
           <div data-scroll-pack className="absolute inset-0">

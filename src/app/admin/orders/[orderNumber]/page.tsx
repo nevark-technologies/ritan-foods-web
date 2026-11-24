@@ -76,7 +76,7 @@ export default async function AdminOrderDetail({ params }: PageProps<"/admin/ord
                   <span className="mt-1.5 size-2 shrink-0 rounded-full bg-leaf-500" />
                   <span>
                     <span className="font-semibold capitalize">{e.status}</span>
-                    {e.note && <span className="text-ink-700"> — {e.note}</span>}
+                    {e.note && <span className="text-ink-700"> - {e.note}</span>}
                     <span className="block text-xs text-ink-500">{formatDate(e.createdAt, { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" })}</span>
                   </span>
                 </li>

@@ -6,7 +6,7 @@ import { formatINR, formatWeight } from "@/lib/utils";
 export function OrderSummaryCard({ order, showAddress = true }: { order: Order; showAddress?: boolean }) {
   const a = order.shippingAddress;
   return (
-    <div className="rounded-[2rem] bg-parchment-100 p-6 sm:p-8">
+    <div className="select-text rounded-[2rem] bg-parchment-100 p-6 sm:p-8">
       <ul className="divide-y divide-forest-900/10">
         {order.items.map((it) => (
           <li key={it.id} className="flex items-center gap-4 py-3 first:pt-0">

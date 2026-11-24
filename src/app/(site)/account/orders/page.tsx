@@ -42,7 +42,7 @@ async function Orders() {
             <li key={o.id}>
               <Link href={`/account/orders/${encodeURIComponent(o.orderNumber)}`} className="block rounded-[1.75rem] border border-forest-900/10 p-6 transition-colors hover:bg-parchment-100/60">
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <span className="tabular font-semibold text-forest-900">{o.orderNumber}</span>
+                  <span className="tabular select-text font-semibold text-forest-900">{o.orderNumber}</span>
                   <span className="rounded-full bg-sprout-100 px-3 py-1 text-xs font-bold text-forest-800">{STATUS_LABEL[o.status]}</span>
                 </div>
                 <p className="mt-2 text-sm text-ink-500">

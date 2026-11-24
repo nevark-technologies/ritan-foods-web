@@ -22,7 +22,7 @@ const schema = z.object({
 export async function POST(request: Request) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
   if (!rateLimit(`contact:${ip}`, 5, 60 * 60 * 1000)) {
-    return NextResponse.json({ error: "Too many messages — please try again later or WhatsApp us." }, { status: 429 });
+    return NextResponse.json({ error: "Too many messages - please try again later or WhatsApp us." }, { status: 429 });
   }
   const body = await request.json().catch(() => null);
   const parsed = schema.safeParse(body ?? {});

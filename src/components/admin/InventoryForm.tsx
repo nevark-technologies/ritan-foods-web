@@ -91,7 +91,7 @@ export function InventoryForm({ products, lowStock }: { products: Product[]; low
             })}
           </tbody>
         </table>
-        {rows.length === 0 && <p className="px-3 py-8 text-center text-sm text-ink-500">Nothing here — nice.</p>}
+        {rows.length === 0 && <p className="px-3 py-8 text-center text-sm text-ink-500">Nothing here - nice.</p>}
       </div>
     </form>
   );

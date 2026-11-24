@@ -96,7 +96,7 @@ export function ReviewForm({ productId, productSlug, signedIn, defaultName, veri
             <Field label="Your review" htmlFor="rv-body">
               <Textarea id="rv-body" name="body" required minLength={10} maxLength={1500} />
             </Field>
-            {verified && <p className="text-xs font-semibold text-leaf-600">You bought this — your review will show a verified purchase badge.</p>}
+            {verified && <p className="text-xs font-semibold text-leaf-600">You bought this - your review will show a verified purchase badge.</p>}
             {error && (
               <p className="text-sm font-semibold text-chilli-600" role="alert">
                 {error}

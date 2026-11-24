@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps<"/products/[slug]">
   const p = await getProduct(slug);
   if (!p) return {};
   return {
-    title: `${p.name} — ${p.tagline}`,
+    title: `${p.name} - ${p.tagline}`,
     description: p.summary,
     alternates: { canonical: `/products/${p.slug}` },
     openGraph: { title: `${p.name} · Ritan Foods`, description: p.summary, images: [{ url: p.image, width: p.imageWidth, height: p.imageHeight, alt: p.name }] },
@@ -99,7 +99,7 @@ async function ProductContent({ params }: PageProps<"/products/[slug]">) {
       body: (
         <p>
           Delivered across India in 3–5 days with DTDC or India Post. Free shipping on orders above ₹{settings.freeShippingThreshold / 100}. If your order arrives damaged, tell us within
-          48 hours for a replacement or refund — see our{" "}
+          48 hours for a replacement or refund - see our{" "}
           <Link href="/policies/refund-returns" className="font-semibold underline underline-offset-4">
             returns policy
           </Link>

@@ -10,10 +10,10 @@ import { useGsap } from "@/lib/motion/useGsap";
 
 const STEPS: { title: string; body: string; icon: typeof Wheat; sprites: SpriteId[] }[] = [
   { title: "Select", body: "We begin with carefully selected grains, lentils, greens and spices.", icon: Wheat, sprites: ["millet", "uradDal", "curryLeaf"] },
-  { title: "Prepare", body: "Roasted, sprouted or dried the traditional way — following recipes passed down through generations.", icon: Flame, sprites: ["chilli", "chanaDal", "peanut"] },
+  { title: "Prepare", body: "Roasted, sprouted or dried the traditional way - following recipes passed down through generations.", icon: Flame, sprites: ["chilli", "chanaDal", "peanut"] },
   { title: "Blend", body: "Ground and blended to the familiar taste and texture of a home kitchen.", icon: CookingPot, sprites: ["cardamom", "garlic", "sesame"] },
   { title: "Pack", body: "Packed with care for freshness and food safety, in sizes from 100 g to 1 kg.", icon: Package, sprites: ["almond", "cashew", "date"] },
-  { title: "Deliver", body: "Dispatched across India with DTDC and India Post — at your door in 3–5 days.", icon: Truck, sprites: ["bananaSlice", "carrotSlice", "moringa"] },
+  { title: "Deliver", body: "Dispatched across India with DTDC and India Post - at your door in 3–5 days.", icon: Truck, sprites: ["bananaSlice", "carrotSlice", "moringa"] },
 ];
 
 function StepCard({ step, index }: { step: (typeof STEPS)[number]; index: number }) {
@@ -104,7 +104,7 @@ export function Process() {
                   From our kitchen <em className="display-italic text-sprout-300">to yours.</em>
                 </h2>
                 <p className="mt-6 max-w-md text-body-lg text-cream-50/75">
-                  Simple ingredients, traditional methods and a lot of care — this is how every pack of Ritan comes to your table.
+                  Simple ingredients, traditional methods and a lot of care - this is how every pack of Ritan comes to your table.
                 </p>
               </div>
               {STEPS.map((s, i) => (

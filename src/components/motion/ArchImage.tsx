@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Image in an organic mask (arch / leaf / pill) whose photo drifts inside
- * the frame as you scroll — the frame and the picture move at different
+ * the frame as you scroll - the frame and the picture move at different
  * speeds, so the image feels deeper than the page.
  */
 export function ArchImage({

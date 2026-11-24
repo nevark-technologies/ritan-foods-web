@@ -10,7 +10,7 @@ export interface EmailMessage {
 /**
  * Sends through Resend's REST API (free tier: 3,000/month). Without
  * RESEND_API_KEY (demo mode) the email is logged instead of sent.
- * Never throws — order flows must not fail because email did.
+ * Never throws - order flows must not fail because email did.
  */
 export async function sendEmail(msg: EmailMessage): Promise<{ ok: boolean; demo?: boolean }> {
   const key = process.env.RESEND_API_KEY;

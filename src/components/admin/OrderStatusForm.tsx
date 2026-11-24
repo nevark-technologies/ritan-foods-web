@@ -9,7 +9,7 @@ import type { Order, OrderStatus } from "@/lib/data/types";
 
 const OPTIONS: { value: OrderStatus; label: string }[] = [
   { value: "pending", label: "Awaiting payment" },
-  { value: "confirmed", label: "Confirmed — to pack" },
+  { value: "confirmed", label: "Confirmed - to pack" },
   { value: "packed", label: "Packed" },
   { value: "shipped", label: "Shipped" },
   { value: "delivered", label: "Delivered" },
@@ -36,7 +36,7 @@ export function OrderStatusForm({ order }: { order: Order }) {
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Courier" htmlFor="os-courier">
           <Select id="os-courier" name="courier" defaultValue={order.courier ?? ""}>
-            <option value="">—</option>
+            <option value="">-</option>
             <option>DTDC</option>
             <option>India Post</option>
           </Select>

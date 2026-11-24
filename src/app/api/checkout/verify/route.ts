@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     if (!isDemoMode) return NextResponse.json({ error: "Demo payments are disabled" }, { status: 403 });
     if (body.outcome === "failure") {
       await store.markOrderFailed(order.orderNumber, "Demo payment declined");
-      return NextResponse.json({ error: "Payment was declined. No money was taken — please try again." }, { status: 402 });
+      return NextResponse.json({ error: "Payment was declined. No money was taken - please try again." }, { status: 402 });
     }
     paymentId = `pay_demo_${order.orderNumber.slice(-5)}`;
   } else {

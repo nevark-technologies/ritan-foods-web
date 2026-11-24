@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Infinite marquee driven by the GSAP ticker. Scroll velocity speeds it up,
- * flips its direction with the scroll, and leans the text (skew) — then it
+ * flips its direction with the scroll, and leans the text (skew) - then it
  * eases back to its resting pace. Pauses offscreen.
  */
 export function Marquee({

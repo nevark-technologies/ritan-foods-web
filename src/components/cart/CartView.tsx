@@ -36,7 +36,7 @@ export function CartView({ suggestions }: { suggestions: ProductLite[] }) {
       <div className="rounded-[2rem] bg-parchment-100 px-6 py-20 text-center">
         <ShoppingBag className="mx-auto size-10 text-forest-700" />
         <p className="mt-5 font-display text-4xl text-forest-900">Your bag is empty</p>
-        <p className="mt-2 text-ink-500">Every good meal starts somewhere — try a family favourite.</p>
+        <p className="mt-2 text-ink-500">Every good meal starts somewhere - try a family favourite.</p>
         <ul className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-3">
           {suggestions.slice(0, 3).map((p) => (
             <li key={p.id}>
@@ -67,7 +67,7 @@ export function CartView({ suggestions }: { suggestions: ProductLite[] }) {
               <p key={p.variantId} className="flex items-start gap-2 text-clay-600">
                 <AlertTriangle className="mt-0.5 size-4 shrink-0" />
                 <span>
-                  <strong>{p.name}</strong> — {p.reason === "insufficient_stock" ? `only ${p.available} left.` : p.reason === "out_of_stock" ? "sold out." : "no longer available."}{" "}
+                  <strong>{p.name}</strong> - {p.reason === "insufficient_stock" ? `only ${p.available} left.` : p.reason === "out_of_stock" ? "sold out." : "no longer available."}{" "}
                   <button
                     type="button"
                     className="font-semibold underline underline-offset-2"

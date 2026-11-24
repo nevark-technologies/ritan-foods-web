@@ -33,8 +33,8 @@ async function Detail({ params }: PageProps<"/account/orders/[orderNumber]">) {
   if (!order || (order.userId !== user.id && order.email.toLowerCase() !== user.email.toLowerCase())) notFound();
   const link = trackingUrl(order.courier, order.trackingNumber);
   return (
-    <AccountShell user={user} active="/account/orders" title={<span className="tabular">{order.orderNumber}</span>}>
-      <div className="grid gap-10 xl:grid-cols-[17rem_1fr]">
+    <AccountShell user={user} active="/account/orders" title={<span className="tabular select-text">{order.orderNumber}</span>}>
+      <div className="grid select-text gap-10 xl:grid-cols-[17rem_1fr]">
         <div>
           <p className="font-display text-3xl text-forest-900">{STATUS_LABEL[order.status]}</p>
           <p className="text-sm text-ink-500">Placed {formatDate(order.createdAt)}</p>

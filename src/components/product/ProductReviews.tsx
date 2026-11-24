@@ -43,7 +43,7 @@ export function ProductReviews({ product, reviews }: { product: Product; reviews
               </ul>
             </div>
           ) : (
-            <p className="mt-4 text-ink-500">No reviews yet — be the first to tell other families what you think.</p>
+            <p className="mt-4 text-ink-500">No reviews yet - be the first to tell other families what you think.</p>
           )}
           <Suspense fallback={<div className="skeleton mt-8 h-12 rounded-full" />}>
             <ReviewComposer product={product} />
@@ -70,7 +70,7 @@ export function ProductReviews({ product, reviews }: { product: Product; reviews
               </p>
             </li>
           ))}
-          {demo && <li className="py-5 text-xs text-ink-500">Sample reviews shown in demo mode — replaced by verified customer reviews at launch.</li>}
+          {demo && <li className="py-5 text-xs text-ink-500">Sample reviews shown in demo mode - replaced by verified customer reviews at launch.</li>}
         </ul>
       </div>
     </section>

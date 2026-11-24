@@ -14,7 +14,7 @@ import { getCatalog } from "@/lib/data/queries";
 
 export const metadata: Metadata = {
   title: "Our Story",
-  description: "Ritan Foods — food is love served on a plate. Traditional South Indian podis, health mixes and malts made with care in Chennai.",
+  description: "Ritan Foods - food is love served on a plate. Traditional South Indian podis, health mixes and malts made with care in Chennai.",
 };
 
 const VALUES = [
@@ -71,10 +71,10 @@ export default async function OurStoryPage() {
       {/* Journey */}
       <section className="relative overflow-hidden bg-cream-50 py-28 lg:py-40">
         <div className="container-x grid gap-16 lg:grid-cols-12 lg:gap-10">
-          <div className="relative order-2 lg:order-1 lg:col-span-5">
-            <div className="relative grid h-[36rem] grid-cols-6">
-              <ArchImage src="/images/editorial/millet-bowl.webp" alt="A bowl of golden millet" shape="leaf" className="col-span-4 h-[62%]" speed={-0.14} sizes="(min-width: 1024px) 26vw, 60vw" />
-              <ArchImage src="/images/editorial/bananas.webp" alt="A bunch of ripe Nendran bananas" shape="arch" className="col-span-3 col-start-4 -mt-[30%] h-[58%]" speed={0.16} sizes="(min-width: 1024px) 20vw, 50vw" />
+          <div className="relative order-2 lg:order-1 lg:col-span-6">
+            <div className="relative h-[34rem] sm:h-[40rem] lg:h-[44rem] xl:h-[48rem]">
+              <ArchImage src="/images/editorial/millet-bowl.webp" alt="A bowl of golden millet" shape="round" className="absolute left-0 top-0 h-[68%] w-[80%]" speed={-0.14} sizes="(min-width: 1024px) 38vw, 80vw" />
+              <ArchImage src="/images/editorial/bananas.webp" alt="A bunch of ripe Nendran bananas" shape="arch" className="absolute bottom-0 right-0 z-10 h-[58%] w-[50%] ring-8 ring-cream-50" speed={0.16} sizes="(min-width: 1024px) 24vw, 50vw" />
             </div>
           </div>
           <div className="order-1 lg:order-2 lg:col-span-6 lg:col-start-7">
@@ -84,7 +84,7 @@ export default async function OurStoryPage() {
             </SplitReveal>
             <Reveal className="mt-8 space-y-5 text-body-lg text-ink-700" stagger={0.1}>
               <p data-reveal-item>
-                At Ritan Foods, we believe that food is a symbol of love, family, health, culture and tradition. Our journey began with a simple dream — to bring the goodness of
+                At Ritan Foods, we believe that food is a symbol of love, family, health, culture and tradition. Our journey began with a simple dream - to bring the goodness of
                 traditional Indian foods and thoughtful food choices to every home.
               </p>
               <p data-reveal-item>
@@ -149,7 +149,7 @@ export default async function OurStoryPage() {
                 <Link href={`/products/${p.slug}`} className="group grid items-baseline gap-2 py-6 sm:grid-cols-[1fr_1.4fr_auto] sm:gap-8" data-cursor="View">
                   <span className="font-display text-3xl text-forest-900 transition-transform duration-500 group-hover:translate-x-2">{p.name}</span>
                   <span className="text-ink-500">
-                    <em className="font-display not-italic text-forest-700">{p.tagline}</em> — {p.summary}
+                    <em className="font-display not-italic text-forest-700">{p.tagline}</em> - {p.summary}
                   </span>
                   <ArrowRight className="hidden size-5 text-forest-700 transition-transform duration-500 group-hover:translate-x-1 sm:block" />
                 </Link>
@@ -159,7 +159,7 @@ export default async function OurStoryPage() {
           <Reveal className="mx-auto mt-24 max-w-3xl text-center">
             <p className="eyebrow text-leaf-600">Our heartfelt promise</p>
             <p className="mt-6 font-display text-[clamp(1.8rem,3.2vw,2.8rem)] leading-snug text-forest-900">
-              Behind every Ritan Foods product is a simple dream — to bring the taste of tradition, the goodness of nature and the warmth of home to every family.
+              Behind every Ritan Foods product is a simple dream - to bring the taste of tradition, the goodness of nature and the warmth of home to every family.
             </p>
             <p className="mt-8 font-display text-2xl italic text-leaf-500">“We don’t just make food, we create memories with every bite.”</p>
             <ButtonLink href="/shop" size="lg" className="mt-10">

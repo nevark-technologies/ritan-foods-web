@@ -20,7 +20,7 @@ const schema = z.object({
 export async function POST(request: Request) {
   const user = await getSessionUser();
   if (!user) return NextResponse.json({ error: "Please sign in to write a review." }, { status: 401 });
-  if (!rateLimit(`review:${user.id}`, 5, 24 * 60 * 60 * 1000)) return NextResponse.json({ error: "You've written a lot of reviews today — thank you! Try again tomorrow." }, { status: 429 });
+  if (!rateLimit(`review:${user.id}`, 5, 24 * 60 * 60 * 1000)) return NextResponse.json({ error: "You've written a lot of reviews today - thank you! Try again tomorrow." }, { status: 429 });
   const parsed = schema.safeParse(await request.json().catch(() => ({})));
   if (!parsed.success) return NextResponse.json({ error: parsed.error.issues[0]?.message ?? "Invalid review" }, { status: 422 });
 

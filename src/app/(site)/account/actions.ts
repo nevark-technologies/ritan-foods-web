@@ -48,7 +48,7 @@ export async function signUpAction(_: FormState, formData: FormData): Promise<Fo
   if (!parsed.success) return { fieldErrors: fieldErrors(parsed.error.issues) };
   const res = await auth.signUp({ ...parsed.data, phone: parsed.data.phone || null });
   if (!res.ok) return { error: res.error };
-  if (res.needsConfirmation) return { ok: true, message: "Almost there — check your inbox to confirm your email, then sign in." };
+  if (res.needsConfirmation) return { ok: true, message: "Almost there - check your inbox to confirm your email, then sign in." };
   redirect(safeNext(formData.get("next")));
 }
 
@@ -125,5 +125,5 @@ export async function updatePasswordAction(_: FormState, formData: FormData): Pr
   const parsed = z.string().min(8, "Use at least 8 characters.").max(72).safeParse(formData.get("password"));
   if (!parsed.success) return { fieldErrors: { password: parsed.error.issues[0].message } };
   const res = await auth.updatePassword(parsed.data);
-  return res.ok ? { ok: true, message: "Password updated — you're all set." } : { error: res.message };
+  return res.ok ? { ok: true, message: "Password updated - you're all set." } : { error: res.message };
 }

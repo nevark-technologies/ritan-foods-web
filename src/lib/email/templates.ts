@@ -69,15 +69,15 @@ export function orderConfirmationEmail(order: Order, settings: StoreSettings) {
   const body = `
 <p style="margin:0;color:${C.leaf};font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:bold;">Order confirmed</p>
 <h1 style="margin:8px 0 6px;font-family:Georgia,serif;font-weight:normal;font-size:30px;color:${C.forestDark};">Thank you, ${esc(order.customerName.split(" ")[0])}!</h1>
-<p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:${C.muted};">We've received your order <strong style="color:${C.ink};">${esc(order.orderNumber)}</strong> and our kitchen is getting it ready.${eta ? ` Estimated delivery: <strong style="color:${C.ink};">${esc(eta)}</strong> after dispatch.` : ""}${cod ? " Please keep the exact amount ready — this is a cash on delivery order." : ""}</p>
+<p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:${C.muted};">We've received your order <strong style="color:${C.ink};">${esc(order.orderNumber)}</strong> and our kitchen is getting it ready.${eta ? ` Estimated delivery: <strong style="color:${C.ink};">${esc(eta)}</strong> after dispatch.` : ""}${cod ? " Please keep the exact amount ready - this is a cash on delivery order." : ""}</p>
 ${itemsTable(order)}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:24px;"><tr>
 <td valign="top" style="width:50%;padding-right:10px;"><p style="margin:0 0 6px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:${C.muted};">Delivering to</p>${addressBlock(order)}</td>
 <td valign="top" style="width:50%;padding-left:10px;"><p style="margin:0 0 6px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:${C.muted};">Payment</p><p style="margin:0;font-size:14px;">${cod ? "Cash on delivery" : "Paid online (Razorpay)"}</p></td>
 </tr></table>
 <p style="margin:28px 0 8px;">${button(`${siteUrl()}/track-order?order=${encodeURIComponent(order.orderNumber)}&email=${encodeURIComponent(order.email)}`, "Track your order")}</p>
-<p style="margin:18px 0 0;font-size:13px;line-height:1.6;color:${C.muted};">If anything arrives damaged or isn't right, tell us within 48 hours of delivery with a photo — we'll make it right.</p>`;
-  return { subject: `Order ${order.orderNumber} confirmed — Ritan Foods`, html: layout("Order confirmed", `Thank you! Order ${order.orderNumber} is confirmed.`, body, settings) };
+<p style="margin:18px 0 0;font-size:13px;line-height:1.6;color:${C.muted};">If anything arrives damaged or isn't right, tell us within 48 hours of delivery with a photo - we'll make it right.</p>`;
+  return { subject: `Order ${order.orderNumber} confirmed - Ritan Foods`, html: layout("Order confirmed", `Thank you! Order ${order.orderNumber} is confirmed.`, body, settings) };
 }
 
 export function adminNewOrderEmail(order: Order, settings: StoreSettings) {
@@ -89,7 +89,7 @@ ${itemsTable(order)}
 <p style="margin:22px 0 6px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:${C.muted};">Ship to</p>${addressBlock(order)}
 ${order.notes ? `<p style="margin:16px 0 0;font-size:13px;color:#A8322A;"><strong>Note:</strong> ${esc(order.notes)}</p>` : ""}
 <p style="margin:26px 0 8px;">${button(`${siteUrl()}/admin/orders/${encodeURIComponent(order.orderNumber)}`, "Open in dashboard")}</p>`;
-  return { subject: `New order ${order.orderNumber} — ${money(order.total)}`, html: layout("New order", `New order ${order.orderNumber}`, body, settings) };
+  return { subject: `New order ${order.orderNumber} - ${money(order.total)}`, html: layout("New order", `New order ${order.orderNumber}`, body, settings) };
 }
 
 export function trackingUrl(courier: string | null, tracking: string | null) {

@@ -10,7 +10,7 @@ import { whatsappLink } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Talk to Ritan Foods — call, WhatsApp or email us. We're happy to help with orders, products and deliveries.",
+  description: "Talk to Ritan Foods - call, WhatsApp or email us. We're happy to help with orders, products and deliveries.",
 };
 
 export default async function ContactPage() {
@@ -43,7 +43,7 @@ export default async function ContactPage() {
           <p className="fade-up mx-auto mt-6 max-w-lg text-body-lg text-ink-700" style={{ ["--d" as string]: "400ms" }}>
             Questions about an order, a product or a delivery? Our friendly team is always here to help.
           </p>
-          <ul className="mx-auto mt-14 grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mx-auto mt-14 grid max-w-5xl select-text gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {cards.map((card) => (
               <li key={card.label}>
                 <a
@@ -61,7 +61,7 @@ export default async function ContactPage() {
               </li>
             ))}
           </ul>
-          <p className="mx-auto mt-8 max-w-3xl text-sm text-ink-500">
+          <p className="mx-auto mt-8 max-w-3xl select-text text-sm text-ink-500">
             Ritan Foods (Proprietorship) · GSTIN {c.gstin} · FSSAI Lic. No. {c.fssai}
           </p>
         </div>

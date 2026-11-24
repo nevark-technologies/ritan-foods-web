@@ -24,7 +24,7 @@ export function ContactForm() {
       body: JSON.stringify(Object.fromEntries(form)),
     }).catch(() => null);
     if (!res) {
-      setErrors({ form: "Couldn't reach us — please check your connection and try again." });
+      setErrors({ form: "Couldn't reach us - please check your connection and try again." });
       setState("idle");
       return;
     }

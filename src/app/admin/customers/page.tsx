@@ -32,12 +32,12 @@ export default async function AdminCustomers() {
                     {c.email}
                   </a>
                 </td>
-                <td className="px-3 py-3 text-ink-700">{c.phone ?? "—"}</td>
+                <td className="px-3 py-3 text-ink-700">{c.phone ?? "-"}</td>
                 <td className="px-3 py-3">
                   <Badge value={c.isRegistered ? "shipped" : "pending"} label={c.isRegistered ? "Account" : "Guest"} />
                 </td>
                 <td className="tabular px-3 py-3">{c.ordersCount}</td>
-                <td className="px-3 py-3 text-ink-700">{c.lastOrderAt ? formatDate(c.lastOrderAt) : "—"}</td>
+                <td className="px-3 py-3 text-ink-700">{c.lastOrderAt ? formatDate(c.lastOrderAt) : "-"}</td>
                 <td className="tabular px-3 py-3 text-right font-semibold">{formatINR(c.totalSpent)}</td>
               </tr>
             ))}

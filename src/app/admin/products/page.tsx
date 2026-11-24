@@ -55,7 +55,7 @@ export default async function AdminProducts() {
                     </Link>
                   </td>
                   <td className="px-3 py-3 text-ink-700">{categories.find((c) => c.id === p.categoryId)?.name}</td>
-                  <td className="tabular px-3 py-3">{prices.length ? `${formatINR(Math.min(...prices))} – ${formatINR(Math.max(...prices))}` : "—"}</td>
+                  <td className="tabular px-3 py-3">{prices.length ? `${formatINR(Math.min(...prices))} – ${formatINR(Math.max(...prices))}` : "-"}</td>
                   <td className="px-3 py-3">
                     <span className="tabular">{stock}</span>
                     {out > 0 && <span className="ml-2 text-xs font-semibold text-chilli-600">{out} size{out > 1 ? "s" : ""} out</span>}

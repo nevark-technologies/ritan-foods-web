@@ -23,7 +23,7 @@ export function StoryTeaser() {
               Inspired by our roots and prepared with care, every product brings together traditional flavours and the goodness of thoughtfully selected ingredients.
             </p>
             <blockquote data-reveal-item className="border-l-2 border-gold-500 pl-5 font-display text-2xl italic leading-snug text-forest-800">
-              “Our dream is simple — to bring happiness to every kitchen and make wholesome food a beautiful part of everyday life.”
+              “Our dream is simple - to bring happiness to every kitchen and make wholesome food a beautiful part of everyday life.”
             </blockquote>
             <div data-reveal-item className="pt-3">
               <ButtonLink href="/our-story" variant="outline">

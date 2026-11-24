@@ -16,7 +16,7 @@ export async function supabaseForRequest() {
         try {
           for (const { name, value, options } of list) store.set(name, value, options);
         } catch {
-          // Called from a Server Component — the proxy refreshes the session instead.
+          // Called from a Server Component - the proxy refreshes the session instead.
         }
       },
     },

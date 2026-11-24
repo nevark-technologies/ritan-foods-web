@@ -98,7 +98,7 @@ export function ReviewsCarousel({ reviews, productNames }: { reviews: Review[]; 
           ))}
         </m.div>
       </div>
-      {demo && <p className="container-x mt-8 text-xs text-ink-500">Sample reviews shown in demo mode — replaced by verified customer reviews at launch.</p>}
+      {demo && <p className="container-x mt-8 text-xs text-ink-500">Sample reviews shown in demo mode - replaced by verified customer reviews at launch.</p>}
     </section>
   );
 }

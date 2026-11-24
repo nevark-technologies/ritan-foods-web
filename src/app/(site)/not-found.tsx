@@ -13,7 +13,7 @@ export default function NotFound() {
         <h1 className="mt-6 font-display text-display-lg text-forest-900">
           This page went to <em className="display-italic text-leaf-500">the market.</em>
         </h1>
-        <p className="mx-auto mt-5 max-w-md text-body-lg text-ink-700">We couldn&apos;t find what you were looking for — but the pantry is fully stocked.</p>
+        <p className="mx-auto mt-5 max-w-md text-body-lg text-ink-700">We couldn&apos;t find what you were looking for - but the pantry is fully stocked.</p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <ButtonLink href="/shop" size="lg">
             Shop the pantry <ArrowRight className="size-4" />

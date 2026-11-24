@@ -39,7 +39,7 @@ const schema = z.object({
 
 export async function POST(request: Request) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
-  if (!rateLimit(`checkout:${ip}`, 12, 10 * 60 * 1000)) return NextResponse.json({ error: "Too many attempts — please wait a few minutes." }, { status: 429 });
+  if (!rateLimit(`checkout:${ip}`, 12, 10 * 60 * 1000)) return NextResponse.json({ error: "Too many attempts - please wait a few minutes." }, { status: 429 });
 
   const parsed = schema.safeParse(await request.json().catch(() => ({})));
   if (!parsed.success) {
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
   const input = parsed.data;
   // With a real database but no Razorpay keys yet, online payment isn't possible: refuse before creating an order.
   if (input.paymentMethod === "razorpay" && !razorpayConfigured() && !isDemoMode) {
-    return NextResponse.json({ error: "Online payment isn't available yet — please choose cash on delivery." }, { status: 400 });
+    return NextResponse.json({ error: "Online payment isn't available yet - please choose cash on delivery." }, { status: 400 });
   }
   const user = await getSessionUser();
 

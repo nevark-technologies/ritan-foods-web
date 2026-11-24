@@ -44,7 +44,7 @@ export async function SiteFooter({ contact }: { contact: StoreSettings["contact"
             <p className="mt-6 max-w-sm font-display text-3xl leading-tight text-cream-50">
               Made with tradition, <em className="text-sprout-300">shared with love.</em>
             </p>
-            <ul className="mt-8 space-y-3 text-sm text-cream-50/80">
+            <ul className="mt-8 select-text space-y-3 text-sm text-cream-50/80">
               <li>
                 <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="inline-flex items-center gap-3 hover:text-cream-50">
                   <Phone className="size-4 text-sprout-300" /> {contact.phone}
@@ -60,9 +60,16 @@ export async function SiteFooter({ contact }: { contact: StoreSettings["contact"
                   <Mail className="size-4 shrink-0 text-sprout-300" /> {contact.email}
                 </a>
               </li>
-              <li className="flex gap-3">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-sprout-300" />
-                <span>{contact.address}</span>
+              <li>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contact.address)}`}
+                  target="_blank"
+                  rel="noopener"
+                  className="flex gap-3 hover:text-cream-50"
+                >
+                  <MapPin className="mt-0.5 size-4 shrink-0 text-sprout-300" />
+                  <span>{contact.address}</span>
+                </a>
               </li>
             </ul>
           </div>
@@ -72,7 +79,7 @@ export async function SiteFooter({ contact }: { contact: StoreSettings["contact"
         </div>
 
         <div className="mt-20 flex flex-col gap-4 border-t border-cream-50/10 pt-8 text-xs text-cream-50/60 md:flex-row md:items-center md:justify-between">
-          <p>© {year} Ritan Foods · Proprietorship · GSTIN {contact.gstin} · FSSAI Lic. No. {contact.fssai}</p>
+          <p className="select-text">© {year} Ritan Foods · Proprietorship · GSTIN {contact.gstin} · FSSAI Lic. No. {contact.fssai}</p>
           <p>Delivered across India with DTDC &amp; India Post · Secure payments by Razorpay</p>
         </div>
       </div>

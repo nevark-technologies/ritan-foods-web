@@ -2,7 +2,7 @@ import { Parallax } from "@/components/motion/Parallax";
 import { SplitReveal } from "@/components/motion/SplitReveal";
 import { LeafGlyph } from "./MarqueeBand";
 
-/** A message from Ritan Foods — words fill in as you scroll. */
+/** A message from Ritan Foods - words fill in as you scroll. */
 export function Message() {
   return (
     <section aria-labelledby="message-title" className="relative overflow-hidden bg-forest-900 py-32 text-cream-50 lg:py-48">
@@ -20,7 +20,7 @@ export function Message() {
           “Every product has a story, every ingredient carries goodness, and every meal brings families together. Our happiness is to be a part of your family’s journey towards taste,
           tradition and healthier food choices.”
         </SplitReveal>
-        <p className="mt-12 text-center font-display text-2xl italic text-sprout-300 lg:text-3xl">— A Mother’s Love in Every Bite.</p>
+        <p className="mt-12 text-center font-display text-2xl italic text-sprout-300 lg:text-3xl">- A Mother’s Love in Every Bite.</p>
       </div>
     </section>
   );

@@ -191,6 +191,31 @@ html.has-cursor [contenteditable] {
 }
 
 /* ------------------------------------------------------------------ */
+/*  No selecting or dragging page content (owner's request). Typing    */
+/*  fields and anything marked .select-text (order details, contact    */
+/*  details, the admin dashboard) stay selectable and copyable.        */
+/* ------------------------------------------------------------------ */
+body {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+input,
+textarea,
+select,
+[contenteditable] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+.select-text {
+  -webkit-touch-callout: default;
+}
+img,
+svg {
+  -webkit-user-drag: none;
+}
+
+/* ------------------------------------------------------------------ */
 /*  Split-text line masks                                              */
 /* ------------------------------------------------------------------ */
 .line-mask {
@@ -438,7 +463,7 @@ html.js .reveal {
 }
 
 /* Hero packs settle into place on first paint (CSS, so no JS wait). They start
-   on screen — just lower, smaller and tilted — so the pack is painted (and
+   on screen - just lower, smaller and tilted - so the pack is painted (and
    counted for LCP) immediately instead of after the animation. */
 .hero-pack {
   transform-origin: 50% 100%;

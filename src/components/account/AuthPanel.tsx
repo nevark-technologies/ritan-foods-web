@@ -35,7 +35,7 @@ export function AuthPanel({ next, demo }: { next: string; demo: boolean }) {
         </m.div>
       </AnimatePresence>
       <p className="mt-8 border-t border-forest-900/10 pt-6 text-center text-sm text-ink-500">
-        No account needed to shop —{" "}
+        No account needed to shop -{" "}
         <Link href="/shop" className="font-semibold text-forest-800 underline underline-offset-4">
           continue as a guest
         </Link>

@@ -20,7 +20,7 @@ export default async function EditProduct({ params, searchParams }: PageProps<"/
     <>
       <AdminHeader
         title={product ? product.name : "New product"}
-        subtitle={sp.created ? "Created — it's live on the shop if marked Live." : product ? `/${product.slug}` : "Add a new product to the pantry"}
+        subtitle={sp.created ? "Created - it's live on the shop if marked Live." : product ? `/${product.slug}` : "Add a new product to the pantry"}
         actions={
           product && (
             <Link href={`/products/${product.slug}`} target="_blank" className="text-sm font-semibold text-forest-800 underline underline-offset-4">

@@ -36,7 +36,7 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
             </span>
           </h1>
           <p className="fade-up mt-6 max-w-xl text-body-lg text-ink-700" style={{ ["--d" as string]: "350ms" }}>
-            Podis, rice mixes, health mixes and malts — each in five pack sizes from 100 g to 1 kg.
+            Podis, rice mixes, health mixes and malts - each in five pack sizes from 100 g to 1 kg.
           </p>
         </div>
       </section>

@@ -10,6 +10,14 @@ export function StoreHydrator() {
     void useCart.persist.rehydrate();
     void useWishlist.persist.rehydrate();
   }, []);
+  // Storefront images can't be dragged out (Firefox ignores -webkit-user-drag in globals.css).
+  useEffect(() => {
+    const noImageDrag = (e: DragEvent) => {
+      if (e.target instanceof HTMLImageElement) e.preventDefault();
+    };
+    document.addEventListener("dragstart", noImageDrag);
+    return () => document.removeEventListener("dragstart", noImageDrag);
+  }, []);
   return null;
 }
 

@@ -35,7 +35,7 @@ interface Seed {
   stock: [number, number, number, number, number];
 }
 
-const PODI_USE = "Mix two spoons of podi with gingelly oil or ghee. Enjoy with idli, dosa or uthappam — or stir through hot rice.";
+const PODI_USE = "Mix two spoons of podi with gingelly oil or ghee. Enjoy with idli, dosa or uthappam - or stir through hot rice.";
 const RICE_MIX_USE = "Mix 2–3 spoons with a cup of hot rice and a little ghee or oil. Lovely with upma, idli and dosa too.";
 
 const seeds: Seed[] = [
@@ -61,9 +61,9 @@ const seeds: Seed[] = [
     name: "Garlic Idli Podi",
     categoryId: "podis",
     tagline: "Bold, Garlicky Comfort",
-    summary: "Our much-loved idli podi with the warmth of roasted garlic — a deeper, bolder flavour for breakfasts with a little more character.",
+    summary: "Our much-loved idli podi with the warmth of roasted garlic - a deeper, bolder flavour for breakfasts with a little more character.",
     description:
-      "Everything you love about our classic idli podi, with roasted garlic folded in. Earthy, warming and wonderfully aromatic — the kind of podi that makes you reach for one more idli.",
+      "Everything you love about our classic idli podi, with roasted garlic folded in. Earthy, warming and wonderfully aromatic - the kind of podi that makes you reach for one more idli.",
     keyIngredients: ["Garlic", "Lentils", "Red chillies", "Curry leaves"],
     howToUse: PODI_USE,
     packType: "pouch",
@@ -116,7 +116,7 @@ const seeds: Seed[] = [
     tagline: "Nature's Green Goodness",
     summary: "Inspired by the goodness of nature, bringing traditional flavour and familiar comfort to your family's table.",
     description:
-      "Curry leaves, lentils and spices, roasted and ground into a fragrant green mix. Stir it through hot rice for a quick, comforting meal — or use it to lift upma, idli and dosa.",
+      "Curry leaves, lentils and spices, roasted and ground into a fragrant green mix. Stir it through hot rice for a quick, comforting meal - or use it to lift upma, idli and dosa.",
     keyIngredients: ["Curry leaves", "Lentils", "Groundnuts", "Red chillies"],
     howToUse: RICE_MIX_USE,
     packType: "pouch",
@@ -131,7 +131,7 @@ const seeds: Seed[] = [
     name: "Moringa Rice Mix",
     categoryId: "rice-mixes",
     tagline: "Greens, the Gentle Way",
-    summary: "The earthy goodness of moringa leaves in an easy rice mix — a simple way to bring greens to everyday meals.",
+    summary: "The earthy goodness of moringa leaves in an easy rice mix - a simple way to bring greens to everyday meals.",
     description:
       "Murungai keerai has always been part of our grandmothers' kitchens. We've brought it into an easy rice mix with lentils and spices, so a wholesome green meal is just a spoonful away.",
     keyIngredients: ["Moringa leaves", "Lentils", "Spices"],
@@ -150,7 +150,7 @@ const seeds: Seed[] = [
     tagline: "Back to Our Roots",
     summary: "Bringing the goodness of traditional millets closer to modern families, one wholesome serving at a time.",
     description:
-      "Traditional millets and pulses, sprouted and roasted, then blended with nuts into a wholesome everyday mix. Cook it into a warm porridge for the family — the way it has nourished generations.",
+      "Traditional millets and pulses, sprouted and roasted, then blended with nuts into a wholesome everyday mix. Cook it into a warm porridge for the family - the way it has nourished generations.",
     keyIngredients: ["Sprouted millets", "Pulses", "Almonds", "Cashews"],
     howToUse: "Whisk 2 tablespoons into a cup of water or milk. Cook on a low flame for 3–5 minutes, stirring. Sweeten with jaggery, or season with salt and buttermilk.",
     packType: "jar",
@@ -168,7 +168,7 @@ const seeds: Seed[] = [
     tagline: "Goodness in Every Sip",
     summary: "A lovely blend of apple, beetroot and carrot, bringing natural goodness and delicious moments to your daily routine.",
     description:
-      "Apple, beetroot and carrot meet almonds and cashews in a naturally colourful drink mix. A cheerful, delicious way to add a little goodness to the morning routine — for kids and grown-ups alike.",
+      "Apple, beetroot and carrot meet almonds and cashews in a naturally colourful drink mix. A cheerful, delicious way to add a little goodness to the morning routine - for kids and grown-ups alike.",
     keyIngredients: ["Apple", "Beetroot", "Carrot", "Almonds", "Cashews"],
     howToUse: "Stir 2 tablespoons into a glass of warm or chilled milk. Sweeten to taste.",
     packType: "box",
@@ -185,7 +185,7 @@ const seeds: Seed[] = [
     tagline: "Childhood Memories in Every Sip",
     summary: "Inspired by the familiar taste of traditional Nendran banana, bringing comfort and deliciousness to every cup.",
     description:
-      "Kerala's beloved Nendran banana — the first food of so many childhoods — made into a smooth, comforting malt with almonds and dates. Warm, mildly sweet and deeply familiar.",
+      "Kerala's beloved Nendran banana - the first food of so many childhoods - made into a smooth, comforting malt with almonds and dates. Warm, mildly sweet and deeply familiar.",
     keyIngredients: ["Nendran banana", "Almonds", "Dates"],
     howToUse: "Mix 2 tablespoons with a little water into a smooth paste, add a cup of milk and cook for 3–4 minutes, stirring. Sweeten to taste.",
     packType: "jar",
@@ -202,7 +202,7 @@ const seeds: Seed[] = [
     tagline: "Nourishment from Nature",
     summary: "Thoughtfully blended plant-based ingredients to make everyday nutrition a little more meaningful.",
     description:
-      "A thoughtful blend of pulses, grains, nuts and seeds for everyday nourishment. No fuss — just plant-based goodness you can blend into milk, water or a smoothie.",
+      "A thoughtful blend of pulses, grains, nuts and seeds for everyday nourishment. No fuss - just plant-based goodness you can blend into milk, water or a smoothie.",
     keyIngredients: ["Pulses", "Grains", "Nuts & seeds"],
     howToUse: "Blend 2 scoops (about 30 g) with milk, water or a smoothie. Enjoy once a day alongside a balanced diet.",
     packType: "jar",
@@ -420,12 +420,12 @@ export function buildDemoReviews(): Review[] {
     createdAt: new Date(Date.UTC(2026, 10, 20) - days * 86400000).toISOString(),
   });
   return [
-    r("idli-podi", "Lakshmi R.", "Chennai", 5, "Tastes like my amma's", "The texture is just right — not too fine. With a little gingelly oil it takes me straight back home.", 3),
+    r("idli-podi", "Lakshmi R.", "Chennai", 5, "Tastes like my amma's", "The texture is just right - not too fine. With a little gingelly oil it takes me straight back home.", 3),
     r("idli-podi", "Arjun K.", "Bengaluru", 5, "Breakfast, sorted", "I keep a pack at work now. Goes with idli, dosa and even curd rice.", 9),
     r("garlic-idli-podi", "Vignesh A.", "Chennai", 5, "Garlic lovers, this is it", "Bold and aromatic. We finished the first pack in a week!", 6),
     r("groundnut-podi", "Karthik M.", "Salem", 4, "Nutty and rustic", "Great with hot rice and ghee. Would love a spicier version too.", 12),
     r("paruppu-podi", "Ramesh T.", "Vellore", 5, "Pottukadalai podi done right", "Mild, flavourful and perfect with ghee rice.", 15),
-    r("curry-leaf-rice-mix", "Meena S.", "Coimbatore", 5, "So fragrant", "Mixed it with hot rice and ghee for the kids' lunch box — they finished every bit.", 4),
+    r("curry-leaf-rice-mix", "Meena S.", "Coimbatore", 5, "So fragrant", "Mixed it with hot rice and ghee for the kids' lunch box - they finished every bit.", 4),
     r("moringa-rice-mix", "Shalini D.", "Tirunelveli", 4, "Greens without the effort", "Quick lunch on busy days. The moringa flavour is gentle and earthy.", 18),
     r("sprouted-millet-health-mix", "Revathi N.", "Madurai", 5, "A wholesome morning porridge", "Cooks quickly and has a lovely nutty taste. I add jaggery and a pinch of cardamom.", 7),
     r("sprouted-millet-health-mix", "Ganesh B.", "Mysuru", 4, "Good everyday mix", "My parents have it every morning now. Smooth, no lumps.", 21),

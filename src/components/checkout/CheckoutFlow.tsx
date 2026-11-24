@@ -323,7 +323,7 @@ export function CheckoutFlow({
                 onClick={() => onlinePayments && setMethod("razorpay")}
                 icon={CreditCard}
                 title="Pay online"
-                body={onlinePayments ? "UPI, cards, netbanking and wallets — secured by Razorpay" : "Coming soon — please pay on delivery for now"}
+                body={onlinePayments ? "UPI, cards, netbanking and wallets - secured by Razorpay" : "Coming soon - please pay on delivery for now"}
               />
               <PayOption
                 active={method === "cod"}

@@ -7,7 +7,7 @@ import { useCart } from "@/lib/store/cart";
 
 type CartProduct = Pick<Product, "id" | "slug" | "name" | "image" | "palette"> | ProductLite;
 
-/** Smallest in-stock active pack size — the sensible "quick add" default. */
+/** Smallest in-stock active pack size - the sensible "quick add" default. */
 export function defaultVariant(variants: Variant[]) {
   return [...variants].filter((v) => v.isActive && v.stock > 0).sort((a, b) => a.weightG - b.weightG)[0] ?? null;
 }

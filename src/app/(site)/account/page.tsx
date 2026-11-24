@@ -90,7 +90,7 @@ async function AccountGate({ searchParams }: PageProps<"/account">) {
               <li key={o.id}>
                 <Link href={`/account/orders/${encodeURIComponent(o.orderNumber)}`} className="flex flex-wrap items-center justify-between gap-3 px-6 py-5 hover:bg-parchment-100/60">
                   <span>
-                    <span className="tabular block font-semibold text-forest-900">{o.orderNumber}</span>
+                    <span className="tabular block select-text font-semibold text-forest-900">{o.orderNumber}</span>
                     <span className="text-sm text-ink-500">
                       {formatDate(o.createdAt)} · {o.itemsCount} {o.itemsCount === 1 ? "item" : "items"}
                     </span>

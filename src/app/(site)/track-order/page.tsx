@@ -60,7 +60,7 @@ async function Tracker({ searchParams }: PageProps<"/track-order">) {
       )}
 
       {match && (
-        <div className="mt-12 grid gap-10 lg:grid-cols-[18rem_1fr]">
+        <div className="mt-12 grid select-text gap-10 lg:grid-cols-[18rem_1fr]">
           <div>
             <p className="eyebrow text-ink-500">Order {match.orderNumber}</p>
             <p className="mt-2 font-display text-3xl text-forest-900">{STATUS_LABEL[match.status]}</p>

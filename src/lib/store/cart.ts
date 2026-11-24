@@ -10,7 +10,7 @@ export interface CartItem {
   slug: string;
   name: string;
   weightG: number;
-  /** Display price only — the server always re-prices at checkout. */
+  /** Display price only - the server always re-prices at checkout. */
   price: Paise;
   image: string;
   palette: ProductPalette;

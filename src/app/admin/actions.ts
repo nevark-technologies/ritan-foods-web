@@ -41,7 +41,7 @@ export async function updateOrderAction(_: AdminFormState, formData: FormData): 
   if (status === "shipped" && before.status !== "shipped" && formData.get("notify") === "on") await notifyOrderShipped(updated);
   revalidatePath(`/admin/orders/${orderNumber}`);
   revalidatePath("/admin");
-  return { ok: true, message: status === "shipped" && before.status !== "shipped" ? "Marked as shipped — customer notified." : "Order updated." };
+  return { ok: true, message: status === "shipped" && before.status !== "shipped" ? "Marked as shipped - customer notified." : "Order updated." };
 }
 
 // ---------------------------------------------------------------- Inventory
@@ -132,7 +132,7 @@ export async function saveProductAction(_: AdminFormState, formData: FormData): 
     .filter((v) => v.price > 0);
   if (!variants.some((v) => v.isActive)) return { error: "Enable at least one pack size with a price." };
   const clash = variants.find((v, i) => taken.has(v.sku) || variants.findIndex((x) => x.sku === v.sku) !== i);
-  if (clash) return { error: `SKU ${clash.sku} is already in use — give each pack size its own SKU.` };
+  if (clash) return { error: `SKU ${clash.sku} is already in use - give each pack size its own SKU.` };
 
   let saved;
   try {
@@ -169,7 +169,7 @@ export async function saveProductAction(_: AdminFormState, formData: FormData): 
   updateTag("catalog");
   revalidatePath("/admin/products");
   if (!existing) redirect(`/admin/products/${encodeURIComponent(saved.id)}?created=1`);
-  return { ok: true, message: "Product saved — the shop is updated." };
+  return { ok: true, message: "Product saved - the shop is updated." };
 }
 
 export async function toggleProductAction(formData: FormData) {

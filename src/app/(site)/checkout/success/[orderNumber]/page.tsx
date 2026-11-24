@@ -17,7 +17,7 @@ export default function SuccessPage(props: PageProps<"/checkout/success/[orderNu
   return (
     <PageTransition>
       <section className="min-h-[85vh] bg-cream-50 pb-28 pt-[calc(var(--header-h)+4rem)]">
-        <div className="container-x max-w-4xl">
+        <div className="container-x max-w-4xl select-text">
           <Suspense fallback={<div className="skeleton h-96 rounded-[2rem]" />}>
             <SuccessContent {...props} />
           </Suspense>

@@ -143,7 +143,7 @@ export function SiteHeader({ announcement }: { announcement: string | null }) {
             </Suspense>
           </nav>
 
-          <Link href="/" aria-label="Ritan Foods — home" className="mx-auto block">
+          <Link href="/" aria-label="Ritan Foods - home" className="mx-auto block">
             <Image src="/images/brand/logo.webp" alt="Ritan Foods" width={968} height={714} preload sizes="96px" className="h-12 w-auto sm:h-[3.4rem]" />
           </Link>
 

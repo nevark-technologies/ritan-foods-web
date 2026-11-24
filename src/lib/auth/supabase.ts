@@ -23,7 +23,7 @@ export const supabaseAuth = {
   async signIn(email: string, password: string): Promise<{ ok: true; user: SessionUser } | { ok: false; error: string }> {
     const sb = await supabaseForRequest();
     const { error } = await sb.auth.signInWithPassword({ email, password });
-    if (error) return { ok: false, error: error.message.includes("confirm") ? "Please confirm your email first — check your inbox." : "That email and password don't match." };
+    if (error) return { ok: false, error: error.message.includes("confirm") ? "Please confirm your email first - check your inbox." : "That email and password don't match." };
     const user = await supabaseAuth.getUser();
     return user ? { ok: true, user } : { ok: false, error: "Signed in, but your profile couldn't be loaded." };
   },

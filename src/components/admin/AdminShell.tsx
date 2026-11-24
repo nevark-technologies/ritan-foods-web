@@ -9,7 +9,7 @@ import { AdminNav } from "./AdminNav";
 
 export function AdminShell({ user, demo, children }: { user: SessionUser; demo: boolean; children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#f4efe3] text-ink-900 lg:grid lg:grid-cols-[17rem_1fr]">
+    <div className="min-h-screen select-text bg-[#f4efe3] text-ink-900 lg:grid lg:grid-cols-[17rem_1fr]">
       <aside className="no-print border-b border-forest-900/10 bg-forest-900 text-cream-50 lg:sticky lg:top-0 lg:h-screen lg:border-b-0">
         <div className="flex items-center gap-3 px-5 py-5 lg:px-6 lg:py-7">
           <Image src="/images/brand/logo.webp" alt="" width={968} height={714} sizes="56px" className="h-11 w-auto" />
@@ -37,7 +37,7 @@ export function AdminShell({ user, demo, children }: { user: SessionUser; demo: 
       <div className="min-w-0">
         {demo && (
           <p className="no-print bg-turmeric-500/20 px-6 py-2.5 text-center text-xs font-semibold text-clay-600">
-            Demo mode — data lives in memory and resets when the server restarts. Connect Supabase to make it permanent.
+            Demo mode - data lives in memory and resets when the server restarts. Connect Supabase to make it permanent.
           </p>
         )}
         <main className="px-5 py-8 sm:px-8 lg:px-12 lg:py-12">{children}</main>
