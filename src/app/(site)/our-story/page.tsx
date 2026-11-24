@@ -73,8 +73,9 @@ export default async function OurStoryPage() {
         <div className="container-x grid gap-16 lg:grid-cols-12 lg:gap-10">
           <div className="relative order-2 lg:order-1 lg:col-span-6">
             <div className="relative h-[34rem] sm:h-[40rem] lg:h-[44rem] xl:h-[48rem]">
-              <ArchImage src="/images/editorial/millet-bowl.webp" alt="A bowl of golden millet" shape="round" className="absolute left-0 top-0 h-[68%] w-[80%]" speed={-0.14} sizes="(min-width: 1024px) 38vw, 80vw" />
-              <ArchImage src="/images/editorial/bananas.webp" alt="A bunch of ripe Nendran bananas" shape="arch" className="absolute bottom-0 right-0 z-10 h-[58%] w-[50%] ring-8 ring-cream-50" speed={0.16} sizes="(min-width: 1024px) 24vw, 50vw" />
+              {/* Photos: Pexels (free for commercial use) - grains by Vie Studio (7421117), bananas by March Martin (7611893) */}
+              <ArchImage src="/images/editorial/about-grains.webp" alt="Millet, seeds and oats in wooden bowls" shape="round" className="absolute left-0 top-0 h-[68%] w-[80%]" speed={-0.14} sizes="(min-width: 1024px) 38vw, 80vw" />
+              <ArchImage src="/images/editorial/about-bananas.webp" alt="Bunches of fresh bananas at the market" shape="arch" className="absolute bottom-0 right-0 z-10 h-[58%] w-[50%] ring-8 ring-cream-50" speed={0.16} sizes="(min-width: 1024px) 24vw, 50vw" />
             </div>
           </div>
           <div className="order-1 lg:order-2 lg:col-span-6 lg:col-start-7">

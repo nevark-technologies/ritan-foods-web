@@ -205,5 +205,105 @@
       "banana-2": { "box": [830, 140, 1080, 350] },
       "banana-3": { "box": [1020, 70, 1230, 255] }
     }
+  },
+  "$source-n": "n-* stems: photos the owner supplied in Nov 2026 (assets-src/ingredients/incoming, staged as PNG by ritan-tools/scripts/stage_incoming.py); masters are named <ingredient>-n<k>. Photos with a stock watermark (Vecteezy, pngtree, Dreamstime previews) were left out.",
+  "n-almond-a": {
+    "objects": {
+      "almond-n1": { "box": [0,  0,  700,  700], "orient": "h" }
+    }
+  },
+  "n-apple-b": {
+    "objects": {
+      "apple-n2": { "box": [0,  0,  350,  350] }
+    }
+  },
+  "n-banana-a": {
+    "objects": {
+      "banana-n1": { "box": [105,  14,  202,  113] },
+      "banana-n2": { "box": [219,  45,  317,  152] },
+      "banana-n3": { "box": [37,  86,  120,  194] },
+      "banana-n4": { "box": [135,  121,  233,  217] },
+      "banana-n5": { "box": [223,  168,  326,  260] },
+      "banana-n6": { "box": [52,  211,  162,  280] },
+      "banana-n7": { "box": [143,  258,  255,  345] }
+    }
+  },
+  "n-banana-b": {
+    "objects": {
+      "banana-n8": { "box": [125,  19,  220,  131] },
+      "banana-n9": { "box": [82,  114,  193,  200] },
+      "banana-n10": { "box": [129,  200,  233,  260] },
+      "banana-n11": { "box": [72,  269,  169,  323] }
+    }
+  },
+  "n-beet-a": {
+    "objects": {
+      "beet-n1": { "box": [0,  0,  600,  450] }
+    }
+  },
+  "n-beet-b": {
+    "objects": {
+      "beet-n2": { "box": [0,  0,  554,  554] }
+    }
+  },
+  "n-cardamom-a": {
+    "objects": {
+      "cardamom-n1": { "box": [0,  0,  360,  360], "orient": "h" }
+    }
+  },
+  "n-carrot-a": {
+    "objects": {
+      "carrot-n1": { "box": [0,  0,  740,  740] }
+    }
+  },
+  "n-carrot-b": {
+    "objects": {
+      "carrot-n2": { "box": [0,  0,  980,  980] }
+    }
+  },
+  "n-cashew-a": {
+    "objects": {
+      "cashew-n1": { "box": [0,  0,  740,  740] }
+    }
+  },
+  "n-cashew-b": {
+    "objects": {
+      "cashew-n2": { "box": [0,  0,  740,  740] }
+    }
+  },
+  "n-leaf-a": {
+    "objects": {
+      "leaf-n1": { "box": [0,  0,  860,  585], "orient": "h" }
+    }
+  },
+  "n-leaf-c": {
+    "objects": {
+      "leaf-n3": { "box": [0,  0,  466,  580], "orient": "h" }
+    }
+  },
+  "n-date-a": {
+    "objects": {
+      "date-n1": { "box": [0,  0,  360,  360], "orient": "h" }
+    }
+  },
+  "n-date-b": {
+    "objects": {
+      "date-n2": { "box": [0,  0,  613,  350] }
+    }
+  },
+  "n-chilli-a": {
+    "objects": {
+      "chilli-n1": { "box": [0,  0,  740,  740], "orient": "h" }
+    }
+  },
+  "n-chilli-b": {
+    "objects": {
+      "chilli-n2": { "box": [0,  0,  740,  670], "orient": "h" }
+    }
+  },
+  "n-moringa-a": {
+    "objects": {
+      "moringa-n1": { "box": [0,  0,  740,  740], "orient": "h" }
+    }
   }
 }

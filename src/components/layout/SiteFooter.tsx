@@ -79,9 +79,16 @@ export async function SiteFooter({ contact }: { contact: StoreSettings["contact"
         </div>
 
         <div className="mt-20 flex flex-col gap-5 border-t border-cream-50/10 pt-8 text-xs text-cream-50/60 md:flex-row md:items-center md:justify-between">
-          <a href="https://nevark.in" target="_blank" rel="noopener" className="group inline-flex items-center gap-2.5 self-start transition-colors hover:text-cream-50 md:self-auto">
+          <a href="https://nevark.in" target="_blank" rel="noopener" className="group inline-flex flex-col items-start gap-2 self-start transition-colors hover:text-cream-50 md:self-auto">
             <span>Powered by</span>
-            <Image src="/images/brand/nevark-logo.png" alt="Nevark" width={226} height={64} unoptimized className="h-[18px] w-auto opacity-75 transition-opacity group-hover:opacity-100" />
+            <Image
+              src="/images/brand/nevark-logo.png"
+              alt="Nevark"
+              width={339}
+              height={96}
+              unoptimized
+              className="ml-6 h-8 w-auto opacity-85 transition-[opacity,transform] duration-500 ease-out group-hover:translate-x-0.5 group-hover:opacity-100"
+            />
           </a>
           <div className="flex flex-col gap-1.5 md:items-end md:text-right">
             <p className="select-text">© {year} Ritan Foods · Proprietorship · GSTIN {contact.gstin} · FSSAI Lic. No. {contact.fssai}</p>

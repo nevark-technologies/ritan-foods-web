@@ -23,9 +23,11 @@ export interface HeroPack {
 
 /**
  * Pack drum: every pack stands on a slowly rolling cylinder (see .hero-drum in
- * globals.css). Phones see one pack face on, tablet/desktop three; on desktop the
- * trio sits right of centre, its tops overlapping only the feet of the giant
- * word, so "Tradition" stays legible while the packs clearly stand in front of it.
+ * globals.css). Phones see one pack face on, fitted between the caption and the
+ * "Shop the pantry" row; tablet/desktop three. On desktop the trio sits right of
+ * centre, sized so its tops stay just clear of the giant word "Tradition,".
+ * The section height and pack sizes in globals.css (.hero-stage) mirror the copy's
+ * classes below: change a headline size or spacing here, update them there too.
  */
 const ROLL_MS = 1200; // matches --roll in globals.css
 const HOLD_MS = 2200;
@@ -162,7 +164,7 @@ export function Hero({ packs }: { packs: HeroPack[] }) {
   );
 
   return (
-    <section ref={section} aria-labelledby="hero-title" className="relative isolate h-[100svh] min-h-[640px] overflow-hidden bg-cream-50 sm:min-h-[720px]">
+    <section ref={section} aria-labelledby="hero-title" className="hero-stage relative isolate overflow-hidden bg-cream-50">
       {/* Back layer: soft light, warmth and a table-top arc */}
       <div aria-hidden data-depth={depth.back} className="absolute inset-[-4%] -z-10">
         <div className="absolute -right-[10%] -top-[25%] size-[70vw] rounded-full bg-[radial-gradient(closest-side,rgba(198,217,163,0.55),transparent)]" />

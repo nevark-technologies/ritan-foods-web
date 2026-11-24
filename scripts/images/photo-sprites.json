@@ -3,26 +3,26 @@
   "chilli": {
     "major": 112,
     "pieces": [
-      "chilli-1",
-      "chilli-2",
-      { "name": "chilli-3", "scale": 0.78 }
+      "chilli-n1",
+      "chilli-n2",
+      { "name": "chilli-n2", "flip": true, "scale": 0.85 },
+      { "name": "chilli-n1", "flip": true, "scale": 0.9 }
     ]
   },
   "curryLeaf": {
     "major": 72,
     "pieces": [
-      "leaf-b1",
-      "leaf-b2",
-      "leaf-8",
-      { "name": "leaf-b1", "flip": true, "scale": 0.9 }
+      "leaf-n1",
+      "leaf-n3",
+      { "name": "leaf-n1", "flip": true, "scale": 0.88 },
+      { "name": "leaf-n3", "flip": true, "scale": 0.92 }
     ]
   },
   "cardamom": {
     "major": 34,
     "pieces": [
-      "cardamom-2",
-      "cardamom-3",
-      "cardamom-4"
+      "cardamom-n1",
+      { "name": "cardamom-n1", "flip": true, "scale": 0.92 }
     ]
   },
   "peanut": {
@@ -44,62 +44,66 @@
   "almond": {
     "major": 34,
     "pieces": [
-      "almond-1",
-      "almond-6",
-      { "name": "almond-1", "flip": true, "scale": 0.94 },
-      { "name": "almond-6", "flip": true, "scale": 0.97 }
+      "almond-n1",
+      { "name": "almond-n1", "flip": true, "scale": 0.94 }
     ]
   },
   "cashew": {
     "major": 34,
     "pieces": [
-      "cashew-1",
-      "cashew-2",
-      "cashew-3"
+      "cashew-n1",
+      "cashew-n2",
+      { "name": "cashew-n1", "flip": true, "scale": 0.92 },
+      { "name": "cashew-n2", "flip": true, "scale": 0.95 }
     ]
   },
   "date": {
     "major": 32,
     "pieces": [
-      "date-1",
-      { "name": "date-1", "flip": true, "scale": 0.9 }
+      "date-n1",
+      "date-n2",
+      { "name": "date-n2", "flip": true, "scale": 0.9 }
     ]
   },
   "appleSlice": {
     "major": 36,
     "pieces": [
-      "apple-1",
-      { "name": "apple-1", "flip": true, "scale": 0.9 }
+      "apple-n2",
+      { "name": "apple-n2", "flip": true, "scale": 0.9 }
     ]
   },
   "beetSlice": {
     "major": 40,
     "pieces": [
-      "beet-1",
-      { "name": "beet-1", "flip": true, "scale": 0.88 }
+      "beet-n2",
+      "beet-n1",
+      { "name": "beet-n2", "flip": true, "scale": 0.88 }
     ]
   },
   "carrotSlice": {
     "major": 30,
     "pieces": [
-      "carrot-2",
-      { "name": "carrot-2", "flip": true, "scale": 0.9 }
+      "carrot-n1",
+      "carrot-n2",
+      { "name": "carrot-n2", "flip": true, "scale": 0.9 }
     ]
   },
   "bananaSlice": {
     "major": 34,
     "pieces": [
-      "banana-1",
-      "banana-2",
-      "banana-3"
+      "banana-n1",
+      "banana-n2",
+      "banana-n4",
+      "banana-n8",
+      "banana-n9"
     ]
   },
   "moringa": {
     "major": 28,
     "pieces": [
-      "moringa-1",
-      "moringa-4",
-      { "name": "moringa-1", "flip": true, "scale": 0.86 }
+      "moringa-n1",
+      { "name": "moringa-n1", "flip": true, "scale": 0.86 },
+      { "name": "moringa-n1", "scale": 0.75 }
     ]
   }
 }

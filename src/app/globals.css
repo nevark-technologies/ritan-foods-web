@@ -218,11 +218,13 @@ svg {
 /* ------------------------------------------------------------------ */
 /*  Split-text line masks                                              */
 /* ------------------------------------------------------------------ */
+/* The bottom padding gives descenders (p, y, g and the italic comma) room inside
+   the clip at the tight display leading; the negative margin keeps the layout. */
 .line-mask {
   display: block;
   overflow: clip;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
 }
 .line-mask > span {
   display: block;
@@ -236,7 +238,7 @@ svg {
 }
 @keyframes hero-rise {
   from {
-    transform: translate3d(0, 105%, 0) rotate(2deg);
+    transform: translate3d(0, 125%, 0) rotate(2deg);
   }
   to {
     transform: translate3d(0, 0, 0) rotate(0);
@@ -482,13 +484,45 @@ html.js .reveal {
 /* Hero pack drum: every pack stands on a cylinder that rolls one slot at a
    time. --h is the front pack's height (the box the single pouch always had),
    --r the drum radius; packs sit at --k × --slot round it. Phones show the front
-   pack only, tablet/desktop the two beside it too; the rest fade as they turn away. */
+   pack only, tablet/desktop the two beside it too; the rest fade as they turn away.
+
+   The hero copy above the packs is sized in vw/vh/rem only, so its height is known
+   in CSS and the packs are fitted under it instead of covering it:
+   --hero-cap   phones: bottom of the caption paragraph (header, eyebrow, three
+                headline lines, caption; mirrors the classes in Hero.tsx)
+   --hero-row   phones: the "Shop the pantry" row plus its bottom padding
+   --hero-word  desktop: lowest ink of "Tradition," (its comma), 0.98em below the line top
+   --hero-h     the section height; phones grow it just enough for a 12.5rem pack.
+   Allowances below: the pack shadow adds 0.5rem under each pouch and the idle float
+   lifts it up to 1rem, so phones keep 0.75rem+ above and 0.5rem+ below the pouch. */
+.hero-stage {
+  --hero-cap: calc(var(--header-h) + 8.8125rem + 0.95 * clamp(2.3rem, 6vw, 6.5rem) + 0.9 * min(19vw, 15vh) + 1.02 * clamp(2.1rem, 5.2vw, 5.6rem));
+  --hero-row: calc(max(4rem, 9vh) + 4rem);
+  --hero-h: max(100svh, 640px, calc(var(--hero-cap) + 12.5rem + var(--hero-row) + 2.25rem));
+  height: var(--hero-h);
+}
+@media (max-width: 349px) {
+  /* the eyebrow and the caption each wrap one more line */
+  .hero-stage {
+    --hero-cap: calc(var(--header-h) + 11.53rem + 0.95 * clamp(2.3rem, 6vw, 6.5rem) + 0.9 * min(19vw, 15vh) + 1.02 * clamp(2.1rem, 5.2vw, 5.6rem));
+  }
+}
+@media (min-width: 640px) {
+  .hero-stage {
+    --hero-h: max(100svh, 720px);
+  }
+}
+@media (min-width: 1024px) {
+  .hero-stage {
+    --hero-word: calc(var(--header-h) + 5.375rem + 0.95 * clamp(2.3rem, 6vw, 6.5rem) + 0.98 * min(15vw, 24vh));
+  }
+}
 .hero-drum {
-  --h: 82.5vw;
+  --h: min(82.5vw, calc(var(--hero-h) - var(--hero-cap) - var(--hero-row) - 2.25rem));
   --r: calc(var(--h) * 1.05);
   --roll: 1200ms;
   left: 50%;
-  bottom: 14%;
+  bottom: var(--hero-row);
   width: 0;
   height: var(--h);
 }
@@ -500,11 +534,12 @@ html.js .reveal {
   }
 }
 @media (min-width: 1024px) {
+  /* top of the packs (incl. their idle float) stays 1.25rem+ clear of the word */
   .hero-drum {
-    --h: min(30.9vw, 48.6vh);
+    --h: min(30.9vw, 48.6vh, calc(var(--hero-h) * 0.98 - var(--hero-word) - 2.5rem));
     --r: calc(var(--h) * 1.05);
     left: 66.5%;
-    bottom: 3.5%;
+    bottom: 2%;
   }
 }
 .hero-drum__scene {
