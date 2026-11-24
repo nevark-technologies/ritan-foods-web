@@ -78,9 +78,15 @@ export async function SiteFooter({ contact }: { contact: StoreSettings["contact"
           <FooterCol title="Policies" links={POLICIES} />
         </div>
 
-        <div className="mt-20 flex flex-col gap-4 border-t border-cream-50/10 pt-8 text-xs text-cream-50/60 md:flex-row md:items-center md:justify-between">
-          <p className="select-text">© {year} Ritan Foods · Proprietorship · GSTIN {contact.gstin} · FSSAI Lic. No. {contact.fssai}</p>
-          <p>Delivered across India with DTDC &amp; India Post · Secure payments by Razorpay</p>
+        <div className="mt-20 flex flex-col gap-5 border-t border-cream-50/10 pt-8 text-xs text-cream-50/60 md:flex-row md:items-center md:justify-between">
+          <a href="https://nevark.in" target="_blank" rel="noopener" className="group inline-flex items-center gap-2.5 self-start transition-colors hover:text-cream-50 md:self-auto">
+            <span>Powered by</span>
+            <Image src="/images/brand/nevark-logo.png" alt="Nevark" width={226} height={64} unoptimized className="h-[18px] w-auto opacity-75 transition-opacity group-hover:opacity-100" />
+          </a>
+          <div className="flex flex-col gap-1.5 md:items-end md:text-right">
+            <p className="select-text">© {year} Ritan Foods · Proprietorship · GSTIN {contact.gstin} · FSSAI Lic. No. {contact.fssai}</p>
+            <p>Delivered across India with DTDC &amp; India Post · Secure payments by Razorpay</p>
+          </div>
         </div>
       </div>
       <p aria-hidden className="pointer-events-none absolute inset-x-0 bottom-6 z-0 select-none text-center font-display text-[19vw] italic leading-none text-cream-50/[0.06]">
