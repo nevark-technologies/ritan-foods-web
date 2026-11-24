@@ -1,7 +1,7 @@
 import "server-only";
 import { store } from "@/lib/data";
 import type { Order } from "@/lib/data/types";
-import { adminEmail, sendEmail } from "@/lib/email/send";
+import { adminEmail, adminEmails, sendEmail } from "@/lib/email/send";
 import { adminNewOrderEmail, orderConfirmationEmail, orderShippedEmail } from "@/lib/email/templates";
 
 /** Customer confirmation + admin alert for a newly confirmed order. */
@@ -11,7 +11,7 @@ export async function notifyOrderConfirmed(order: Order) {
   const admin = adminNewOrderEmail(order, settings);
   await Promise.all([
     sendEmail({ to: order.email, subject: customer.subject, html: customer.html, replyTo: adminEmail() }),
-    sendEmail({ to: adminEmail(), subject: admin.subject, html: admin.html, replyTo: order.email }),
+    sendEmail({ to: adminEmails(), subject: admin.subject, html: admin.html, replyTo: order.email }),
   ]);
 }
 

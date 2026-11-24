@@ -43,4 +43,11 @@ export async function sendEmail(msg: EmailMessage): Promise<{ ok: boolean; demo?
   }
 }
 
-export const adminEmail = () => process.env.ADMIN_EMAIL || "ritanfoods.co.in@gmail.com";
+/** All admin inboxes (ADMIN_EMAIL may list several, comma-separated) for order and contact alerts. */
+export const adminEmails = () =>
+  (process.env.ADMIN_EMAIL || "ritanfoods.co.in@gmail.com")
+    .split(",")
+    .map((e) => e.trim())
+    .filter(Boolean);
+/** The first admin inbox: the single reply-to address on customer emails. */
+export const adminEmail = () => adminEmails()[0];

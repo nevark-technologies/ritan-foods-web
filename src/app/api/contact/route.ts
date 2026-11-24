@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { store } from "@/lib/data";
-import { adminEmail, sendEmail } from "@/lib/email/send";
+import { adminEmails, sendEmail } from "@/lib/email/send";
 import { contactNotificationEmail } from "@/lib/email/templates";
 import { rateLimit } from "@/lib/rate-limit";
 
@@ -35,6 +35,6 @@ export async function POST(request: Request) {
   const saved = await store.createContactMessage(data);
   const settings = await store.getSettings();
   const mail = contactNotificationEmail(saved, settings);
-  await sendEmail({ to: adminEmail(), subject: mail.subject, html: mail.html, replyTo: saved.email });
+  await sendEmail({ to: adminEmails(), subject: mail.subject, html: mail.html, replyTo: saved.email });
   return NextResponse.json({ ok: true });
 }
