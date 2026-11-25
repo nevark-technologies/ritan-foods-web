@@ -82,12 +82,12 @@ export async function SiteFooter({ contact }: { contact: StoreSettings["contact"
           <a href="https://nevark.in" target="_blank" rel="noopener" className="group inline-flex flex-col items-start gap-2 self-start transition-colors hover:text-cream-50 md:self-auto">
             <span>Powered by</span>
             <Image
-              src="/images/brand/nevark-logo.png"
+              src="/images/brand/nevark-logo-enhanced.png"
               alt="Nevark"
-              width={339}
-              height={96}
+              width={364}
+              height={120}
               unoptimized
-              className="ml-6 h-8 w-auto opacity-85 transition-[opacity,transform] duration-500 ease-out group-hover:translate-x-0.5 group-hover:opacity-100"
+              className="ml-6 h-10 w-auto opacity-85 transition-[opacity,transform] duration-500 ease-out group-hover:translate-x-0.5 group-hover:opacity-100"
             />
           </a>
           <div className="flex flex-col gap-1.5 md:items-end md:text-right">
