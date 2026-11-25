@@ -1,5 +1,5 @@
 -- =====================================================================
--- Ritan Foods — database schema (Supabase / Postgres 15+)
+-- Ritan Foods - database schema (Supabase / Postgres 15+)
 -- Money is stored as integer paise. The app talks to these tables from
 -- the server with the service-role key; RLS below protects direct
 -- client access (anon / authenticated keys).

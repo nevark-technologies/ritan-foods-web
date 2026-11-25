@@ -15,7 +15,7 @@ export default async function EditProduct({ params, searchParams }: PageProps<"/
   const isNew = id === "new";
   const product = isNew ? undefined : products.find((p) => p.id === decodeURIComponent(id));
   if (!isNew && !product) notFound();
-  const images = [...new Set(products.map((p) => p.image))];
+  const images = [...new Map(products.map((p) => [p.image, { src: p.image, width: p.imageWidth, height: p.imageHeight }])).values()];
   return (
     <>
       <AdminHeader

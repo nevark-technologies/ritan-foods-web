@@ -13,6 +13,10 @@ const supabaseHost = (() => {
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  experimental: {
+    // Admin pack-image uploads (4 MB max, see uploadProductImageAction); Netlify caps request bodies at 6 MB.
+    serverActions: { bodySizeLimit: "5mb" },
+  },
   turbopack: {
     rules: {
       "*.css": {

@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { m } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, ViewTransition } from "react";
+import { ViewTransition } from "react";
 import { defaultVariant, useAddToCart } from "@/components/cart/useAddToCart";
 import { TiltCard } from "@/components/motion/TiltCard";
 import { spring } from "@/lib/motion/tokens";
@@ -21,7 +21,6 @@ const CATEGORY: Record<string, string> = {
 };
 
 export function ProductCard({ product, morph = true, priority = false, className }: { product: Product; morph?: boolean; priority?: boolean; className?: string }) {
-  const imgRef = useRef<HTMLImageElement>(null);
   const addToCart = useAddToCart();
   const quick = defaultVariant(product.variants);
   const prices = product.variants.filter((v) => v.isActive).map((v) => v.price);
@@ -30,7 +29,6 @@ export function ProductCard({ product, morph = true, priority = false, className
 
   const image = (
     <Image
-      ref={imgRef}
       src={product.image}
       alt={`${product.name} pack`}
       width={product.imageWidth}
@@ -71,7 +69,7 @@ export function ProductCard({ product, morph = true, priority = false, className
             type="button"
             whileTap={{ scaleX: 1.12, scaleY: 0.86 }}
             transition={spring.squash}
-            onClick={() => quick && addToCart(product, quick, 1, imgRef.current)}
+            onClick={() => quick && addToCart(product, quick, 1)}
             className="absolute bottom-4 right-4 z-10 flex h-11 items-center gap-2 rounded-full bg-forest-800 px-4 text-sm font-semibold text-cream-50 shadow-lg transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:translate-y-3 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 lg:focus-visible:translate-y-0 lg:focus-visible:opacity-100"
             aria-label={`Add ${formatWeight(quick.weightG)} ${product.name} to bag`}
           >

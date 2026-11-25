@@ -169,7 +169,6 @@ export function SiteHeader({ announcement }: { announcement: string | null }) {
               <button
                 ref={bagRef}
                 type="button"
-                data-cart-target
                 onClick={openDrawer}
                 className="relative ml-1 flex h-11 items-center gap-2 rounded-full bg-forest-700 pl-3.5 pr-4 text-sm font-semibold text-cream-50 shadow-[0_8px_24px_-12px_rgba(15,42,23,0.7)]"
               >

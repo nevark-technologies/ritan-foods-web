@@ -5,8 +5,9 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { requireAdmin } from "@/lib/auth";
 import { notifyOrderShipped } from "@/lib/commerce/notify";
-import { store } from "@/lib/data";
+import { isDemoMode, store } from "@/lib/data";
 import type { CategoryId, Courier, OrderStatus, PackType, SpriteId, ZoneId } from "@/lib/data/types";
+import { supabaseAdmin } from "@/lib/supabase/server";
 import { slugify } from "@/lib/utils";
 
 export interface AdminFormState {
@@ -86,6 +87,8 @@ const productSchema = z.object({
   howToUse: z.string().trim().min(5).max(600),
   packType: z.enum(["pouch", "jar", "box"]),
   image: z.string().trim().min(1),
+  imageWidth: z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().int().min(32).max(10000).optional()),
+  imageHeight: z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().int().min(32).max(10000).optional()),
   scene: z.string().trim().optional(),
   bg: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   ink: z.string().regex(/^#[0-9a-fA-F]{6}$/),
@@ -94,12 +97,70 @@ const productSchema = z.object({
   sort: z.coerce.number().int().min(0).max(999),
 });
 
+const STORAGE_BUCKET = "product-images";
+const MAX_UPLOAD_BYTES = 4 * 1024 * 1024; // keep in step with serverActions.bodySizeLimit in next.config.ts
+const storagePrefix = () => `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}/`;
+
+/** Site images, our own storage bucket, or (demo mode only) an inline upload - never an arbitrary URL. */
+function isUsableImage(src: string) {
+  if (src.startsWith("/") && !src.startsWith("//")) return true;
+  if (isDemoMode) return src.startsWith("data:image/");
+  return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) && src.startsWith(storagePrefix());
+}
+
+/** Image type from the file's first bytes (the browser's claimed type is not trusted). */
+function sniffImage(b: Uint8Array): { ext: string; type: string } | null {
+  const ascii = (from: number, to: number) => String.fromCharCode(...b.subarray(from, to));
+  if (b[0] === 0x89 && ascii(1, 4) === "PNG") return { ext: "png", type: "image/png" };
+  if (b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff) return { ext: "jpg", type: "image/jpeg" };
+  if (ascii(0, 4) === "RIFF" && ascii(8, 12) === "WEBP") return { ext: "webp", type: "image/webp" };
+  if (ascii(4, 8) === "ftyp" && ["avif", "avis"].includes(ascii(8, 12))) return { ext: "avif", type: "image/avif" };
+  return null;
+}
+
+export interface UploadedImage {
+  url?: string;
+  width?: number;
+  height?: number;
+  error?: string;
+}
+
+/**
+ * Pack image upload from the product editor. The file goes to the public
+ * "product-images" bucket in Supabase Storage; its size comes from the browser
+ * (it decoded the file to measure it). Demo mode keeps the image inline instead.
+ */
+export async function uploadProductImageAction(formData: FormData): Promise<UploadedImage> {
+  await requireAdmin();
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) return { error: "Choose an image file first." };
+  if (file.size > MAX_UPLOAD_BYTES) return { error: "That image is over 4 MB - export it smaller (WebP works well)." };
+  const width = Math.round(Number(formData.get("width")));
+  const height = Math.round(Number(formData.get("height")));
+  if (!(width >= 32 && width <= 10000 && height >= 32 && height <= 10000)) return { error: "Couldn't read the image size - try a PNG, WebP or JPG." };
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  const kind = sniffImage(bytes);
+  if (!kind) return { error: "Only PNG, WebP, JPG or AVIF images can be uploaded." };
+
+  if (isDemoMode) return { url: `data:${kind.type};base64,${Buffer.from(bytes).toString("base64")}`, width, height };
+
+  const base = slugify(String(formData.get("name") ?? "")).slice(0, 48) || "pack";
+  const path = `packs/${base}-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}.${kind.ext}`;
+  const { error } = await supabaseAdmin().storage.from(STORAGE_BUCKET).upload(path, bytes, { contentType: kind.type, cacheControl: "31536000", upsert: false });
+  if (error) {
+    console.error("[admin] image upload failed:", error.message);
+    return { error: /bucket/i.test(error.message) ? `Image storage isn't set up yet (bucket "${STORAGE_BUCKET}" missing in Supabase).` : `Upload failed: ${error.message}` };
+  }
+  return { url: storagePrefix() + path, width, height };
+}
+
 export async function saveProductAction(_: AdminFormState, formData: FormData): Promise<AdminFormState> {
   await requireAdmin();
   const raw = Object.fromEntries(formData.entries());
   const parsed = productSchema.safeParse(raw);
   if (!parsed.success) return { error: `${parsed.error.issues[0].path.join(".")}: ${parsed.error.issues[0].message}` };
   const d = parsed.data;
+  if (!isUsableImage(d.image)) return { error: "Pick a pack image from the list or upload one." };
   const all = await store.listProducts({ includeInactive: true });
   const existing = d.id ? all.find((p) => p.id === d.id) : undefined;
   const slug = existing?.slug ?? (d.slug ? slugify(d.slug) : slugify(d.name));
@@ -153,8 +214,8 @@ export async function saveProductAction(_: AdminFormState, formData: FormData): 
       howToUse: d.howToUse,
       packType: d.packType as PackType,
       image: d.image,
-      imageWidth: existing?.imageWidth ?? 1200,
-      imageHeight: existing?.imageHeight ?? 1800,
+      imageWidth: d.imageWidth ?? existing?.imageWidth ?? 1200,
+      imageHeight: d.imageHeight ?? existing?.imageHeight ?? 1800,
       scene: d.scene || null,
       palette: { bg: d.bg, ink: d.ink, accent: d.accent, deep: d.deep },
       sprites: (existing?.sprites ?? ["curryLeaf", "chilli", "uradDal"]) as SpriteId[],

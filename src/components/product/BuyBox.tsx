@@ -41,8 +41,7 @@ export function BuyBox({ product, lowStock }: { product: Product; lowStock: numb
   const maxQty = Math.max(1, Math.min(20, variant.stock));
 
   const add = () => {
-    const img = document.querySelector<HTMLImageElement>(`[data-pdp-pack] img`);
-    addToCart(product, variant, qty, img);
+    addToCart(product, variant, qty);
     setAdded(true);
     setTimeout(() => setAdded(false), 1800);
   };

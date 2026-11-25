@@ -46,7 +46,7 @@ export function ProductGallery({ product }: { product: Product }) {
             <m.div key="pack" className="absolute inset-0" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.04 }} transition={spring.soft}>
               <PhysicsField preset={preset} interactionRef={stageRef} withFront backClassName="z-0" frontClassName="z-20" />
               <div className="absolute inset-x-0 bottom-[17%] top-[7%] z-10 flex justify-center">
-                <div ref={lensRef} data-pdp-pack className="h-full will-change-transform">
+                <div ref={lensRef} className="h-full will-change-transform">
                   <ViewTransition name={`pack-${product.slug}`} share="morph">
                     <Image
                       src={product.image}

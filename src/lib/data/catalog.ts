@@ -318,16 +318,6 @@ export function buildSeedProducts(): Product[] {
   });
 }
 
-/** Products shown on the home Product Stage, in order. */
-export const STAGE_SLUGS = [
-  "idli-podi",
-  "curry-leaf-rice-mix",
-  "sprouted-millet-health-mix",
-  "abc-malt",
-  "nendran-banana-malt",
-  "plant-based-protein",
-] as const;
-
 export const defaultSettings: StoreSettings = {
   freeShippingThreshold: 99900,
   codEnabled: true,

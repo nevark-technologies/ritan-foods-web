@@ -2,7 +2,7 @@
 
 Fraunces ships with four variation axes (opsz, wght, SOFT, WONK); the site
 only ever uses opsz 144 + SOFT 100 (WONK 0 upright, 1 italic), so those axes
-are pinned and only a trimmed weight axis remains — a fraction of the bytes.
+are pinned and only a trimmed weight axis remains - a fraction of the bytes.
 The rupee sign lives in Google's latin-ext files, so it gets its own tiny
 face (unicode-range U+20B9) instead of pulling in the whole latin-ext file.
 

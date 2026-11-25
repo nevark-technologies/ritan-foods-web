@@ -4,13 +4,11 @@ import { MarqueeBand } from "@/components/home/MarqueeBand";
 import { Message } from "@/components/home/Message";
 import { PantryGrid } from "@/components/home/PantryGrid";
 import { Process } from "@/components/home/Process";
-import { ProductStage } from "@/components/home/ProductStage";
 import { ReviewsCarousel } from "@/components/home/ReviewsCarousel";
 import { StoryTeaser } from "@/components/home/StoryTeaser";
 import { TrustStats } from "@/components/home/TrustStats";
 import { ValuesBowl } from "@/components/home/ValuesBowl";
 import { PageTransition } from "@/components/motion/PageTransition";
-import { STAGE_SLUGS } from "@/lib/data/catalog";
 import { getCatalog, getCategories, getHighlightReviews } from "@/lib/data/queries";
 
 /** Hero drum order: Idli Podi faces front, ABC Malt to its right, Sprouted Millet to its left, the rest round the back. */
@@ -26,7 +24,6 @@ export default async function HomePage() {
     ...(bySlug.has(HERO_LEFT) ? [bySlug.get(HERO_LEFT)!] : []),
   ];
   const packs: HeroPack[] = ring.map((p) => ({ slug: p.slug, name: p.name, image: p.image, width: p.imageWidth, height: p.imageHeight }));
-  const stage = STAGE_SLUGS.flatMap((s) => (bySlug.has(s) ? [bySlug.get(s)!] : []));
   const productNames = Object.fromEntries(products.map((p) => [p.slug, p.name]));
 
   return (
@@ -38,9 +35,6 @@ export default async function HomePage() {
       </Island>
       <Island deferRender>
         <StoryTeaser />
-      </Island>
-      <Island deferRender>
-        <ProductStage products={stage} />
       </Island>
       <Island deferRender>
         <PantryGrid products={products} categories={categories} />

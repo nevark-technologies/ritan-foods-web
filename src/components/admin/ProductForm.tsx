@@ -1,24 +1,75 @@
 "use client";
 
 import { submitWith } from "@/lib/use-action-submit";
+import { ImageUp } from "lucide-react";
 import Image from "next/image";
-import { useActionState, useState } from "react";
-import { saveProductAction, type AdminFormState } from "@/app/admin/actions";
+import { useActionState, useState, type ChangeEvent } from "react";
+import { saveProductAction, uploadProductImageAction, type AdminFormState } from "@/app/admin/actions";
 import { Button } from "@/components/ui/Button";
 import { Field, Input, Select, Textarea } from "@/components/ui/Field";
 import type { Category, Product } from "@/lib/data/types";
 import { formatWeight } from "@/lib/utils";
 
 const WEIGHTS = [100, 200, 300, 500, 1000];
+const MAX_UPLOAD_BYTES = 4 * 1024 * 1024;
 
-export function ProductForm({ product, categories, images }: { product?: Product; categories: Category[]; images: string[] }) {
+export interface PackImage {
+  src: string;
+  width: number;
+  height: number;
+}
+
+const imageLabel = (src: string) => (src.startsWith("data:") ? "Uploaded image" : decodeURIComponent(src.split("/").pop() ?? src));
+
+export function ProductForm({ product, categories, images }: { product?: Product; categories: Category[]; images: PackImage[] }) {
   const [state, action, pending] = useActionState<AdminFormState, FormData>(saveProductAction, {});
-  const [image, setImage] = useState(product?.image ?? images[0] ?? "");
+  const [options, setOptions] = useState(images);
+  const [image, setImage] = useState<PackImage | undefined>(product ? { src: product.image, width: product.imageWidth, height: product.imageHeight } : images[0]);
+  const [upload, setUpload] = useState<{ busy?: boolean; error?: string; done?: boolean }>({});
   const [bg, setBg] = useState(product?.palette.bg ?? "#F1E4C3");
+
+  async function onPickFile(e: ChangeEvent<HTMLInputElement>) {
+    const input = e.currentTarget;
+    const file = input.files?.[0];
+    const name = (input.form?.elements.namedItem("name") as HTMLInputElement | null)?.value ?? product?.name ?? "";
+    input.value = "";
+    if (!file) return;
+    if (file.size > MAX_UPLOAD_BYTES) return setUpload({ error: "That image is over 4 MB - export it smaller (WebP works well)." });
+    setUpload({ busy: true });
+    let width: number, height: number;
+    try {
+      const bitmap = await createImageBitmap(file);
+      ({ width, height } = bitmap);
+      bitmap.close();
+    } catch {
+      return setUpload({ error: "That file isn't an image this browser can open - try a PNG, WebP or JPG." });
+    }
+    const fd = new FormData();
+    fd.set("file", file);
+    fd.set("width", String(width));
+    fd.set("height", String(height));
+    fd.set("name", name);
+    try {
+      const res = await uploadProductImageAction(fd);
+      if (!res.url || !res.width || !res.height) return setUpload({ error: res.error ?? "The upload didn't go through - try again." });
+      const added = { src: res.url, width: res.width, height: res.height };
+      setOptions((list) => [added, ...list.filter((o) => o.src !== added.src)]);
+      setImage(added);
+      setUpload({ done: true });
+    } catch {
+      setUpload({ error: "The upload didn't go through - check the connection and try again." });
+    }
+  }
   const v = (w: number) => product?.variants.find((x) => x.weightG === w);
 
   return (
-    <form onSubmit={submitWith(action)} className="grid gap-6 xl:grid-cols-[1fr_22rem]">
+    <form
+      onSubmit={(e) => {
+        setUpload({});
+        submitWith(action)(e);
+      }}
+      className="grid gap-6 xl:grid-cols-[1fr_22rem]"
+    >
       {product && <input type="hidden" name="id" value={product.id} />}
       <div className="space-y-6">
         <section className="rounded-3xl border border-forest-900/10 bg-cream-50 p-6">
@@ -121,17 +172,38 @@ export function ProductForm({ product, categories, images }: { product?: Product
         <section className="rounded-3xl border border-forest-900/10 bg-cream-50 p-6">
           <h2 className="font-display text-2xl text-forest-900">Image & colours</h2>
           <div className="mt-4 grid place-items-center rounded-2xl p-4" style={{ background: bg }}>
-            {image && <Image src={image} alt="" width={240} height={320} sizes="240px" className="h-56 w-auto object-contain drop-shadow-lg" />}
+            {image && <Image src={image.src} alt="" width={image.width} height={image.height} sizes="240px" className="h-56 w-auto object-contain drop-shadow-lg" />}
           </div>
-          <Field label="Pack image" htmlFor="pf-image" className="mt-4" hint="Transparent PNG/WebP in /images/products (Supabase uploads when connected)">
-            <Select id="pf-image" name="image" value={image} onChange={(e) => setImage(e.target.value)}>
-              {images.map((src) => (
-                <option key={src} value={src}>
-                  {src.split("/").pop()}
+          <input type="hidden" name="image" value={image?.src ?? ""} />
+          <input type="hidden" name="imageWidth" value={image?.width ?? ""} />
+          <input type="hidden" name="imageHeight" value={image?.height ?? ""} />
+          <Field label="Pack image" htmlFor="pf-image" className="mt-4">
+            <Select id="pf-image" value={image?.src ?? ""} onChange={(e) => setImage(options.find((o) => o.src === e.target.value))}>
+              {options.map((o) => (
+                <option key={o.src} value={o.src}>
+                  {imageLabel(o.src)}
                 </option>
               ))}
             </Select>
           </Field>
+          <label
+            className={`mt-3 flex items-center justify-center gap-2 rounded-full border border-forest-900/15 px-4 py-2.5 text-sm font-semibold text-forest-800 transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-leaf-500 ${upload.busy ? "cursor-wait opacity-60" : "cursor-pointer hover:bg-forest-900/5"}`}
+          >
+            <ImageUp className="size-4" aria-hidden />
+            {upload.busy ? "Uploading…" : "Upload new image"}
+            <input type="file" accept="image/png,image/webp,image/jpeg,image/avif" className="sr-only" onChange={onPickFile} disabled={upload.busy} />
+          </label>
+          <p className="mt-2 text-xs leading-relaxed text-ink-500">PNG or WebP with a transparent background looks best, up to 4 MB.</p>
+          {upload.error && (
+            <p className="mt-2 text-sm font-semibold text-chilli-600" role="alert">
+              {upload.error}
+            </p>
+          )}
+          {upload.done && (
+            <p className="mt-2 text-sm font-semibold text-leaf-600" role="status">
+              Uploaded - press {product ? "Save changes" : "Create product"} to put it on the shop.
+            </p>
+          )}
           <input type="hidden" name="scene" value={product?.scene ?? ""} />
           <div className="mt-4 grid grid-cols-2 gap-3">
             {(

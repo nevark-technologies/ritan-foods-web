@@ -2,7 +2,6 @@
 
 import { useCallback } from "react";
 import type { Product, ProductLite, Variant } from "@/lib/data/types";
-import { flyToCart } from "@/lib/motion/flyToCart";
 import { useCart } from "@/lib/store/cart";
 
 type CartProduct = Pick<Product, "id" | "slug" | "name" | "image" | "palette"> | ProductLite;
@@ -15,8 +14,7 @@ export function defaultVariant(variants: Variant[]) {
 export function useAddToCart() {
   const add = useCart((s) => s.add);
   return useCallback(
-    (product: CartProduct, variant: Variant, qty = 1, source?: HTMLElement | null) => {
-      void flyToCart(source ?? null);
+    (product: CartProduct, variant: Variant, qty = 1) => {
       add(
         {
           variantId: variant.id,

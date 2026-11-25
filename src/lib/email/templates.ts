@@ -94,7 +94,8 @@ ${order.notes ? `<p style="margin:16px 0 0;font-size:13px;color:#A8322A;"><stron
 
 export function trackingUrl(courier: string | null, tracking: string | null) {
   if (!tracking) return null;
-  if (courier === "India Post") return "https://www.indiapost.gov.in/_layouts/15/dop.portal.tracking/trackconsignment.aspx";
+  // India Post retired its old tracking page (it now answers 502); its home page has the tracking box.
+  if (courier === "India Post") return "https://www.indiapost.gov.in/";
   if (courier === "DTDC") return "https://www.dtdc.in/trace.asp";
   return null;
 }
