@@ -621,3 +621,9 @@ html.js .reveal {
     contain-intrinsic-size: auto 1200px;
   }
 }
+
+/* Netlify adds a "Powered by Netlify" badge to the page at its edge (an iframe
+   pinned bottom-right with inline styles). Hide it; !important beats the inline display. */
+#nl-badge-frame {
+  display: none !important;
+}
