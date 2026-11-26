@@ -26,7 +26,7 @@ export function PantryGrid({ products, categories }: { products: Product[]; cate
           <div>
             <p className="eyebrow text-leaf-600">The Ritan pantry</p>
             <SplitReveal as="h2" className="mt-4 max-w-3xl font-display text-display-lg text-forest-900">
-              Twelve recipes, one <em className="display-italic text-leaf-500">kitchen.</em>
+              Countless recipes, one <em className="display-italic text-leaf-500">kitchen.</em>
             </SplitReveal>
           </div>
           <LayoutGroup id="pantry-tabs">
