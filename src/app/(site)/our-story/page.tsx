@@ -31,7 +31,7 @@ export default async function OurStoryPage() {
   return (
     <PageTransition>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-cream-50 pb-20 pt-[calc(var(--header-h)+5rem)] lg:pb-28 lg:pt-[calc(var(--header-h)+7rem)]">
+      <section className="story-lilac relative overflow-hidden pb-20 pt-[calc(var(--header-h)+5rem)] lg:pb-28 lg:pt-[calc(var(--header-h)+7rem)]">
         <div className="container-x grid items-end gap-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <p className="eyebrow text-leaf-600">Our story</p>
@@ -57,7 +57,7 @@ export default async function OurStoryPage() {
         </div>
       </section>
 
-      <section aria-hidden className="overflow-hidden border-y border-forest-900/10 bg-parchment-100 py-6">
+      <section aria-hidden className="story-lilac-band overflow-hidden border-y border-forest-900/10 py-6">
         <Marquee speed={45} reverse>
           {["Tradition", "Health", "Quality", "Trust", "Care"].map((t) => (
             <span key={t} className="flex items-center gap-8 pr-8 font-display text-5xl italic text-forest-800/80">
@@ -69,13 +69,13 @@ export default async function OurStoryPage() {
       </section>
 
       {/* Journey */}
-      <section className="relative overflow-hidden bg-cream-50 py-28 lg:py-40">
+      <section className="story-lilac relative overflow-hidden py-28 lg:py-40">
         <div className="container-x grid gap-16 lg:grid-cols-12 lg:gap-10">
           <div className="relative order-2 lg:order-1 lg:col-span-6">
             <div className="relative h-[34rem] sm:h-[40rem] lg:h-[44rem] xl:h-[48rem]">
               {/* Photos: Pexels (free for commercial use) - grains by Vie Studio (7421117), bananas by March Martin (7611893) */}
               <ArchImage src="/images/editorial/about-grains.webp" alt="Millet, seeds and oats in wooden bowls" shape="round" className="absolute left-0 top-0 h-[68%] w-[80%]" speed={-0.14} sizes="(min-width: 1024px) 38vw, 80vw" />
-              <ArchImage src="/images/editorial/about-bananas.webp" alt="Bunches of fresh bananas at the market" shape="arch" className="absolute bottom-0 right-0 z-10 h-[58%] w-[50%] ring-8 ring-cream-50" speed={0.16} sizes="(min-width: 1024px) 24vw, 50vw" />
+              <ArchImage src="/images/editorial/about-bananas.webp" alt="Bunches of fresh bananas at the market" shape="arch" className="absolute bottom-0 right-0 z-10 h-[58%] w-[50%] ring-8 ring-[var(--story-lilac)]" speed={0.16} sizes="(min-width: 1024px) 24vw, 50vw" />
             </div>
           </div>
           <div className="order-1 lg:order-2 lg:col-span-6 lg:col-start-7">
@@ -138,7 +138,7 @@ export default async function OurStoryPage() {
       </section>
 
       {/* Products made with love */}
-      <section className="bg-cream-50 py-28 lg:py-40">
+      <section className="story-lilac py-28 lg:py-40">
         <div className="container-x">
           <p className="eyebrow text-leaf-600">Our products</p>
           <SplitReveal as="h2" className="mt-4 max-w-3xl font-display text-display-lg text-forest-900">
