@@ -577,6 +577,23 @@ html.js .reveal {
   visibility: hidden;
 }
 
+/* Our Story trial look (for client review): very light purple with a faint food-mural
+   line-art tile (/images/ui/story-mural.svg). Used only on the Our Story page; to undo,
+   remove this block and the story-lilac classes there. */
+:root {
+  --story-lilac: #f5f0fb;
+  --story-lilac-band: #ece4f7;
+}
+.story-lilac {
+  background-color: var(--story-lilac);
+  background-image: url("/images/ui/story-mural.svg");
+  background-size: 560px auto;
+  background-repeat: repeat;
+}
+.story-lilac-band {
+  background-color: var(--story-lilac-band);
+}
+
 /* Star rating: one element, gradient fill masked by a row of five stars.
    Layered so utilities passed via className (display, margins) still win. */
 @layer components {
