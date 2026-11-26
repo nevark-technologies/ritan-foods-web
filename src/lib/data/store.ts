@@ -110,6 +110,7 @@ export interface DataStore {
   listProducts(opts?: { includeInactive?: boolean }): Promise<Product[]>;
   getProductBySlug(slug: string): Promise<Product | null>;
   listCategories(): Promise<Category[]>;
+  createCategory(input: Category): Promise<Category>;
   upsertProduct(input: ProductInput): Promise<Product>;
   updateVariant(variantId: string, patch: VariantPatch): Promise<Variant>;
   bulkUpdateStock(updates: { variantId: string; stock: number }[]): Promise<void>;

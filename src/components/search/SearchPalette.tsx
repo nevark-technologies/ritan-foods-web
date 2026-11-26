@@ -7,7 +7,7 @@ import { useMemo, useState } from "react";
 import { Sheet } from "@/components/ui/Sheet";
 import type { ProductLite } from "@/lib/data/types";
 import { useUI } from "@/lib/store/ui";
-import { formatINR } from "@/lib/utils";
+import { formatINR, slugLabel } from "@/lib/utils";
 
 const CATEGORY_LABEL: Record<string, string> = {
   podis: "Podi",
@@ -18,7 +18,7 @@ const CATEGORY_LABEL: Record<string, string> = {
 
 /** Lightweight fuzzy score: prefix > word-start > substring > subsequence. */
 function score(q: string, p: ProductLite) {
-  const hay = `${p.name} ${p.tagline} ${p.keyIngredients.join(" ")} ${CATEGORY_LABEL[p.categoryId]}`.toLowerCase();
+  const hay = `${p.name} ${p.tagline} ${p.keyIngredients.join(" ")} ${CATEGORY_LABEL[p.categoryId] ?? slugLabel(p.categoryId)}`.toLowerCase();
   const name = p.name.toLowerCase();
   if (name.startsWith(q)) return 100;
   if (name.split(/\s+/).some((w) => w.startsWith(q))) return 80;
@@ -107,7 +107,7 @@ export function SearchPalette({ products }: { products: ProductLite[] }) {
               <span className="min-w-0 flex-1">
                 <span className="block font-display text-lg leading-tight text-forest-900">{p.name}</span>
                 <span className="block truncate text-sm text-ink-500">
-                  {CATEGORY_LABEL[p.categoryId]} · {p.tagline}
+                  {CATEGORY_LABEL[p.categoryId] ?? slugLabel(p.categoryId)} · {p.tagline}
                 </span>
               </span>
               <span className="tabular text-sm font-semibold text-forest-800">from {formatINR(p.fromPrice)}</span>

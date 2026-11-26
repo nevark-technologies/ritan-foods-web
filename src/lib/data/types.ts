@@ -1,7 +1,8 @@
 /** Money is integer paise throughout the app. */
 export type Paise = number;
 
-export type CategoryId = "podis" | "rice-mixes" | "health-mixes" | "wellness";
+/** Category slug. Seeded: "podis", "rice-mixes", "health-mixes", "wellness"; admins can add more. */
+export type CategoryId = string;
 
 export type SpriteId =
   | "curryLeaf"

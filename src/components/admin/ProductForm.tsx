@@ -12,6 +12,8 @@ import { formatWeight } from "@/lib/utils";
 
 const WEIGHTS = [100, 200, 300, 500, 1000];
 const MAX_UPLOAD_BYTES = 4 * 1024 * 1024;
+/** Category select value for "add a new category" (handled in saveProductAction). */
+const NEW_CATEGORY = "__new";
 
 export interface PackImage {
   src: string;
@@ -27,6 +29,13 @@ export function ProductForm({ product, categories, images }: { product?: Product
   const [image, setImage] = useState<PackImage | undefined>(product ? { src: product.image, width: product.imageWidth, height: product.imageHeight } : images[0]);
   const [upload, setUpload] = useState<{ busy?: boolean; error?: string; done?: boolean }>({});
   const [bg, setBg] = useState(product?.palette.bg ?? "#F1E4C3");
+  const [category, setCategory] = useState(product?.categoryId ?? categories[0]?.id ?? NEW_CATEGORY);
+  // After a save that created a category, select it (the refreshed list now includes it).
+  const [savedState, setSavedState] = useState(state);
+  if (state !== savedState) {
+    setSavedState(state);
+    if (state.ok && state.categoryId) setCategory(state.categoryId);
+  }
 
   async function onPickFile(e: ChangeEvent<HTMLInputElement>) {
     const input = e.currentTarget;
@@ -85,14 +94,25 @@ export function ProductForm({ product, categories, images }: { product?: Product
               <Input id="pf-tagline" name="tagline" defaultValue={product?.tagline} required />
             </Field>
             <Field label="Category" htmlFor="pf-cat">
-              <Select id="pf-cat" name="categoryId" defaultValue={product?.categoryId ?? "podis"}>
+              <Select id="pf-cat" name="categoryId" value={category} onChange={(e) => setCategory(e.target.value)}>
                 {categories.map((c) => (
                   <option key={c.id} value={c.id}>
                     {c.name}
                   </option>
                 ))}
+                <option value={NEW_CATEGORY}>+ New category…</option>
               </Select>
             </Field>
+            {category === NEW_CATEGORY && (
+              <>
+                <Field label="New category name" htmlFor="pf-newcat" hint="Shown in the shop filters, e.g. Sweets">
+                  <Input id="pf-newcat" name="newCategoryName" required minLength={2} maxLength={40} autoFocus />
+                </Field>
+                <Field label="Category description" htmlFor="pf-newcat-blurb" optional>
+                  <Input id="pf-newcat-blurb" name="newCategoryBlurb" maxLength={160} />
+                </Field>
+              </>
+            )}
             {!product && (
               <Field label="URL slug" htmlFor="pf-slug" optional hint="Leave empty to generate from the name">
                 <Input id="pf-slug" name="slug" />

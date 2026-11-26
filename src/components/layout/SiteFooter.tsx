@@ -91,7 +91,11 @@ export async function SiteFooter({ contact }: { contact: StoreSettings["contact"
             />
           </a>
           <div className="flex flex-col gap-1.5 md:items-end md:text-right">
-            <p className="select-text">© {year} Ritan Foods · Proprietorship · GSTIN {contact.gstin} · FSSAI Lic. No. {contact.fssai}</p>
+            <p className="select-text">© {year} Ritan Foods · Proprietorship · GSTIN {contact.gstin}</p>
+            <p className="flex select-text items-center gap-2.5 py-0.5">
+              <Image src="/images/brand/fssai-logo-white.png" alt="FSSAI" width={139} height={72} unoptimized className="h-6 w-auto" />
+              <span>Lic. No. {contact.fssai}</span>
+            </p>
             <p>Delivered across India with DTDC &amp; India Post · Secure payments by Razorpay</p>
           </div>
         </div>

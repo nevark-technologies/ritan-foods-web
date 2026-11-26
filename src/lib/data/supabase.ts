@@ -411,6 +411,10 @@ export const supabaseStore: DataStore = {
     return must(await pub().from("categories").select("*").order("sort").returns<Category[]>(), "List categories");
   },
 
+  async createCategory(input: Category) {
+    return must(await db().from("categories").insert(input).select("*").single<Category>(), "Create category");
+  },
+
   async upsertProduct(input: ProductInput) {
     const row = {
       slug: input.slug,

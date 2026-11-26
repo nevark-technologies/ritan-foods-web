@@ -14,6 +14,8 @@ export interface AdminFormState {
   ok?: boolean;
   error?: string;
   message?: string;
+  /** product form: the category the product was saved in (a new one included) */
+  categoryId?: string;
 }
 
 const rupeesToPaise = (v: FormDataEntryValue | null) => Math.round(Number(String(v ?? "0").replace(/[^\d.]/g, "")) * 100) || 0;
@@ -78,7 +80,9 @@ const productSchema = z.object({
   name: z.string().trim().min(2).max(80),
   slug: z.string().trim().max(80).optional(),
   altName: z.string().trim().max(80).optional(),
-  categoryId: z.enum(["podis", "rice-mixes", "health-mixes", "wellness"]),
+  categoryId: z.string().trim().min(1).max(60),
+  newCategoryName: z.string().trim().max(40).optional(),
+  newCategoryBlurb: z.string().trim().max(160).optional(),
   tagline: z.string().trim().min(2).max(80),
   summary: z.string().trim().min(10).max(400),
   description: z.string().trim().min(10).max(2000),
@@ -96,6 +100,9 @@ const productSchema = z.object({
   deep: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   sort: z.coerce.number().int().min(0).max(999),
 });
+
+/** Category select value meaning "add a new category" (see ProductForm). */
+const NEW_CATEGORY = "__new";
 
 const STORAGE_BUCKET = "product-images";
 const MAX_UPLOAD_BYTES = 4 * 1024 * 1024; // keep in step with serverActions.bodySizeLimit in next.config.ts
@@ -161,6 +168,24 @@ export async function saveProductAction(_: AdminFormState, formData: FormData): 
   if (!parsed.success) return { error: `${parsed.error.issues[0].path.join(".")}: ${parsed.error.issues[0].message}` };
   const d = parsed.data;
   if (!isUsableImage(d.image)) return { error: "Pick a pack image from the list or upload one." };
+
+  // Category: an existing one, or "__new" to add one from this form (reusing a match instead of duplicating it).
+  const categories = await store.listCategories();
+  let newCategory: { id: string; name: string; blurb: string; sort: number } | null = null;
+  let categoryId = d.categoryId;
+  if (categoryId === NEW_CATEGORY) {
+    const name = (d.newCategoryName ?? "").replace(/\s+/g, " ");
+    if (name.length < 2) return { error: "Type a name for the new category (at least 2 letters)." };
+    const id = slugify(name).slice(0, 60);
+    if (!id) return { error: "Use letters or numbers in the new category name." };
+    const match = categories.find((c) => c.id === id || c.name.toLowerCase() === name.toLowerCase());
+    if (match) categoryId = match.id;
+    else {
+      newCategory = { id, name, blurb: d.newCategoryBlurb ?? "", sort: Math.max(0, ...categories.map((c) => c.sort)) + 1 };
+      categoryId = id;
+    }
+  } else if (!categories.some((c) => c.id === categoryId)) return { error: "Choose a category from the list." };
+
   const all = await store.listProducts({ includeInactive: true });
   const existing = d.id ? all.find((p) => p.id === d.id) : undefined;
   const slug = existing?.slug ?? (d.slug ? slugify(d.slug) : slugify(d.name));
@@ -197,12 +222,13 @@ export async function saveProductAction(_: AdminFormState, formData: FormData): 
 
   let saved;
   try {
+    if (newCategory) await store.createCategory(newCategory);
     saved = await store.upsertProduct({
       id: existing?.id,
       slug,
       name: d.name,
       altName: d.altName || null,
-      categoryId: d.categoryId as CategoryId,
+      categoryId: categoryId as CategoryId,
       tagline: d.tagline,
       summary: d.summary,
       description: d.description,
@@ -230,7 +256,7 @@ export async function saveProductAction(_: AdminFormState, formData: FormData): 
   updateTag("catalog");
   revalidatePath("/admin/products");
   if (!existing) redirect(`/admin/products/${encodeURIComponent(saved.id)}?created=1`);
-  return { ok: true, message: "Product saved - the shop is updated." };
+  return { ok: true, message: newCategory ? `Product saved in the new "${newCategory.name}" category - the shop is updated.` : "Product saved - the shop is updated.", categoryId };
 }
 
 export async function toggleProductAction(formData: FormData) {

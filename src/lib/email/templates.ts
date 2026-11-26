@@ -30,7 +30,7 @@ function layout(title: string, preheader: string, body: string, settings?: Store
 </td></tr>
 <tr><td style="padding:34px 32px 10px;">${body}</td></tr>
 <tr><td style="padding:24px 32px 32px;border-top:1px solid #e6dcc6;color:${C.muted};font-size:12px;line-height:1.6;">
-${contact ? `Questions? Reply to this email, call ${esc(contact.phone)} or WhatsApp us.<br>${esc(contact.address)}<br>GSTIN ${esc(contact.gstin)} · FSSAI Lic. No. ${esc(contact.fssai)}` : ""}
+${contact ? `Questions? Reply to this email, call ${esc(contact.phone)} or WhatsApp us.<br>${esc(contact.address)}<br>GSTIN ${esc(contact.gstin)}<br><img src="${siteUrl()}/images/brand/fssai-logo.png" width="41" height="22" alt="FSSAI" style="display:inline-block;width:41px;height:22px;border:0;vertical-align:middle;margin:6px 6px 0 0;"><span style="vertical-align:middle;">Lic. No. ${esc(contact.fssai)}</span>` : ""}
 </td></tr>
 </table>
 <p style="color:${C.muted};font-size:11px;margin:16px 0 0;">© Ritan Foods · Made with tradition, shared with love.</p>

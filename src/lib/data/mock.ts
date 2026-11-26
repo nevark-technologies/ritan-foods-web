@@ -172,6 +172,12 @@ export const mockStore: DataStore = {
   async listCategories() {
     return clone(mockState().categories);
   },
+  async createCategory(input: Category) {
+    const s = mockState();
+    if (s.categories.some((c) => c.id === input.id)) throw new Error(`Category "${input.id}" already exists.`);
+    s.categories.push(clone(input));
+    return clone(input);
+  },
   async upsertProduct(input: ProductInput) {
     const s = mockState();
     const existing = input.id ? s.products.find((p) => p.id === input.id) : undefined;

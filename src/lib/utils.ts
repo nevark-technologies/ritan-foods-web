@@ -46,6 +46,12 @@ export function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
 }
 
+/** Words from a slug for categories added in the admin: "millet-snacks" -> "Millet snacks". */
+export function slugLabel(slug: string) {
+  const words = slug.replace(/-/g, " ").trim();
+  return words.charAt(0).toUpperCase() + words.slice(1);
+}
+
 export function pad2(n: number) {
   return String(n).padStart(2, "0");
 }

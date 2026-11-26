@@ -9,7 +9,7 @@ import { defaultVariant, useAddToCart } from "@/components/cart/useAddToCart";
 import { TiltCard } from "@/components/motion/TiltCard";
 import { spring } from "@/lib/motion/tokens";
 import type { Product } from "@/lib/data/types";
-import { cn, formatINR, formatWeight } from "@/lib/utils";
+import { cn, formatINR, formatWeight, slugLabel } from "@/lib/utils";
 import { Stars } from "./Stars";
 import { WishlistButton } from "./WishlistButton";
 
@@ -55,7 +55,7 @@ export function ProductCard({ product, morph = true, priority = false, className
                 {morph ? <ViewTransition name={`pack-${product.slug}`} share="morph">{image}</ViewTransition> : image}
               </div>
               <span data-depth="0.25" className="absolute left-4 top-4 rounded-full bg-cream-50/85 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-forest-800 backdrop-blur">
-                {CATEGORY[product.categoryId]}
+                {CATEGORY[product.categoryId] ?? slugLabel(product.categoryId)}
               </span>
               {soldOut && <span className="absolute inset-x-4 bottom-4 rounded-full bg-forest-950/80 py-2 text-center text-xs font-bold uppercase tracking-[0.14em] text-cream-50">Sold out</span>}
             </div>
