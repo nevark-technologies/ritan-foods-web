@@ -10,14 +10,14 @@ insert into public.categories (id, name, blurb, sort) values
   ('wellness', 'Wellness', 'Everyday nutrition blends made with plant-based goodness.', 4)
 on conflict (id) do nothing;
 
-insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, scene, palette, sprites, featured, is_active, sort) values (
+insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, palette, sprites, featured, is_active, sort) values (
   md5('ritan:product:idli-podi')::uuid, 'idli-podi', 'Idli Podi', null, 'podis',
   'A Taste of Home',
   'Every spoonful brings back the warmth of homemade food. A traditional taste that makes even a simple meal special.',
   'This is the podi that sits on every South Indian breakfast table. Lentils and red chillies are roasted until fragrant, then ground with curry leaves to a coarse, homely texture. Stir it into a little gingelly oil or ghee, and soft idlis and crisp dosas taste like a Sunday morning at home.',
   array['Lentils', 'Red chillies', 'Curry leaves']::text[], null,
   'Mix two spoons of podi with gingelly oil or ghee. Enjoy with idli, dosa or uthappam - or stir through hot rice.',
-  'pouch', '/images/products/idli-podi.webp', 1516, 2234, '/images/scenes/idli-podi.webp',
+  'pouch', '/images/products/idli-podi.webp', 1516, 2234,
   '{"bg":"#F1E4C3","ink":"#1E2A1F","accent":"#C8641E","deep":"#1E4D2B"}'::jsonb, array['uradDal', 'chilli', 'curryLeaf', 'chanaDal', 'mustard']::text[], true, true, 1
 ) on conflict (slug) do nothing;
 insert into public.product_variants (id, product_id, weight_g, sku, price_paise, mrp_paise, stock, is_active) values
@@ -28,14 +28,14 @@ insert into public.product_variants (id, product_id, weight_g, sku, price_paise,
   (md5('ritan:variant:idli-podi:1000')::uuid, md5('ritan:product:idli-podi')::uuid, 1000, 'RF-IDP-1000', 59000, null, 14, true)
 on conflict (product_id, weight_g) do nothing;
 
-insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, scene, palette, sprites, featured, is_active, sort) values (
+insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, palette, sprites, featured, is_active, sort) values (
   md5('ritan:product:garlic-idli-podi')::uuid, 'garlic-idli-podi', 'Garlic Idli Podi', null, 'podis',
   'Bold, Garlicky Comfort',
   'Our much-loved idli podi with the warmth of roasted garlic - a deeper, bolder flavour for breakfasts with a little more character.',
   'Everything you love about our classic idli podi, with roasted garlic folded in. Earthy, warming and wonderfully aromatic - the kind of podi that makes you reach for one more idli.',
   array['Garlic', 'Lentils', 'Red chillies', 'Curry leaves']::text[], null,
   'Mix two spoons of podi with gingelly oil or ghee. Enjoy with idli, dosa or uthappam - or stir through hot rice.',
-  'pouch', '/images/products/garlic-idli-podi.webp', 1366, 2226, '/images/scenes/garlic-idli-podi.webp',
+  'pouch', '/images/products/garlic-idli-podi.webp', 1366, 2226,
   '{"bg":"#EFE6D2","ink":"#2A2118","accent":"#B5651D","deep":"#3B4A1E"}'::jsonb, array['garlic', 'chilli', 'uradDal', 'curryLeaf']::text[], false, true, 2
 ) on conflict (slug) do nothing;
 insert into public.product_variants (id, product_id, weight_g, sku, price_paise, mrp_paise, stock, is_active) values
@@ -46,14 +46,14 @@ insert into public.product_variants (id, product_id, weight_g, sku, price_paise,
   (md5('ritan:variant:garlic-idli-podi:1000')::uuid, md5('ritan:product:garlic-idli-podi')::uuid, 1000, 'RF-GIP-1000', 67000, null, 9, true)
 on conflict (product_id, weight_g) do nothing;
 
-insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, scene, palette, sprites, featured, is_active, sort) values (
+insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, palette, sprites, featured, is_active, sort) values (
   md5('ritan:product:groundnut-podi')::uuid, 'groundnut-podi', 'Groundnut Podi', null, 'podis',
   'Nutty, Rustic, Homely',
   'Roasted groundnuts and spices come together in a rustic podi that''s as comforting with hot rice as it is with idli and dosa.',
   'A family favourite from the village kitchen. Groundnuts are roasted golden and ground with chillies and garlic into a nutty, slightly coarse podi. Mix it with rice and a spoon of ghee, or pair it with idli, dosa and upma.',
   array['Groundnuts', 'Red chillies', 'Garlic', 'Curry leaves']::text[], null,
   'Mix with hot rice and a little ghee or gingelly oil, or serve alongside idli, dosa and upma.',
-  'pouch', '/images/products/groundnut-podi.webp', 1474, 2296, '/images/scenes/groundnut-podi.webp',
+  'pouch', '/images/products/groundnut-podi.webp', 1474, 2296,
   '{"bg":"#F0DFC0","ink":"#2B1E14","accent":"#A4572E","deep":"#5A2E14"}'::jsonb, array['peanut', 'chilli', 'garlic', 'curryLeaf']::text[], true, true, 3
 ) on conflict (slug) do nothing;
 insert into public.product_variants (id, product_id, weight_g, sku, price_paise, mrp_paise, stock, is_active) values
@@ -64,14 +64,14 @@ insert into public.product_variants (id, product_id, weight_g, sku, price_paise,
   (md5('ritan:variant:groundnut-podi:1000')::uuid, md5('ritan:product:groundnut-podi')::uuid, 1000, 'RF-GNP-1000', 63000, null, 12, true)
 on conflict (product_id, weight_g) do nothing;
 
-insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, scene, palette, sprites, featured, is_active, sort) values (
+insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, palette, sprites, featured, is_active, sort) values (
   md5('ritan:product:paruppu-podi')::uuid, 'paruppu-podi', 'Paruppu Podi', 'Fried Gram Dhal Powder', 'podis',
   'Tradition in Every Spoon',
   'A flavourful reminder of our roots, where simple ingredients create beautiful family memories.',
   'Made with pottukadalai (roasted gram dal), this gentle, flavourful podi is how many of us first learned to love rice. Mix it with hot rice and ghee, or sprinkle it over idli, dosa and upma.',
   array['Roasted gram dal', 'Red chillies', 'Garlic']::text[], null,
   'Mix with hot rice and a spoon of ghee. Also lovely over idli, dosa and upma.',
-  'pouch', '/images/products/paruppu-podi.webp', 1580, 2328, '/images/scenes/paruppu-podi.webp',
+  'pouch', '/images/products/paruppu-podi.webp', 1580, 2328,
   '{"bg":"#F3EAC8","ink":"#2A2414","accent":"#C9A227","deep":"#4A5A1A"}'::jsonb, array['chanaDal', 'chilli', 'garlic', 'curryLeaf']::text[], false, true, 4
 ) on conflict (slug) do nothing;
 insert into public.product_variants (id, product_id, weight_g, sku, price_paise, mrp_paise, stock, is_active) values
@@ -82,14 +82,14 @@ insert into public.product_variants (id, product_id, weight_g, sku, price_paise,
   (md5('ritan:variant:paruppu-podi:1000')::uuid, md5('ritan:product:paruppu-podi')::uuid, 1000, 'RF-PRP-1000', 59000, null, 10, true)
 on conflict (product_id, weight_g) do nothing;
 
-insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, scene, palette, sprites, featured, is_active, sort) values (
+insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, palette, sprites, featured, is_active, sort) values (
   md5('ritan:product:curry-leaf-rice-mix')::uuid, 'curry-leaf-rice-mix', 'Curry Leaf Rice Mix', 'Curry Leaves Podi', 'rice-mixes',
   'Nature''s Green Goodness',
   'Inspired by the goodness of nature, bringing traditional flavour and familiar comfort to your family''s table.',
   'Curry leaves, lentils and spices, roasted and ground into a fragrant green mix. Stir it through hot rice for a quick, comforting meal - or use it to lift upma, idli and dosa.',
   array['Curry leaves', 'Lentils', 'Groundnuts', 'Red chillies']::text[], null,
   'Mix 2–3 spoons with a cup of hot rice and a little ghee or oil. Lovely with upma, idli and dosa too.',
-  'pouch', '/images/products/curry-leaf-rice-mix.webp', 1390, 2282, '/images/scenes/curry-leaf-rice-mix.webp',
+  'pouch', '/images/products/curry-leaf-rice-mix.webp', 1390, 2282,
   '{"bg":"#E2EBC6","ink":"#18291A","accent":"#5E8C2A","deep":"#1E4D2B"}'::jsonb, array['curryLeaf', 'peanut', 'uradDal', 'chilli']::text[], true, true, 5
 ) on conflict (slug) do nothing;
 insert into public.product_variants (id, product_id, weight_g, sku, price_paise, mrp_paise, stock, is_active) values
@@ -100,14 +100,14 @@ insert into public.product_variants (id, product_id, weight_g, sku, price_paise,
   (md5('ritan:variant:curry-leaf-rice-mix:1000')::uuid, md5('ritan:product:curry-leaf-rice-mix')::uuid, 1000, 'RF-CLR-1000', 67000, null, 11, true)
 on conflict (product_id, weight_g) do nothing;
 
-insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, scene, palette, sprites, featured, is_active, sort) values (
+insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, palette, sprites, featured, is_active, sort) values (
   md5('ritan:product:moringa-rice-mix')::uuid, 'moringa-rice-mix', 'Moringa Rice Mix', null, 'rice-mixes',
   'Greens, the Gentle Way',
   'The earthy goodness of moringa leaves in an easy rice mix - a simple way to bring greens to everyday meals.',
   'Murungai keerai has always been part of our grandmothers'' kitchens. We''ve brought it into an easy rice mix with lentils and spices, so a wholesome green meal is just a spoonful away.',
   array['Moringa leaves', 'Lentils', 'Spices']::text[], null,
   'Mix 2–3 spoons with a cup of hot rice and a little ghee or oil. Lovely with upma, idli and dosa too.',
-  'pouch', '/images/products/moringa-rice-mix.webp', 1504, 2186, '/images/scenes/moringa-rice-mix.webp',
+  'pouch', '/images/products/moringa-rice-mix.webp', 1504, 2186,
   '{"bg":"#DDE8C6","ink":"#18291A","accent":"#6E9B2F","deep":"#23502A"}'::jsonb, array['moringa', 'peanut', 'uradDal', 'chilli']::text[], false, true, 6
 ) on conflict (slug) do nothing;
 insert into public.product_variants (id, product_id, weight_g, sku, price_paise, mrp_paise, stock, is_active) values
@@ -118,14 +118,14 @@ insert into public.product_variants (id, product_id, weight_g, sku, price_paise,
   (md5('ritan:variant:moringa-rice-mix:1000')::uuid, md5('ritan:product:moringa-rice-mix')::uuid, 1000, 'RF-MRM-1000', 75500, null, 8, true)
 on conflict (product_id, weight_g) do nothing;
 
-insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, scene, palette, sprites, featured, is_active, sort) values (
+insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, palette, sprites, featured, is_active, sort) values (
   md5('ritan:product:sprouted-millet-health-mix')::uuid, 'sprouted-millet-health-mix', 'Sprouted Millet Health Mix', null, 'health-mixes',
   'Back to Our Roots',
   'Bringing the goodness of traditional millets closer to modern families, one wholesome serving at a time.',
   'Traditional millets and pulses, sprouted and roasted, then blended with nuts into a wholesome everyday mix. Cook it into a warm porridge for the family - the way it has nourished generations.',
   array['Sprouted millets', 'Pulses', 'Almonds', 'Cashews']::text[], null,
   'Whisk 2 tablespoons into a cup of water or milk. Cook on a low flame for 3–5 minutes, stirring. Sweeten with jaggery, or season with salt and buttermilk.',
-  'jar', '/images/products/sprouted-millet-health-mix.webp', 1086, 2332, '/images/scenes/sprouted-millet-health-mix.webp',
+  'jar', '/images/products/sprouted-millet-health-mix.webp', 1086, 2332,
   '{"bg":"#F2DFA4","ink":"#2E2410","accent":"#B98524","deep":"#6B4A12"}'::jsonb, array['millet', 'mungBean', 'almond', 'cashew', 'horseGram']::text[], true, true, 7
 ) on conflict (slug) do nothing;
 insert into public.product_variants (id, product_id, weight_g, sku, price_paise, mrp_paise, stock, is_active) values
@@ -136,14 +136,14 @@ insert into public.product_variants (id, product_id, weight_g, sku, price_paise,
   (md5('ritan:variant:sprouted-millet-health-mix:1000')::uuid, md5('ritan:product:sprouted-millet-health-mix')::uuid, 1000, 'RF-SMH-1000', 80000, null, 15, true)
 on conflict (product_id, weight_g) do nothing;
 
-insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, scene, palette, sprites, featured, is_active, sort) values (
+insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, palette, sprites, featured, is_active, sort) values (
   md5('ritan:product:abc-malt')::uuid, 'abc-malt', 'ABC Malt', 'ABC Nutri Powder', 'health-mixes',
   'Goodness in Every Sip',
   'A lovely blend of apple, beetroot and carrot, bringing natural goodness and delicious moments to your daily routine.',
   'Apple, beetroot and carrot meet almonds and cashews in a naturally colourful drink mix. A cheerful, delicious way to add a little goodness to the morning routine - for kids and grown-ups alike.',
   array['Apple', 'Beetroot', 'Carrot', 'Almonds', 'Cashews']::text[], null,
   'Stir 2 tablespoons into a glass of warm or chilled milk. Sweeten to taste.',
-  'box', '/images/products/abc-malt.webp', 1526, 2182, '/images/scenes/abc-malt.webp',
+  'box', '/images/products/abc-malt.webp', 1526, 2182,
   '{"bg":"#F4D4D7","ink":"#3A1218","accent":"#B3263A","deep":"#7A1528"}'::jsonb, array['appleSlice', 'beetSlice', 'carrotSlice', 'almond', 'cashew']::text[], true, true, 8
 ) on conflict (slug) do nothing;
 insert into public.product_variants (id, product_id, weight_g, sku, price_paise, mrp_paise, stock, is_active) values
@@ -154,14 +154,14 @@ insert into public.product_variants (id, product_id, weight_g, sku, price_paise,
   (md5('ritan:variant:abc-malt:1000')::uuid, md5('ritan:product:abc-malt')::uuid, 1000, 'RF-ABC-1000', 126000, null, 0, true)
 on conflict (product_id, weight_g) do nothing;
 
-insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, scene, palette, sprites, featured, is_active, sort) values (
+insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, palette, sprites, featured, is_active, sort) values (
   md5('ritan:product:nendran-banana-malt')::uuid, 'nendran-banana-malt', 'Nendran Banana Malt', null, 'health-mixes',
   'Childhood Memories in Every Sip',
   'Inspired by the familiar taste of traditional Nendran banana, bringing comfort and deliciousness to every cup.',
   'Kerala''s beloved Nendran banana - the first food of so many childhoods - made into a smooth, comforting malt with almonds and dates. Warm, mildly sweet and deeply familiar.',
   array['Nendran banana', 'Almonds', 'Dates']::text[], null,
   'Mix 2 tablespoons with a little water into a smooth paste, add a cup of milk and cook for 3–4 minutes, stirring. Sweeten to taste.',
-  'jar', '/images/products/nendran-banana-malt.webp', 1194, 2278, '/images/scenes/nendran-banana-malt.webp',
+  'jar', '/images/products/nendran-banana-malt.webp', 1194, 2278,
   '{"bg":"#F5E39A","ink":"#2E2508","accent":"#C99A1E","deep":"#5E4A08"}'::jsonb, array['bananaSlice', 'almond', 'date', 'cardamom']::text[], true, true, 9
 ) on conflict (slug) do nothing;
 insert into public.product_variants (id, product_id, weight_g, sku, price_paise, mrp_paise, stock, is_active) values
@@ -172,14 +172,14 @@ insert into public.product_variants (id, product_id, weight_g, sku, price_paise,
   (md5('ritan:variant:nendran-banana-malt:1000')::uuid, md5('ritan:product:nendran-banana-malt')::uuid, 1000, 'RF-NBM-1000', 101000, null, 9, true)
 on conflict (product_id, weight_g) do nothing;
 
-insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, scene, palette, sprites, featured, is_active, sort) values (
+insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, palette, sprites, featured, is_active, sort) values (
   md5('ritan:product:plant-based-protein')::uuid, 'plant-based-protein', 'Plant-Based Protein', null, 'wellness',
   'Nourishment from Nature',
   'Thoughtfully blended plant-based ingredients to make everyday nutrition a little more meaningful.',
   'A thoughtful blend of pulses, grains, nuts and seeds for everyday nourishment. No fuss - just plant-based goodness you can blend into milk, water or a smoothie.',
   array['Pulses', 'Grains', 'Nuts & seeds']::text[], null,
   'Blend 2 scoops (about 30 g) with milk, water or a smoothie. Enjoy once a day alongside a balanced diet.',
-  'jar', '/images/products/plant-based-protein.webp', 1090, 2326, '/images/scenes/plant-based-protein.webp',
+  'jar', '/images/products/plant-based-protein.webp', 1090, 2326,
   '{"bg":"#E6D8C6","ink":"#2A1C12","accent":"#7A4B2A","deep":"#4A2C17"}'::jsonb, array['soybean', 'mungBean', 'almond', 'cashew']::text[], true, true, 10
 ) on conflict (slug) do nothing;
 insert into public.product_variants (id, product_id, weight_g, sku, price_paise, mrp_paise, stock, is_active) values
@@ -190,14 +190,14 @@ insert into public.product_variants (id, product_id, weight_g, sku, price_paise,
   (md5('ritan:variant:plant-based-protein:1000')::uuid, md5('ritan:product:plant-based-protein')::uuid, 1000, 'RF-PBP-1000', 159500, null, 7, true)
 on conflict (product_id, weight_g) do nothing;
 
-insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, scene, palette, sprites, featured, is_active, sort) values (
+insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, palette, sprites, featured, is_active, sort) values (
   md5('ritan:product:protein-plus')::uuid, 'protein-plus', 'Protein Plus', 'Weight Gain Powder', 'wellness',
   'Care in Every Scoop',
   'A nourishing combination of selected ingredients, created to complement your family''s balanced nutrition journey.',
   'Grains, pulses, dates and nuts in a nourishing everyday blend, made to complement balanced meals for growing children and active adults.',
   array['Grains & pulses', 'Dates', 'Nuts']::text[], null,
   'Mix 2 scoops into a glass of milk or a banana smoothie. Best enjoyed alongside regular, balanced meals.',
-  'jar', '/images/products/protein-plus.webp', 1142, 2314, '/images/scenes/protein-plus.webp',
+  'jar', '/images/products/protein-plus.webp', 1142, 2314,
   '{"bg":"#E9DEC2","ink":"#2A2014","accent":"#8A5A3B","deep":"#3F5A1E"}'::jsonb, array['almond', 'date', 'peanut', 'soybean', 'bananaSlice']::text[], true, true, 11
 ) on conflict (slug) do nothing;
 insert into public.product_variants (id, product_id, weight_g, sku, price_paise, mrp_paise, stock, is_active) values
@@ -208,14 +208,14 @@ insert into public.product_variants (id, product_id, weight_g, sku, price_paise,
   (md5('ritan:variant:protein-plus:1000')::uuid, md5('ritan:product:protein-plus')::uuid, 1000, 'RF-PPL-1000', 143000, null, 4, true)
 on conflict (product_id, weight_g) do nothing;
 
-insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, scene, palette, sprites, featured, is_active, sort) values (
+insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, palette, sprites, featured, is_active, sort) values (
   md5('ritan:product:slim-mix')::uuid, 'slim-mix', 'Slim Mix', null, 'wellness',
   'A Little Care Every Day',
   'A thoughtfully prepared blend to accompany balanced eating habits and a healthy lifestyle.',
   'A light, wholesome blend of millets, pulses and seeds, prepared to accompany balanced eating habits and an active lifestyle.',
   array['Millets', 'Pulses', 'Nuts & seeds']::text[], null,
   'Whisk 2 tablespoons into warm water or buttermilk. Enjoy as a light breakfast or evening drink.',
-  'jar', '/images/products/slim-mix.webp', 1066, 2202, '/images/scenes/slim-mix.webp',
+  'jar', '/images/products/slim-mix.webp', 1066, 2202,
   '{"bg":"#E5ECD6","ink":"#1B2A1C","accent":"#4E8F2F","deep":"#244A2A"}'::jsonb, array['millet', 'horseGram', 'mungBean', 'almond']::text[], false, true, 12
 ) on conflict (slug) do nothing;
 insert into public.product_variants (id, product_id, weight_g, sku, price_paise, mrp_paise, stock, is_active) values

@@ -58,6 +58,13 @@ export interface Variant {
   isActive: boolean;
 }
 
+/** An uploaded image with its intrinsic size. */
+export interface ProductPhoto {
+  src: string;
+  width: number;
+  height: number;
+}
+
 export interface Product {
   id: string;
   slug: string;
@@ -78,8 +85,8 @@ export interface Product {
   /** Intrinsic size of the cut-out (for layout / aspect ratio) */
   imageWidth: number;
   imageHeight: number;
-  /** Lifestyle / scene photo */
-  scene: string | null;
+  /** Up to 2 extra photos, shown only on the product page (after the pack). */
+  gallery: ProductPhoto[];
   palette: ProductPalette;
   sprites: SpriteId[];
   featured: boolean;

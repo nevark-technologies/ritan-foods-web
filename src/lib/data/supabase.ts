@@ -21,6 +21,7 @@ import type {
   PaymentStatus,
   Product,
   ProductPalette,
+  ProductPhoto,
   Review,
   SavedAddress,
   SpriteId,
@@ -61,7 +62,8 @@ interface ProductRow {
   image: string;
   image_width: number;
   image_height: number;
-  scene: string | null;
+  /** Missing until supabase/migrations/0002_product_gallery.sql has run. */
+  gallery?: ProductPhoto[] | null;
   palette: ProductPalette;
   sprites: SpriteId[] | null;
   featured: boolean;
@@ -205,7 +207,7 @@ const toProduct = (r: ProductRow): Product => ({
   image: r.image,
   imageWidth: r.image_width,
   imageHeight: r.image_height,
-  scene: r.scene,
+  gallery: Array.isArray(r.gallery) ? r.gallery : [],
   palette: r.palette,
   sprites: r.sprites ?? [],
   featured: r.featured,
@@ -431,7 +433,7 @@ export const supabaseStore: DataStore = {
       image: input.image,
       image_width: input.imageWidth,
       image_height: input.imageHeight,
-      scene: input.scene,
+      gallery: input.gallery,
       palette: input.palette,
       sprites: input.sprites,
       featured: input.featured,

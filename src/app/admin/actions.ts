@@ -6,7 +6,7 @@ import { z } from "zod";
 import { requireAdmin } from "@/lib/auth";
 import { notifyOrderShipped } from "@/lib/commerce/notify";
 import { isDemoMode, store } from "@/lib/data";
-import type { CategoryId, Courier, OrderStatus, PackType, SpriteId, ZoneId } from "@/lib/data/types";
+import type { CategoryId, Courier, OrderStatus, PackType, Product, ProductPhoto, SpriteId, ZoneId } from "@/lib/data/types";
 import { supabaseAdmin } from "@/lib/supabase/server";
 import { slugify } from "@/lib/utils";
 
@@ -93,13 +93,28 @@ const productSchema = z.object({
   image: z.string().trim().min(1),
   imageWidth: z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().int().min(32).max(10000).optional()),
   imageHeight: z.preprocess((v) => (v === "" || v == null ? undefined : v), z.coerce.number().int().min(32).max(10000).optional()),
-  scene: z.string().trim().optional(),
+  /** JSON list of the product page photos (see ProductForm) */
+  gallery: z.string().optional(),
   bg: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   ink: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   accent: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   deep: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   sort: z.coerce.number().int().min(0).max(999),
 });
+
+const size = z.number().int().min(32).max(10000);
+const gallerySchema = z.array(z.object({ src: z.string().trim().min(1), width: size, height: size })).max(2);
+
+/** The product page photos sent by the form, or null when the field is unreadable. */
+function parseGallery(raw: string | undefined): ProductPhoto[] | null {
+  if (!raw) return [];
+  try {
+    const parsed = gallerySchema.safeParse(JSON.parse(raw));
+    return parsed.success ? parsed.data.map(({ src, width, height }) => ({ src, width, height })) : null;
+  } catch {
+    return null;
+  }
+}
 
 /** Category select value meaning "add a new category" (see ProductForm). */
 const NEW_CATEGORY = "__new";
@@ -113,6 +128,29 @@ function isUsableImage(src: string) {
   if (src.startsWith("/") && !src.startsWith("//")) return true;
   if (isDemoMode) return src.startsWith("data:image/");
   return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) && src.startsWith(storagePrefix());
+}
+
+/** Bucket path of one of our uploads, or null for site files and demo inline images. */
+function uploadPath(src: string) {
+  if (isDemoMode || !process.env.NEXT_PUBLIC_SUPABASE_URL) return null;
+  const prefix = storagePrefix();
+  return src.startsWith(prefix) && src.length > prefix.length ? src.slice(prefix.length) : null;
+}
+
+/**
+ * After a save: delete this product's earlier uploads (pack or photos) that no product
+ * uses any more. Never fails the save - a leftover file only costs storage.
+ */
+async function removeUnusedUploads(previous: string[], products: Product[]) {
+  const inUse = new Set(products.flatMap((p) => [p.image, ...p.gallery.map((g) => g.src)]));
+  const paths = [...new Set(previous.filter((src) => !inUse.has(src)).map(uploadPath).filter((p): p is string => Boolean(p)))];
+  if (!paths.length) return;
+  try {
+    const { error } = await supabaseAdmin().storage.from(STORAGE_BUCKET).remove(paths);
+    if (error) console.error("[admin] couldn't delete old images:", error.message);
+  } catch (err) {
+    console.error("[admin] couldn't delete old images:", err instanceof Error ? err.message : err);
+  }
 }
 
 /** Image type from the file's first bytes (the browser's claimed type is not trusted). */
@@ -133,9 +171,9 @@ export interface UploadedImage {
 }
 
 /**
- * Pack image upload from the product editor. The file goes to the public
- * "product-images" bucket in Supabase Storage; its size comes from the browser
- * (it decoded the file to measure it). Demo mode keeps the image inline instead.
+ * Image upload from the product editor (the pack image, or a product page photo with
+ * folder=photos). The browser has already shrunk the file and measured it. It goes to
+ * the public "product-images" bucket in Supabase Storage; demo mode keeps it inline.
  */
 export async function uploadProductImageAction(formData: FormData): Promise<UploadedImage> {
   await requireAdmin();
@@ -151,8 +189,9 @@ export async function uploadProductImageAction(formData: FormData): Promise<Uplo
 
   if (isDemoMode) return { url: `data:${kind.type};base64,${Buffer.from(bytes).toString("base64")}`, width, height };
 
-  const base = slugify(String(formData.get("name") ?? "")).slice(0, 48) || "pack";
-  const path = `packs/${base}-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}.${kind.ext}`;
+  const folder = formData.get("folder") === "photos" ? "photos" : "packs";
+  const base = slugify(String(formData.get("name") ?? "")).slice(0, 48) || (folder === "photos" ? "photo" : "pack");
+  const path = `${folder}/${base}-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}.${kind.ext}`;
   const { error } = await supabaseAdmin().storage.from(STORAGE_BUCKET).upload(path, bytes, { contentType: kind.type, cacheControl: "31536000", upsert: false });
   if (error) {
     console.error("[admin] image upload failed:", error.message);
@@ -168,6 +207,9 @@ export async function saveProductAction(_: AdminFormState, formData: FormData): 
   if (!parsed.success) return { error: `${parsed.error.issues[0].path.join(".")}: ${parsed.error.issues[0].message}` };
   const d = parsed.data;
   if (!isUsableImage(d.image)) return { error: "Pick a pack image from the list or upload one." };
+  const gallery = parseGallery(d.gallery);
+  if (!gallery) return { error: "Couldn't read the product page photos - reload the page and try again." };
+  if (!gallery.every((g) => isUsableImage(g.src))) return { error: "A product page photo didn't come from an upload here - upload it again." };
 
   // Category: an existing one, or "__new" to add one from this form (reusing a match instead of duplicating it).
   const categories = await store.listCategories();
@@ -242,7 +284,7 @@ export async function saveProductAction(_: AdminFormState, formData: FormData): 
       image: d.image,
       imageWidth: d.imageWidth ?? existing?.imageWidth ?? 1200,
       imageHeight: d.imageHeight ?? existing?.imageHeight ?? 1800,
-      scene: d.scene || null,
+      gallery,
       palette: { bg: d.bg, ink: d.ink, accent: d.accent, deep: d.deep },
       sprites: (existing?.sprites ?? ["curryLeaf", "chilli", "uradDal"]) as SpriteId[],
       featured: formData.get("featured") === "on",
@@ -252,6 +294,10 @@ export async function saveProductAction(_: AdminFormState, formData: FormData): 
     });
   } catch (err) {
     return { error: err instanceof Error ? err.message : "The product couldn't be saved." };
+  }
+  if (existing) {
+    const others = all.filter((p) => p.id !== existing.id);
+    await removeUnusedUploads([existing.image, ...existing.gallery.map((g) => g.src)], [...others, { ...existing, image: d.image, gallery }]);
   }
   updateTag("catalog");
   revalidatePath("/admin/products");

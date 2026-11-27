@@ -304,7 +304,7 @@ export function buildSeedProducts(): Product[] {
       image: `/images/products/${s.slug}.webp`,
       imageWidth: RENDER_SIZES[s.slug]?.[0] ?? 1200,
       imageHeight: RENDER_SIZES[s.slug]?.[1] ?? 1800,
-      scene: `/images/scenes/${s.slug}.webp`,
+      gallery: [],
       palette: s.palette,
       sprites: s.sprites,
       featured: s.featured,

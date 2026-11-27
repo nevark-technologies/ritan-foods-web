@@ -71,7 +71,7 @@ export interface ProductInput {
   image: string;
   imageWidth: number;
   imageHeight: number;
-  scene: string | null;
+  gallery: Product["gallery"];
   palette: Product["palette"];
   sprites: Product["sprites"];
   featured: boolean;

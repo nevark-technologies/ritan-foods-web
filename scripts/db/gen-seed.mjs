@@ -26,14 +26,14 @@ const lines = [
 
 for (const p of buildSeedProducts()) {
   lines.push(
-    `insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, scene, palette, sprites, featured, is_active, sort) values (`,
+    `insert into public.products (id, slug, name, alt_name, category_id, tagline, summary, description, key_ingredients, ingredients, how_to_use, pack_type, image, image_width, image_height, palette, sprites, featured, is_active, sort) values (`,
     `  ${productId(p.slug)}, ${q(p.slug)}, ${q(p.name)}, ${q(p.altName)}, ${q(p.categoryId)},`,
     `  ${q(p.tagline)},`,
     `  ${q(p.summary)},`,
     `  ${q(p.description)},`,
     `  ${arr(p.keyIngredients)}, ${q(p.ingredients)},`,
     `  ${q(p.howToUse)},`,
-    `  ${q(p.packType)}, ${q(p.image)}, ${p.imageWidth}, ${p.imageHeight}, ${q(p.scene)},`,
+    `  ${q(p.packType)}, ${q(p.image)}, ${p.imageWidth}, ${p.imageHeight},`,
     `  ${json(p.palette)}, ${arr(p.sprites)}, ${p.featured}, ${p.isActive}, ${p.sort}`,
     `) on conflict (slug) do nothing;`,
     `insert into public.product_variants (id, product_id, weight_g, sku, price_paise, mrp_paise, stock, is_active) values`,
