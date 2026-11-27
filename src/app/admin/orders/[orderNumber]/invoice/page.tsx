@@ -99,7 +99,7 @@ export default async function InvoicePage({ params }: PageProps<"/admin/orders/[
           <dd className="tabular">{formatINR(order.total, true)}</dd>
         </div>
       </dl>
-      <p className="mt-10 text-xs text-ink-500">All prices are inclusive of applicable GST. Thank you for choosing Ritan Foods - made with tradition, shared with love.</p>
+      <p className="mt-10 text-xs text-ink-500">All prices are inclusive of applicable GST. Thank you for choosing Ritan Foods - Made with tradition, Shared with love.</p>
     </div>
   );
 }

@@ -56,8 +56,9 @@ export function pad2(n: number) {
   return String(n).padStart(2, "0");
 }
 
+/** Dates and times in India time, whatever timezone the server runs in (Netlify is UTC). */
 export function formatDate(iso: string, opts: Intl.DateTimeFormatOptions = { day: "numeric", month: "short", year: "numeric" }) {
-  return new Intl.DateTimeFormat("en-IN", opts).format(new Date(iso));
+  return new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", ...opts }).format(new Date(iso));
 }
 
 export function slugify(input: string) {

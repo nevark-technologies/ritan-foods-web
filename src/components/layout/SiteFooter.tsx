@@ -42,7 +42,7 @@ export async function SiteFooter({ contact }: { contact: StoreSettings["contact"
           <div>
             <Image src="/images/brand/logo.webp" alt="Ritan Foods" width={968} height={714} sizes="160px" className="h-24 w-auto" />
             <p className="mt-6 max-w-sm font-display text-3xl leading-tight text-cream-50">
-              Made with tradition, <em className="text-sprout-300">shared with love.</em>
+              Made with Tradition, <em className="text-sprout-300">shared with Love.</em>
             </p>
             <ul className="mt-8 select-text space-y-3 text-sm text-cream-50/80">
               <li>
