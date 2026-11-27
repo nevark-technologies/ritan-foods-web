@@ -4,7 +4,7 @@ import type Lenis from "lenis";
 import { usePathname } from "next/navigation";
 import { createContext, useContext, useEffect, useRef, useSyncExternalStore, type ReactNode } from "react";
 import { isFinePointer } from "@/lib/motion/env";
-import { loadGsap } from "@/lib/motion/useGsap";
+import { loadGsap, withLoadedGsap } from "@/lib/motion/useGsap";
 
 type LenisRef = { current: Lenis | null };
 const LenisContext = createContext<LenisRef>({ current: null });
@@ -77,7 +77,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       if (Math.abs(h - last) < 4) return;
       last = h;
       clearTimeout(timer);
-      timer = setTimeout(() => void loadGsap().then(({ ScrollTrigger }) => ScrollTrigger.refresh()), 250);
+      timer = setTimeout(() => withLoadedGsap(({ ScrollTrigger }) => ScrollTrigger.refresh()), 250);
     });
     ro.observe(document.body);
     return () => {
@@ -100,7 +100,8 @@ export function RouteRefresh() {
     let cancelled = false;
     const id = requestAnimationFrame(() => {
       lenisRef.current?.resize();
-      void loadGsap().then(({ ScrollTrigger }) => !cancelled && ScrollTrigger.refresh());
+      // Nothing to re-measure until some section has loaded GSAP.
+      withLoadedGsap(({ ScrollTrigger }) => !cancelled && ScrollTrigger.refresh());
     });
     return () => {
       cancelled = true;

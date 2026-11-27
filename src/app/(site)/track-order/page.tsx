@@ -10,7 +10,11 @@ import { store } from "@/lib/data";
 import { trackingUrl } from "@/lib/email/templates";
 import { formatDate } from "@/lib/utils";
 
-export const metadata: Metadata = { title: "Track your order", description: "Check the status of your Ritan Foods order with your order number and email." };
+export const metadata: Metadata = {
+  title: "Track your order",
+  description: "Check the status of your Ritan Foods order with your order number and email.",
+  alternates: { canonical: "/track-order" },
+};
 
 export default function TrackOrderPage(props: PageProps<"/track-order">) {
   return (

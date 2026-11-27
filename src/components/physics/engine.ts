@@ -156,6 +156,39 @@ function rasterize(look: Look, scale: number, dpr: number, blur: number): Promis
   return job;
 }
 
+/**
+ * Horizontal rain band (fractions of the width). On wide screens the preset's
+ * `keepClear` elements (small copy) are cut out, so ingredients never fall across
+ * or settle on them: the widest gap left is used if it spans at least 30% of the
+ * width, otherwise the preset band. Phones keep the full band (their copy spans it).
+ */
+function spawnBand(preset: PhysicsPreset, host: HTMLElement, root: HTMLElement, small: boolean): [number, number] {
+  const [a, b] = preset.spawnX;
+  const box = host.getBoundingClientRect();
+  if (!preset.keepClear || small || !box.width) return [a, b];
+  const pad = 0.02;
+  // Measure the content (text ink), not the element box: a block-level line spans the full width.
+  const contentBox = (el: HTMLElement) => {
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    return range.getBoundingClientRect();
+  };
+  const blocked = [...root.querySelectorAll<HTMLElement>(preset.keepClear)]
+    .map(contentBox)
+    .filter((r) => r.width > 0 && r.height > 0)
+    .map((r): [number, number] => [(r.left - box.left) / box.width - pad, (r.right - box.left) / box.width + pad])
+    .sort((x, y) => x[0] - y[0]);
+  let best: [number, number] = [a, a];
+  let cursor = a;
+  for (const [l, r] of blocked) {
+    const end = Math.min(l, b);
+    if (end - cursor > best[1] - best[0]) best = [cursor, end];
+    cursor = Math.max(cursor, r);
+  }
+  if (b - cursor > best[1] - best[0]) best = [cursor, b];
+  return best[1] - best[0] >= 0.3 ? best : [a, b];
+}
+
 export async function createSimulation(M: Matter, preset: PhysicsPreset, opts: SimOptions): Promise<Simulation> {
   const { Engine, Bodies, Body, Composite, Query, Constraint, Sleeping } = M;
   const { host, back, front, interaction } = opts;
@@ -262,7 +295,11 @@ export async function createSimulation(M: Matter, preset: PhysicsPreset, opts: S
 
   const items: Item[] = [];
   const pending: { at: number; index: number }[] = [];
-  const [sx0, sx1] = preset.spawnX;
+  const [sx0, sx1] = spawnBand(preset, host, interaction, small);
+  // When the band was narrowed for the copy, an invisible wall at its left edge keeps
+  // settled ingredients from rolling along the floor under that copy.
+  const fence = sx0 > preset.spawnX[0] ? Bodies.rectangle(sx0 * W - T / 2, -H, T, H * 6, staticOpts) : null;
+  if (fence) Composite.add(engine.world, fence);
   const spawnBody = (index: number) => {
     const p = plan[index];
     let x: number;
@@ -531,6 +568,7 @@ export async function createSimulation(M: Matter, preset: PhysicsPreset, opts: S
     sizeCanvases();
     if (floor) Body.setPosition(floor, { x: W / 2, y: H - (preset.floorOffset ?? 0) + T / 2 });
     Body.setPosition(right, { x: W + T / 2, y: -H });
+    if (fence) Body.setPosition(fence, { x: sx0 * W - T / 2, y: -H });
     for (const it of items) {
       const b = it.body;
       if (b.position.x > W - 8 || b.position.x < 8) Body.setPosition(b, { x: Math.min(Math.max(b.position.x, 12), W - 12), y: Math.min(b.position.y, H - 40) });

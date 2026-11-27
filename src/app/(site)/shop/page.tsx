@@ -9,6 +9,8 @@ import { getCatalog, getCategories } from "@/lib/data/queries";
 export const metadata: Metadata = {
   title: "Shop the pantry",
   description: "Shop Ritan Foods podis, rice mixes, sprouted millet health mix, ABC malt, Nendran banana malt and plant-based protein. 5 pack sizes, delivered across India.",
+  // Category, search and sort views are the same page filtered, so they all point to /shop.
+  alternates: { canonical: "/shop" },
 };
 
 export default async function ShopPage({ searchParams }: PageProps<"/shop">) {

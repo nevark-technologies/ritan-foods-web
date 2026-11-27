@@ -30,6 +30,8 @@ export interface PhysicsPreset {
   spawnOrigin?: [number, number];
   /** extra air friction for floaty items (leaves) */
   airy?: boolean;
+  /** selector (inside the interaction root) for copy the rain must stay clear of on wide screens */
+  keepClear?: string;
 }
 
 export const heroPreset: PhysicsPreset = {
@@ -55,6 +57,7 @@ export const heroPreset: PhysicsPreset = {
   foreground: 0.08,
   mobileFactor: 0.42,
   spawnX: [0.04, 0.96],
+  keepClear: "[data-keep-clear]",
 };
 
 export const footerPreset: PhysicsPreset = {

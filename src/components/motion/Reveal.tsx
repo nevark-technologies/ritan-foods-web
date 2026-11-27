@@ -52,7 +52,7 @@ export function Reveal({
           gsap.to(targets, { autoAlpha: 1, y: 0, scale: 1, duration: 1.1, ease: "expo.out", stagger, delay, overwrite: true }),
       });
     },
-    { scope: ref, dependencies: [near] },
+    { scope: ref, dependencies: [near], when: () => near },
   );
   return (
     <Tag ref={ref} className={cn("reveal", className)}>
@@ -86,7 +86,7 @@ export function CountUp({ to, suffix = "", prefix = "", className, decimals = 0 
         },
       });
     },
-    { scope: ref, dependencies: [near] },
+    { scope: ref, dependencies: [near], when: () => near },
   );
   return (
     <span ref={ref} className={cn("tabular", className)}>

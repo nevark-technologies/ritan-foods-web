@@ -36,6 +36,11 @@ const FLOATS = [
   { y: 11, r: 3, d: 4.8 },
   { y: 12, r: -2.5, d: 4.4 },
 ];
+/** Same rhythm as the GSAP float, as CSS variables for the touch-screen float in globals.css. */
+const floatVars = (k: number) => {
+  const f = FLOATS[k % FLOATS.length];
+  return { ["--fy" as string]: `${f.y}px`, ["--fr" as string]: `${f.r}deg`, ["--fd" as string]: `${f.d}s`, ["--fdl" as string]: `${1.6 + (k % 3) * 0.35}s` };
+};
 /** The front pouch keeps its exact sizes so the LCP image request is unchanged. */
 const FRONT_SIZES = "(min-width: 1024px) 22vw, (min-width: 640px) 28vw, 52vw";
 const packSizes = (aspect: number) => `(min-width: 1024px) ${Math.ceil(30.9 / aspect)}vw, (min-width: 640px) ${Math.ceil(41.3 / aspect)}vw, ${Math.ceil(82.5 / aspect)}vw`;
@@ -141,8 +146,7 @@ export function Hero({ packs }: { packs: HeroPack[] }) {
         0,
       );
 
-      // Pointer parallax by depth (fine pointers only).
-      if (!isFinePointer()) return;
+      // Pointer parallax by depth.
       const layers = q<HTMLElement>("[data-depth]").map((el) => ({
         d: Number(el.dataset.depth),
         x: gsap.quickTo(el, "x", { duration: 1.1, ease: "power3.out" }),
@@ -160,7 +164,8 @@ export function Hero({ packs }: { packs: HeroPack[] }) {
       root.addEventListener("pointermove", onMove);
       return () => root.removeEventListener("pointermove", onMove);
     },
-    { scope: section },
+    // Touch screens skip GSAP here: the packs breathe with CSS (globals.css) and the scroll-out stays off.
+    { scope: section, when: () => isFinePointer() && !prefersReducedMotion() },
   );
 
   return (
@@ -174,7 +179,7 @@ export function Hero({ packs }: { packs: HeroPack[] }) {
       </div>
 
       <div className="container-x relative flex h-full flex-col pt-[calc(var(--header-h)+2.5rem)] lg:pt-[calc(var(--header-h)+3rem)]">
-        <p className="eyebrow fade-up relative z-40 text-leaf-600" style={{ ["--d" as string]: "0ms" }}>
+        <p data-keep-clear className="eyebrow fade-up relative z-40 text-leaf-600" style={{ ["--d" as string]: "0ms" }}>
           From our family kitchen in Chennai
         </p>
 
@@ -206,7 +211,7 @@ export function Hero({ packs }: { packs: HeroPack[] }) {
         </p>
 
         <div data-scroll-copy className="relative z-40 mt-auto flex items-end justify-between gap-6 pb-[max(4rem,9vh)] lg:pb-[max(5.5rem,11vh)]">
-          <div className="fade-up max-w-[26rem]" style={{ ["--d" as string]: "600ms" }}>
+          <div data-keep-clear className="fade-up max-w-[26rem]" style={{ ["--d" as string]: "600ms" }}>
             <p className="hidden text-body-lg text-ink-700 lg:block">
               Podis, rice mixes, health mixes and malts made with traditional recipes and carefully selected ingredients - from our kitchen to yours.
             </p>
@@ -265,7 +270,7 @@ export function Hero({ packs }: { packs: HeroPack[] }) {
                       style={{ ["--k" as string]: k, ["--ar" as string]: p.height / p.width }}
                     >
                       <div className="hero-pack" style={{ ["--i" as string]: k === n - 1 ? 0 : k === 0 ? 1 : 2 }}>
-                        <div data-float className="relative">
+                        <div data-float className="relative" style={floatVars(k)}>
                           {(front || side || ready) && (
                             // flank packs stay unloaded on phones (one pack shows) until the page is idle
                             <Link href={`/products/${p.slug}`} className={cn("pointer-events-auto block", side && !ready && "max-sm:hidden")} data-cursor="View" aria-label={`View ${p.name}`}>
@@ -277,13 +282,13 @@ export function Hero({ packs }: { packs: HeroPack[] }) {
                                 preload={front}
                                 fetchPriority={front ? "high" : side ? "auto" : "low"}
                                 sizes={front ? FRONT_SIZES : packSizes(p.height / p.width)}
-                                quality={90}
+                                quality={80}
                                 className="h-auto w-full drop-shadow-[0_28px_36px_rgba(15,42,23,0.28)]"
                               />
                             </Link>
                           )}
                         </div>
-                        <div data-shadow aria-hidden className="mx-auto -mt-4 h-6 w-[72%] rounded-[50%] bg-forest-950/25 blur-md" />
+                        <div data-shadow aria-hidden className="mx-auto -mt-4 h-6 w-[72%] rounded-[50%] bg-forest-950/25 blur-md" style={floatVars(k)} />
                       </div>
                     </div>
                   );

@@ -11,6 +11,7 @@ import { whatsappLink } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Contact",
   description: "Talk to Ritan Foods - call, WhatsApp or email us. We're happy to help with orders, products and deliveries.",
+  alternates: { canonical: "/contact" },
 };
 
 export default async function ContactPage() {

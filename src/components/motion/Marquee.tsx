@@ -77,7 +77,7 @@ export function Marquee({
         st.kill();
       };
     },
-    { scope: root, dependencies: [near, speed, reverse, skew] },
+    { scope: root, dependencies: [near, speed, reverse, skew], when: () => near },
   );
 
   return (

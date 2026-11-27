@@ -88,7 +88,7 @@ export function Process() {
       });
       return () => mm.revert();
     },
-    { scope: root, dependencies: [desktop] },
+    { scope: root, dependencies: [desktop], when: () => desktop },
   );
 
   return (

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { prefersReducedMotion } from "@/lib/motion/env";
+import { isFinePointer, prefersReducedMotion } from "@/lib/motion/env";
 import { useGsap } from "@/lib/motion/useGsap";
 import { useNearViewport } from "@/lib/motion/useNearViewport";
 import { cn } from "@/lib/utils";
@@ -54,7 +54,8 @@ export function ArchImage({
         scrollTrigger: { trigger: frame.current, start: "top 88%", once: true },
       });
     },
-    { dependencies: [near, speed, preload] },
+    // Phones keep the above-the-fold frame still: GSAP starts late there, and a late zoom would jump.
+    { dependencies: [near, speed, preload], when: () => near && !(preload && !isFinePointer()) },
   );
 
   return (

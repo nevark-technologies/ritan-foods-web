@@ -480,6 +480,27 @@ html.js .reveal {
     transform: translate3d(0, 0, 0) rotate(var(--rot, 0deg));
   }
 }
+/* Touch screens: the packs breathe with CSS (compositor-only) instead of GSAP, in
+   the same rhythm as FLOATS in Hero.tsx (per-pack variables from floatVars). */
+@media (hover: none), (pointer: coarse) {
+  .hero-pack [data-float] {
+    animation: pack-float var(--fd, 5s) ease-in-out var(--fdl, 1.6s) infinite alternate both;
+  }
+  .hero-pack [data-shadow] {
+    animation: pack-shadow var(--fd, 5s) ease-in-out var(--fdl, 1.6s) infinite alternate both;
+  }
+}
+@keyframes pack-float {
+  to {
+    transform: translate3d(0, calc(var(--fy, 12px) * -1), 0) rotate(var(--fr, 0deg));
+  }
+}
+@keyframes pack-shadow {
+  to {
+    transform: scaleX(0.8);
+    opacity: 0.55;
+  }
+}
 
 /* Hero pack drum: every pack stands on a cylinder that rolls one slot at a
    time. --h is the front pack's height (the box the single pouch always had),

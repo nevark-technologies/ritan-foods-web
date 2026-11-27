@@ -15,6 +15,7 @@ import { getCatalog } from "@/lib/data/queries";
 export const metadata: Metadata = {
   title: "Our Story",
   description: "Ritan Foods - food is love served on a plate. Traditional South Indian podis, health mixes and malts made with care in Chennai.",
+  alternates: { canonical: "/our-story" },
 };
 
 const VALUES = [

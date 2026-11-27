@@ -69,7 +69,7 @@ export function SplitReveal({ as: Tag = "h2", children, className, type = "lines
       });
       return () => split.revert();
     },
-    { scope: ref, dependencies: [near, type, delay, start, fill] },
+    { scope: ref, dependencies: [near, type, delay, start, fill], when: () => near },
   );
 
   return (

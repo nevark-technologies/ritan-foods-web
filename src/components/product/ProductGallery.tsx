@@ -55,7 +55,7 @@ export function ProductGallery({ product }: { product: Product }) {
                       height={product.imageHeight}
                       preload
                       fetchPriority="high"
-                      quality={90}
+                      quality={80}
                       sizes="(min-width: 1024px) 34vw, 80vw"
                       className="h-full w-auto object-contain drop-shadow-[0_40px_45px_rgba(0,0,0,0.28)]"
                     />

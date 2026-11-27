@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense, type ReactNode } from "react";
 import { Hero, type HeroPack } from "@/components/home/Hero";
 import { MarqueeBand } from "@/components/home/MarqueeBand";
@@ -10,6 +11,8 @@ import { TrustStats } from "@/components/home/TrustStats";
 import { ValuesBowl } from "@/components/home/ValuesBowl";
 import { PageTransition } from "@/components/motion/PageTransition";
 import { getCatalog, getCategories, getHighlightReviews } from "@/lib/data/queries";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 /** Hero drum order: Idli Podi faces front, ABC Malt to its right, Sprouted Millet to its left, the rest round the back. */
 const HERO_FRONT = ["idli-podi", "abc-malt"];

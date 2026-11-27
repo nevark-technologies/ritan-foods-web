@@ -28,7 +28,7 @@ export function Parallax({ children, speed = 0.15, className, scale }: { childre
         },
       );
     },
-    { scope: ref, dependencies: [near, speed] },
+    { scope: ref, dependencies: [near, speed], when: () => near },
   );
   return (
     <div ref={ref} className={cn("will-change-transform", className)}>
@@ -60,7 +60,7 @@ export function WipeReveal({ children, className, scrub = true }: { children: Re
         0,
       );
     },
-    { dependencies: [near, scrub] },
+    { dependencies: [near, scrub], when: () => near },
   );
   return (
     <div className={cn("overflow-hidden", className)}>
